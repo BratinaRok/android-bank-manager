@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/FirstFragment">
+
+    <fragment
+        android:id="@+id/FirstFragment"
+        android:name="com.example.myapplication.MainScreen"
+        android:label="@string/Main_screen_label"
+        tools:layout="@layout/fragment_first">
+
+        <action
+            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_signUp3"
+            app:destination="@id/signUp" />
+    </fragment>
+    <fragment
+        android:id="@+id/SecondFragment"
+        android:name="com.example.myapplication.LogIn"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/log_in">
+
+        <action
+            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_to_userMenu"
+            app:destination="@id/userMenu" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUp"
+        android:name="com.example.myapplication.SignUp"
+        android:label="sign_up"
+        tools:layout="@layout/sign_up">
+        <action
+            android:id="@+id/action_signUp3_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userMenu"
+        android:name="com.example.myapplication.UserMenu"
+        android:label="user_logged_in_menu"
+        tools:layout="@layout/user_logged_in_menu" >
+        <action
+            android:id="@+id/action_userMenu_to_depositFundsScreen"
+            app:destination="@id/depositFundsScreen" />
+        <action
+            android:id="@+id/action_userMenu_to_viewBalance"
+            app:destination="@id/viewBalance" />
+        <action
+            android:id="@+id/action_userMenu_to_withdrawFunds"
+            app:destination="@id/withdrawFunds" />
+        <action
+            android:id="@+id/action_userMenu_to_convertFunds"
+            app:destination="@id/convertFunds" />
+        <action
+            android:id="@+id/action_userMenu_to_billPayment"
+            app:destination="@id/billPayment" />
+    </fragment>
+    <fragment
+        android:id="@+id/depositFundsScreen"
+        android:name="com.example.myapplication.DepositFundsScreen"
+        android:label="deposit_funds_screen"
+        tools:layout="@layout/deposit_funds_screen" />
+    <fragment
+        android:id="@+id/viewBalance"
+        android:name="com.example.myapplication.ViewBalance"
+        android:label="view_balance"
+        tools:layout="@layout/view_balance" />
+    <fragment
+        android:id="@+id/withdrawFunds"
+        android:name="com.example.myapplication.WithdrawFunds"
+        android:label="withdraw_funds"
+        tools:layout="@layout/withdraw_funds" />
+    <fragment
+        android:id="@+id/convertFunds"
+        android:name="com.example.myapplication.ConvertFunds"
+        android:label="convert_funds"
+        tools:layout="@layout/convert_funds" />
+    <fragment
+        android:id="@+id/billPayment"
+        android:name="com.example.myapplication.BillPayment"
+        android:label="bill_payment"
+        tools:layout="@layout/bill_payment" />
+</navigation>

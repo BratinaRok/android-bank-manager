@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/brati/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/simple_spinner_dropdown_item.xml" value="0.1" />
+        <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2875" />
+        <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/drawable/gradient_spinner.xml" value="0.352" />
+        <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/drawable/spinner_arrow.xml" value="0.352" />
+        <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/layout/bill_payment.xml" value="0.5" />
+        <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/layout/content_main.xml" value="0.33" />
+        <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/layout/convert_funds.xml" value="0.33" />
+        <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/layout/deposit_funds_screen.xml" value="0.2877297990594271" />
+        <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/layout/fragment_blank.xml" value="0.2877297990594271" />
+        <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/layout/fragment_deposit_funds_screen.xml" value="0.25" />
+        <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/layout/fragment_first.xml" value="0.33" />
+        <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/layout/fragment_second.xml" value="0.25" />
+        <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/layout/fragment_view_balance.xml" value="0.27618640444634457" />
+        <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/layout/fragment_withdraw_funds.xml" value="0.2877297990594271" />
+        <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/layout/log_in.xml" value="0.25" />
+        <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/layout/sign_up.xml" value="0.1" />
+        <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/layout/test.xml" value="0.22" />
+        <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/layout/toolbar.xml" value="0.35052083333333334" />
+        <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/layout/user_loged_in_menu.xml" value="0.25" />
+        <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/layout/user_logged_in_menu.xml" value="0.5" />
+        <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/layout/view_balance.xml" value="0.2877297990594271" />
+        <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/layout/withdraw_funds.xml" value="0.2877297990594271" />
+        <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/menu/menu_main.xml" value="0.35052083333333334" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
