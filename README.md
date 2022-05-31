@@ -36,7 +36,7 @@ This project is a template for any hyperskill android project you want to create
 
 ## Important
 
-Your project will be reviewed in many different stages of the project creation. The author should
+Your project will e reviewed in many different stages of the project creation. The author should
 be available for receiving e-mail messages and also for receiving open-issues on github.
 
 If a issue is opened on github the author should acknowledge having read the issue by responding to it
