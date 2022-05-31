@@ -1,4 +1,4 @@
-package org.hyperskill.projectname
+package org.hyperskill.bankmanager
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

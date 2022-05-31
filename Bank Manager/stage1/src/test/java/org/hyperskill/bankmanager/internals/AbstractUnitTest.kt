@@ -1,4 +1,4 @@
-package org.hyperskill.projectname.internals
+package org.hyperskill.bankmanager.internals
 
 import android.app.Activity
 import android.content.Intent
