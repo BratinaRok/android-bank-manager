@@ -13,15 +13,15 @@
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/logIn" />
         <action
             android:id="@+id/action_FirstFragment_to_signUp3"
             app:destination="@id/signUp" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
+        android:id="@+id/logIn"
         android:name="org.hyperskill.bankmanager.LogIn"
-        android:label="@string/second_fragment_label"
+        android:label="Log In"
         tools:layout="@layout/log_in">
 
         <action
@@ -29,22 +29,22 @@
             app:destination="@id/FirstFragment" />
         <action
             android:id="@+id/action_SecondFragment_to_userMenu"
-            app:destination="@id/userMenu" />
+            app:destination="@id/mainMenu" />
     </fragment>
     <fragment
         android:id="@+id/signUp"
         android:name="org.hyperskill.bankmanager.SignUp"
-        android:label="sign_up"
+        android:label="Sign Up"
         tools:layout="@layout/sign_up">
         <action
             android:id="@+id/action_signUp3_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
     <fragment
-        android:id="@+id/userMenu"
+        android:id="@+id/mainMenu"
         android:name="org.hyperskill.bankmanager.UserMenu"
-        android:label="user_logged_in_menu"
-        tools:layout="@layout/user_logged_in_menu" >
+        android:label=" Main Menu"
+        tools:layout="@layout/mainmenu">
         <action
             android:id="@+id/action_userMenu_to_depositFundsScreen"
             app:destination="@id/depositFundsScreen" />
@@ -64,26 +64,26 @@
     <fragment
         android:id="@+id/depositFundsScreen"
         android:name="com.example.myapplication.DepositFundsScreen"
-        android:label="deposit_funds_screen"
+        android:label="Deposit Funds"
         tools:layout="@layout/deposit_funds_screen" />
     <fragment
         android:id="@+id/viewBalance"
         android:name="com.example.myapplication.ViewBalance"
-        android:label="view_balance"
+        android:label="Balance"
         tools:layout="@layout/view_balance" />
     <fragment
         android:id="@+id/withdrawFunds"
         android:name="com.example.myapplication.WithdrawFunds"
-        android:label="withdraw_funds"
+        android:label="Withdraw Funds"
         tools:layout="@layout/withdraw_funds" />
     <fragment
         android:id="@+id/convertFunds"
         android:name="com.example.myapplication.ConvertFunds"
-        android:label="convert_funds"
+        android:label="Convert Funds"
         tools:layout="@layout/convert_funds" />
     <fragment
         android:id="@+id/billPayment"
         android:name="com.example.myapplication.BillPayment"
-        android:label="bill_payment"
+        android:label="Bill Payment"
         tools:layout="@layout/bill_payment" />
 </navigation>

@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import org.hyperskill.bankmanager.databinding.UserLoggedInMenuBinding
+import org.hyperskill.bankmanager.databinding.MainmenuBinding
 
 class UserMenu : Fragment() {
 
 
 
-    private var _binding: UserLoggedInMenuBinding? = null
+    private var _binding: MainmenuBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -25,7 +25,7 @@ class UserMenu : Fragment() {
 
     ): View? {
 
-        _binding = UserLoggedInMenuBinding.inflate(inflater, container, false)
+        _binding = MainmenuBinding.inflate(inflater, container, false)
         return binding.root
 
     }

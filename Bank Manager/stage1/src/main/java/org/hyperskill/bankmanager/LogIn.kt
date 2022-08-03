@@ -3,12 +3,8 @@ package org.hyperskill.bankmanager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import org.hyperskill.bankmanager.databinding.LogInBinding
 
@@ -42,7 +38,7 @@ class LogIn : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.menuButton.setOnClickListener {
-            findNavController().navigate(R.id.userMenu)
+            findNavController().navigate(R.id.mainMenu)
 
         }
 
