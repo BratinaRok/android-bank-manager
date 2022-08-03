@@ -2,18 +2,16 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdk 31
     compileSdkVersion 31
 
     defaultConfig {
 
-        applicationId "org.hyperskill.bankmanager"  //TODO change template on this line to yourprojectname, after that also change AndroidManifest.xml
+        applicationId "org.hyperskill.bankmanager"
         minSdkVersion hs.android.minSdkVersion
         targetSdkVersion hs.android.targetSdkVersion
         versionCode 1
         versionName '1.0'
-        minSdk 30
-        targetSdk 31
+
     }
 
     buildFeatures {
