@@ -20,7 +20,7 @@ public class LogInUser {
 
     public LogInUser(ArrayList<Map> userData, EditText username, EditText password) {
         this.userData = userData;
-        this.username = username.getText().toString();
+        LogInUser.username = username.getText().toString();
         this.password = password.getText().toString();
     }
 

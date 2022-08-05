@@ -24,7 +24,6 @@ class UserMenu : Fragment() {
         savedInstanceState: Bundle?
 
     ): View? {
-
         _binding = MainmenuBinding.inflate(inflater, container, false)
         return binding.root
 
@@ -33,7 +32,7 @@ class UserMenu : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val user = LogInUser()
-            binding.textVi.setText(user.username)
+        binding.textVi.text = user.username
         binding.depositFundsButton.setOnClickListener{
             findNavController().navigate(R.id.action_userMenu_to_depositFundsScreen)
 

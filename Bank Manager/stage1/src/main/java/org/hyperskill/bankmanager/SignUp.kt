@@ -13,9 +13,7 @@ import com.google.android.material.textfield.TextInputLayout
 import org.hyperskill.bankmanager.databinding.SignUpBinding
 
 
-class SignUp : Fragment(), View.OnClickListener {
-
-    var firstNameStr : String = ""
+class SignUp : Fragment() {
 
     /**
      * A simple [Fragment] subclass as the default destination in the navigation.
@@ -55,14 +53,6 @@ class SignUp : Fragment(), View.OnClickListener {
         }
 
 
-
-    override fun onClick(v: View) {
-        method2();
-    }
-
-    fun method2 () {
-        println("test")
-    }
 
 
 

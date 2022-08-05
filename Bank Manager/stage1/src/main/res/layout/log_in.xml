@@ -70,21 +70,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userNameLogIn" />
 
-    <Button
-        android:id="@+id/menuButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:backgroundTint="@color/teal_700"
-        android:text="@string/menu"
-        android:textColor="@color/white"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirmCodeButton"
-        tools:visibility="visible" />
-
     <EditText
         android:id="@+id/securityCodeInput"
         android:layout_width="wrap_content"
@@ -107,7 +92,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/teal_700"
-        android:onClick="securityCheck"
         android:text="@string/confirm"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"

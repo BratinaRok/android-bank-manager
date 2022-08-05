@@ -1,10 +1,12 @@
 package org.hyperskill.bankmanager;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -22,7 +24,7 @@ public class UserDataSignUp extends AppCompatActivity {
     private EditText userName;
     private EditText password;
     private String balance;
-    private Map<String, String> map = new HashMap<>();
+    private Map<String, String> userInfoMap = new HashMap<>();
     TextInputLayout textInputLayout;
     private static ArrayList<Map> userDataArray = new ArrayList<>();
 
@@ -49,20 +51,22 @@ public class UserDataSignUp extends AppCompatActivity {
     };
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up);
 
-        Button button = (Button) findViewById(R.id.button2);
+        Button button = (Button) findViewById(R.id.signUpButton);
+            button.setOnClickListener(onButtonClick);
 
-        button.setOnClickListener(onButtonClick);
+
 
     }
 
 
-    public void saveUserData() {
+    public boolean saveUserData() {
         String firstNameStr = firstName.getText().toString();
         String lastNameStr = lastname.getText().toString();
         String addressStr = address.getText().toString();
@@ -70,22 +74,31 @@ public class UserDataSignUp extends AppCompatActivity {
         String userNameStr = userName.getText().toString();
         String passwordStr = password.getText().toString();
 
-        map.put("firstName", firstNameStr);
-        map.put("lastname", lastNameStr);
-        map.put("address", addressStr);
-        map.put("phoneNumber", phoneStr);
-        map.put("userName", userNameStr);
-        map.put("password", passwordStr);
-        map.put("balance", balance);
+        boolean userAlreadyExists = false;
+        //check if username exists
+        for (int i = 0; i < userDataArray.size(); i++) {
+            if (userDataArray.get(i).containsValue(userNameStr)) {
+                userAlreadyExists = true;
+                break;
+            }
+        }
 
+        if (!userAlreadyExists) {
+            userInfoMap.put("firstName", firstNameStr);
+            userInfoMap.put("lastname", lastNameStr);
+            userInfoMap.put("address", addressStr);
+            userInfoMap.put("phoneNumber", phoneStr);
+            userInfoMap.put("userName", userNameStr);
+            userInfoMap.put("password", passwordStr);
+            userInfoMap.put("balance", balance);
 
-        userDataArray.add(map);
-
-
+            userDataArray.add(userInfoMap);
+        }
+        return userAlreadyExists;
     }
 
-    public Map<String, String> getMap() {
-        return map;
+    public Map<String, String> getUserInfoMap() {
+        return userInfoMap;
     }
 
     public ArrayList<Map> getUserDataArray() {
