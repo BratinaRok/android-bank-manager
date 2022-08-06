@@ -63,27 +63,27 @@
     </fragment>
     <fragment
         android:id="@+id/depositFundsScreen"
-        android:name="com.example.myapplication.DepositFundsScreen"
+        android:name="org.hyperskill.bankmanager.DepositFundsScreen"
         android:label="Deposit Funds"
         tools:layout="@layout/deposit_funds_screen" />
     <fragment
         android:id="@+id/viewBalance"
-        android:name="com.example.myapplication.ViewBalance"
+        android:name="org.hyperskill.bankmanager.ViewBalance"
         android:label="Balance"
         tools:layout="@layout/view_balance" />
     <fragment
         android:id="@+id/withdrawFunds"
-        android:name="com.example.myapplication.WithdrawFunds"
+        android:name="org.hyperskill.bankmanager.WithdrawFunds"
         android:label="Withdraw Funds"
         tools:layout="@layout/withdraw_funds" />
     <fragment
         android:id="@+id/convertFunds"
-        android:name="com.example.myapplication.ConvertFunds"
+        android:name="org.hyperskill.bankmanager.ConvertFunds"
         android:label="Convert Funds"
         tools:layout="@layout/convert_funds" />
     <fragment
         android:id="@+id/billPayment"
-        android:name="com.example.myapplication.BillPayment"
+        android:name="org.hyperskill.bankmanager.BillPayment"
         android:label="Bill Payment"
         tools:layout="@layout/bill_payment" />
 </navigation>
