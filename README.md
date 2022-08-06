@@ -36,9 +36,6 @@ This project is a template for any hyperskill android project you want to create
 
 ## Important
 
-
-test
-
 Your project will be reviewed in many different stages of the project creation. The author should
 be available for receiving e-mail messages and also for receiving open-issues on github.
 
@@ -51,3 +48,30 @@ but don't close the issue yourself, let the staff member close it if he really t
 
 It is also a good practice to open issues yourself for problems you identify. 
 If you are having problem solving an issue by yourself try asking for help from staff members.
+
+
+
+## Description
+
+ First, let's create a basic layout with buttons and interactions.
+
+## Objectives
+  - App layout needs to have :
+
+     - Main screen of the application:
+          - a button with id = "log_in_button"  that points to log in screen,
+          - a button with id =  "sign_up_button" that points to sign up screen,
+          
+     - Log in screen :
+          - Username input field with id = "username_input,
+          - password input field (only numbers allowed) with id = "password_input",
+          - button with id = "log_in_button"
+          
+      - Sign up screen (input fields) :
+        - Firstname with id = "firstname_input",
+        - Lastname with id = "lastname_input",
+        - Address with id = "address_input" ,
+        - Phone number with id = "phone_number_input",
+        - Username with id = "username_input",
+        - password (only numbers allowed) with id = "password_input".
+        - button with id = "sign_up_button"
