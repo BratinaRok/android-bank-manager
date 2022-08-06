@@ -12,7 +12,7 @@ import android.widget.*
 import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -86,14 +86,15 @@ class MainActivity : AppCompatActivity() {
             if (!newUser.saveUserData()) {
                 newUser.saveUserData()
                 Toast.makeText(this@MainActivity, "New user created", Toast.LENGTH_SHORT).show();
+                        Navigation.findNavController(view).navigate(R.id.action_signUp3_to_FirstFragment)
+                    }
+
             } else {
                 Toast.makeText(this@MainActivity, "User : " + userName.text.toString() + " already exists", Toast.LENGTH_SHORT).show();
             }
         }
 
 
-
-    }
 
     // check for input fields not empty and for proper length of password
     private fun  checkInput(firstName : EditText,lastName : EditText, address : EditText, phoneNumber : EditText,userName : EditText,password: EditText) : Boolean {
