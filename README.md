@@ -51,7 +51,7 @@ If you are having problem solving an issue by yourself try asking for help from 
 
 
 
-## Description
+## Description for Stage 1
 
  First, let's create a basic layout with buttons and interactions.
 
