@@ -1,5 +1,6 @@
 package org.hyperskill.bankmanager
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Build.VERSION.SDK_INT
@@ -21,7 +22,7 @@ import org.hyperskill.bankmanager.LogInUser.createRandomCode
 import org.hyperskill.bankmanager.databinding.ActivityMainBinding
 
 
-class MainActivity : AppCompatActivity() {
+open class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -135,10 +136,11 @@ class MainActivity : AppCompatActivity() {
 
 
     fun logInMethod(view: View) {
-        var userNameInput = findViewById<EditText>(R.id.userNameLogIn);
+
+        var userNameInput = findViewById<EditText>(R.id.userNameLogInScreen);
         var passwordInput = findViewById<EditText>(R.id.passwordLogIn);
         val objUserData = UserDataSignUp()
-        val obj = LogInUser(objUserData.userDataArray, userNameInput, passwordInput);
+        val obj = LogInUser(objUserData.userDataArray, userNameInput, passwordInput,this@MainActivity);
 
 
         fun showSecurityInputFields() {
@@ -153,12 +155,9 @@ class MainActivity : AppCompatActivity() {
         if (obj.userLogInDataCheck()) {
             showSecurityInputFields()
             securityCode = createRandomCode()
-            Toast.makeText(this@MainActivity, "Security code : $securityCode", Toast.LENGTH_SHORT)
+            Toast.makeText(this@MainActivity, "Security code : $securityCode", Toast.LENGTH_LONG)
                 .show();
 
-
-        } else {
-            Toast.makeText(this@MainActivity, "try again", Toast.LENGTH_SHORT).show();
         }
 
 

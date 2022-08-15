@@ -1,59 +1,62 @@
 package org.hyperskill.bankmanager;
 
+import android.app.Activity;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 
 public class LogInUser {
     private static String username;
     private String password;
     private ArrayList<Map> userData;
-    private boolean logInIdentification = false;
     private boolean userNameIdentification = false;
     private boolean passwordIdentification = false;
-    private int securityCode;
+    private Activity activity;
+
 
     public LogInUser() {
     }
 
-    public LogInUser(ArrayList<Map> userData, EditText username, EditText password) {
+    public LogInUser(ArrayList<Map> userData, EditText username, EditText password, Activity activity) {
         this.userData = userData;
         LogInUser.username = username.getText().toString();
         this.password = password.getText().toString();
+        this.activity = activity;
+
     }
 
 
     public boolean userLogInDataCheck() {
-        for (int i = 0; i < userData.size(); i++) {
-            if (userData.get(i).get("userName").equals(username)) {
-                System.out.println("Correct username");
-                userNameIdentification = true;
-                if (userData.get(i).get("password").equals(password)) {
-                    passwordIdentification = true;
-                    System.out.println("Correct password");
 
+
+        if (userData.size() == 0) {
+            Toast.makeText(activity, "No user Signed up", Toast.LENGTH_SHORT).show();
+        } else {
+            for (int i = 0; i < userData.size(); i++) {
+                if (Objects.equals(userData.get(i).get("userName"), username)) {
+                    userNameIdentification = true;
+                } else {
+                    Toast.makeText(activity, "Wrong username", Toast.LENGTH_SHORT).show();
+                }
+                if (Objects.equals(userData.get(i).get("password"), password)) {
+                    passwordIdentification = true;
+                } else if (userNameIdentification && !passwordIdentification){
+                    Toast.makeText(activity, "Wrong password", Toast.LENGTH_SHORT).show();
                 }
             }
         }
-
-        if (userNameIdentification && passwordIdentification) {
-            logInIdentification = true;
-        } else if (!userNameIdentification) {
-            System.out.println("User " + username + " doesn't exists");
-        } else if (!passwordIdentification) {
-            System.out.println("Wrong password");
-        }
-
-        return logInIdentification;
+        return userNameIdentification && passwordIdentification;
     }
 
 
     public static int createRandomCode() {
         Random random = new Random();
-       int randomCode = random.nextInt(10000) + 1000;
-       return randomCode;
+        int randomCode = random.nextInt(10000) + 1000;
+        return randomCode;
     }
 
 
