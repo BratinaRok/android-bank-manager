@@ -13,7 +13,6 @@ import org.hyperskill.bankmanager.databinding.MainScreenBinding
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class MainScreen : Fragment() {
-
     private var _binding: MainScreenBinding? = null
 
     // This property is only valid between onCreateView and

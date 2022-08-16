@@ -1,11 +1,11 @@
 package org.hyperskill.bankmanager
 
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.os.Environment
+import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -22,12 +22,9 @@ import org.hyperskill.bankmanager.LogInUser.createRandomCode
 import org.hyperskill.bankmanager.databinding.ActivityMainBinding
 
 
-open class MainActivity : AppCompatActivity() {
-
+class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-
-
     var securityCode = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,12 +33,9 @@ open class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
-
-
 
 
     }
@@ -73,7 +67,7 @@ open class MainActivity : AppCompatActivity() {
     }
 
     fun method2(view: View) {
-        val firstName= findViewById<EditText>(R.id.firstName);
+        val firstName = findViewById<EditText>(R.id.firstName)
         val lastName = findViewById<EditText>(R.id.lastName);
         val address = findViewById<EditText>(R.id.address);
         val phoneNumber = findViewById<EditText>(R.id.phoneNumber);
@@ -81,34 +75,45 @@ open class MainActivity : AppCompatActivity() {
         val password = findViewById<EditText>(R.id.password);
 
 
-        if (!checkInput(firstName,lastName,address,phoneNumber,userName,password)) {
-            val newUser = UserDataSignUp(firstName, lastName, address, phoneNumber, userName, password);
+        if (!checkInput(firstName, lastName, address, phoneNumber, userName, password)) {
+            val newUser =
+                UserDataSignUp(firstName, lastName, address, phoneNumber, userName, password);
             // check if username already exists
             if (!newUser.saveUserData()) {
                 newUser.saveUserData()
                 Toast.makeText(this@MainActivity, "New user created", Toast.LENGTH_SHORT).show();
-                        Navigation.findNavController(view).navigate(R.id.action_signUp3_to_FirstFragment)
-                    }
-
-            } else {
-                Toast.makeText(this@MainActivity, "User : " + userName.text.toString() + " already exists", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(view).navigate(R.id.action_signUp3_to_FirstFragment)
             }
-        }
 
+        } else {
+            Toast.makeText(
+                this@MainActivity,
+                "User : " + userName.text.toString() + " already exists",
+                Toast.LENGTH_SHORT
+            ).show();
+        }
+    }
 
 
     // check for input fields not empty and for proper length of password
-    private fun  checkInput(firstName : EditText,lastName : EditText, address : EditText, phoneNumber : EditText,userName : EditText,password: EditText) : Boolean {
-         var isFieldEmpty : Boolean = false;
+    private fun checkInput(
+        firstName: EditText,
+        lastName: EditText,
+        address: EditText,
+        phoneNumber: EditText,
+        userName: EditText,
+        password: EditText
+    ): Boolean {
+        var isFieldEmpty: Boolean = false;
         if (firstName.text.toString().isEmpty()) {
             firstName.error = "empty"
             isFieldEmpty = true;
             Toast.makeText(this@MainActivity, "Enter first name", Toast.LENGTH_SHORT).show();
-        } else if(lastName.text.toString().isEmpty()) {
+        } else if (lastName.text.toString().isEmpty()) {
             lastName.error = "empty"
             isFieldEmpty = true;
             Toast.makeText(this@MainActivity, "Enter last name", Toast.LENGTH_SHORT).show();
-        } else if(address.text.toString().isEmpty()) {
+        } else if (address.text.toString().isEmpty()) {
             address.error = "empty"
             isFieldEmpty = true;
             Toast.makeText(this@MainActivity, "Enter address", Toast.LENGTH_SHORT).show();
@@ -127,7 +132,11 @@ open class MainActivity : AppCompatActivity() {
         } else if (password.text.toString().length < 4) {
             password.error = "minimum 4 digits"
             isFieldEmpty = true;
-            Toast.makeText(this@MainActivity, "Password length needs to be 4 digits or more", Toast.LENGTH_SHORT).show();
+            Toast.makeText(
+                this@MainActivity,
+                "Password length needs to be 4 digits or more",
+                Toast.LENGTH_SHORT
+            ).show();
         }
 
         return isFieldEmpty;
@@ -140,7 +149,8 @@ open class MainActivity : AppCompatActivity() {
         var userNameInput = findViewById<EditText>(R.id.userNameLogInScreen);
         var passwordInput = findViewById<EditText>(R.id.passwordLogIn);
         val objUserData = UserDataSignUp()
-        val obj = LogInUser(objUserData.userDataArray, userNameInput, passwordInput,this@MainActivity);
+        val obj =
+            LogInUser(objUserData.userDataArray, userNameInput, passwordInput, this@MainActivity);
 
 
         fun showSecurityInputFields() {
@@ -164,7 +174,7 @@ open class MainActivity : AppCompatActivity() {
     }
 
 
-    fun securityCheck(view: View) : Boolean {
+    fun securityCheck(view: View): Boolean {
         var codeEntered = findViewById<EditText>(R.id.securityCodeInput)
         val codeInput = codeEntered.text.toString()
         val obj = LogInUser()
@@ -177,7 +187,7 @@ open class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "Wrong security code", Toast.LENGTH_SHORT).show()
             }
         }
-                Toast.makeText(this@MainActivity, "Enter code", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@MainActivity, "Enter code", Toast.LENGTH_SHORT).show()
 
 
         return false;
@@ -186,28 +196,28 @@ open class MainActivity : AppCompatActivity() {
 
     fun fundsDeposit(view: View) {
         val text = findViewById<EditText>(R.id.inputAddFunds)
-        var obj =  DepositFundsScreen()
+        var obj = DepositFundsScreen()
         obj.addFunds(text);
     }
 
 
-     fun fundsConverter(view: View) {
-         val spinner : Spinner = findViewById(R.id.spinner)
-         val spinner2 : Spinner = findViewById(R.id.spinner1)
+    fun fundsConverter(view: View) {
+        val spinner: Spinner = findViewById(R.id.spinner)
+        val spinner2: Spinner = findViewById(R.id.spinner1)
 // Create an ArrayAdapter using the string array and a default spinner layout
-         ArrayAdapter.createFromResource(
-             this,
-             R.array.planets_array,
-             android.R.layout.simple_spinner_item
-         ).also { adapter ->
-             // Specify the layout to use when the list of choices appears
-             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-             // Apply the adapter to the spinner
-             spinner.adapter = adapter
-             spinner2.adapter = adapter
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.planets_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            spinner.adapter = adapter
+            spinner2.adapter = adapter
 
-         }
-     }
+        }
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, @Nullable data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -222,7 +232,6 @@ open class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 
 
 }

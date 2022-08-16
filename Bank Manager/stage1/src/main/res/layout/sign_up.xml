@@ -17,7 +17,7 @@
         android:backgroundTint="#FFFFFF"
         android:ems="10"
         android:hint="@string/username"
-        android:inputType="textPersonName"
+        android:inputType="text"
         android:singleLine="true"
         android:textAlignment="center"
         android:textColor="#A13939"

@@ -1,12 +1,11 @@
 buildscript {
+  ext.kotlin_version = '1.7.10'
   apply plugin: 'hyperskill'
 
   wrapper {
     gradleVersion = hs.android.gradleVersion
   }
 
-  def kotlinGradleVersion = hs.android.kotlinGradleVersion
-  def androidGradleVersion = hs.android.getAndroidGradleVersion(gradle.gradleVersion)
 
   repositories {
     google()
@@ -16,8 +15,8 @@ buildscript {
 
   dependencies {
     classpath 'com.github.hyperskill:hs-gradle-plugin:release-SNAPSHOT'
-    classpath "com.android.tools.build:gradle:$androidGradleVersion"
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinGradleVersion"
+    classpath "com.android.tools.build:gradle:7.2.2"
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10"
   }
 
   configurations.all {
