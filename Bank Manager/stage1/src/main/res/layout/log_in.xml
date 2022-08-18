@@ -9,7 +9,7 @@
     tools:context=".LogIn">
 
     <EditText
-        android:id="@+id/userNameLogInScreen"
+        android:id="@+id/userNameLogIn"
         style="@style/inputFieldStyle"
         android:layout_width="341dp"
         android:layout_height="57dp"
@@ -33,13 +33,13 @@
         style="@style/buttoncolor" />
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar2"
+        android:id="@+id/toolbarLogInScreen"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:background="@color/teal_700"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toTopOf="@+id/userNameLogInScreen"
+        app:layout_constraintBottom_toTopOf="@+id/userNameLogIn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
@@ -51,8 +51,8 @@
         android:text="@string/log_in"
         android:textColor="#454343"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/userNameLogInScreen"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar2"
+        app:layout_constraintBottom_toTopOf="@+id/userNameLogIn"
+        app:layout_constraintEnd_toEndOf="@+id/toolbarLogInScreen"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -69,7 +69,7 @@
         android:inputType="numberPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userNameLogInScreen" />
+        app:layout_constraintTop_toBottomOf="@+id/userNameLogIn" />
 
     <EditText
         android:id="@+id/securityCodeInput"

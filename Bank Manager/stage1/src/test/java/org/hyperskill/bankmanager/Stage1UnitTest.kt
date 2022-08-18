@@ -29,7 +29,7 @@ class Stage1UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
     // check if username EditText at log in screen  exists
     private val loginUsernameField: EditText by lazy {
-       val view =  activity.findViewByString<EditText>("userNameLogInScreen")
+       val view =  activity.findViewByString<EditText>("userNameLogIn")
 
         val actualInputType = view.inputType
         val expectedInputType = TYPE_CLASS_TEXT
