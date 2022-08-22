@@ -1,12 +1,10 @@
 buildscript {
-  ext.kotlin_version = '1.7.10'
   apply plugin: 'hyperskill'
-
   wrapper {
     gradleVersion = hs.android.gradleVersion
   }
-
-
+  def kotlinGradleVersion = hs.android.kotlinGradleVersion
+  def androidGradleVersion = hs.android.getAndroidGradleVersion(gradle.gradleVersion)
   repositories {
     google()
     mavenCentral()
@@ -15,23 +13,19 @@ buildscript {
 
   dependencies {
     classpath 'com.github.hyperskill:hs-gradle-plugin:release-SNAPSHOT'
-    classpath "com.android.tools.build:gradle:7.2.2"
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10"
+    classpath "com.android.tools.build:gradle:$androidGradleVersion"
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinGradleVersion"
   }
-
   configurations.all {
     resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
   }
 }
-
 allprojects {
   apply plugin: 'hyperskill'
-
   repositories {
     google()
     mavenCentral()
   }
-
   afterEvaluate {
     if (extensions.findByName('android') != null) {
       android {
@@ -54,16 +48,13 @@ allprojects {
             }
           }
         }
-
         defaultConfig {
           testInstrumentationRunner 'com.edu.AndroidEduTestRunner'
         }
       }
-
       dependencies {
         def robolectric = hs.android.robolectricVersion
         testImplementation "org.robolectric:robolectric:$robolectric"
-
         def junit = hs.android.lib.junit
         testImplementation "junit:junit:$junit"
       }
