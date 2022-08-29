@@ -146,7 +146,7 @@ class MainActivity : AppCompatActivity() {
 
     fun logInMethod(view: View) {
 
-        var userNameInput = findViewById<EditText>(R.id.userNameLogInScreen);
+        var userNameInput = findViewById<EditText>(R.id.userNameLogIn);
         var passwordInput = findViewById<EditText>(R.id.passwordLogIn);
         val objUserData = UserDataSignUp()
         val obj =

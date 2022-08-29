@@ -2,9 +2,8 @@ package org.hyperskill.bankmanager
 
 import android.widget.Button
 import android.widget.EditText
-import android.widget.FrameLayout
-import androidx.fragment.app.*
-import androidx.navigation.fragment.findNavController
+import android.widget.ImageView
+
 import junit.framework.TestCase.assertEquals
 import org.hyperskill.bankmanager.internals.AbstractUnitTest
 import org.junit.Test
@@ -17,38 +16,36 @@ class Stage2UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
 
     private val signUpButtonAtMainScreen: Button by lazy {
-        activity.findViewByString<Button>("signUpButton")
+        activity.findViewByString("signUpButton")
 
     }
 
-    private val signUpNewUserCorrectInput by lazy {
-        val firstName = activity.findViewByString<EditText>("firstName")
-        val inputName = "John"
-        firstName.text.append(inputName)
+    private fun signUpNewUser(firstNameInput: String, lastNameInput: String, addressInput: String, phoneInput: String, userNameInput: String, passwordInput: String) {
 
-        val lastName = activity.findViewByString<EditText>("lastName")
-        val inputLastName = "Doe"
-        lastName.text.append(inputLastName)
+        val firstName = activity.findViewByString<EditText>("firstName")
+        firstName.text.append(firstNameInput)
+
+        val lastName= activity.findViewByString<EditText>("lastName")
+        lastName.text.append(lastNameInput)
 
         val address = activity.findViewByString<EditText>("address")
-        val inputAddress = "TimeSquare, USA"
-        address.text.append(inputAddress)
+        address.text.append(addressInput)
+
+        val phone = activity.findViewByString<EditText>("phoneNumber")
+        phone.text.append(phoneInput)
 
         val userName = activity.findViewByString<EditText>("username")
-        val inputUserName = "johnDo15"
-        userName.text.append(inputUserName)
+        userName.text.append(userNameInput)
 
         val password = activity.findViewByString<EditText>("password")
-        val inputPassword = "4636"
-        password.text.append(inputPassword)
+        password.text.append(passwordInput)
 
     }
 
 
     private val signUpButtonAtSignUp: Button by lazy {
-        val view = activity.findViewByString<Button>("signUpButton")
+        activity.findViewByString<Button>("signUpButton")
 
-        view
     }
 
     private val checkForErrorInputFieldsError by lazy {
@@ -103,19 +100,39 @@ class Stage2UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
     }
 
     private val checkReturnToMainScreen by lazy {
-        //TO DO check if fragment main screen is displayed
+        //check if image exists at mainscreen
+        activity.findViewByString<ImageView>("imageBankManagerMainScreen")
+        //check if log in button exists
+        activity.findViewByString<Button>("logInButton")
+        //check if signup button exists
+        activity.findViewByString<Button>("signUpButton")
 
 
     }
 
+    @Test
+    fun newUserSignUpSuccessfullSignUp() {
+        testActivity {
+            signUpButtonAtMainScreen
+            signUpButtonAtMainScreen.clickAndRun().also {
+                signUpNewUser("John", "Doe", "123 Main Street", "1234567890", "jdoe", "12345")
+
+                signUpButtonAtSignUp.clickAndRun().also {
+                    checkReturnToMainScreen
+                }
+            }
+        }
+    }
+
 
     @Test
-    fun newUserSignUp() {
+    fun newUserSignUpWrongInput() {
         testActivity {
+            signUpButtonAtMainScreen
             signUpButtonAtMainScreen.clickAndRun().also {
-                signUpNewUserCorrectInput
+            signUpNewUser("Jon", "Doe", "123 Main Street", "1234567890", "jdoe", "")
                 signUpButtonAtSignUp.clickAndRun().also {
-                    checkForErrorInputFieldsError; checkReturnToMainScreen
+                    checkForErrorInputFieldsError
                 }
             }
         }
