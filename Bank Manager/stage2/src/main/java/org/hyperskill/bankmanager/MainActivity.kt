@@ -17,7 +17,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import org.hyperskill.bankmanager.LogInUser.createRandomCode
+//import org.hyperskill.bankmanager.LogInUser.createRandomCode  // for stage 4
 import org.hyperskill.bankmanager.databinding.ActivityMainBinding
 
 
@@ -110,36 +110,35 @@ class MainActivity : AppCompatActivity() {
         if (lastName.text.toString().isEmpty()) {
             lastName.error = "enter lastname"
             isFieldEmpty = true;
-           // Toast.makeText(this@MainActivity, "Enter last name", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(this@MainActivity, "Enter last name", Toast.LENGTH_SHORT).show();
         }
         if (address.text.toString().isEmpty()) {
             address.error = "enter address"
             isFieldEmpty = true;
-           // Toast.makeText(this@MainActivity, "Enter address", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(this@MainActivity, "Enter address", Toast.LENGTH_SHORT).show();
         }
         if (phoneNumber.text.toString().isEmpty()) {
             phoneNumber.error = "enter phone number"
             isFieldEmpty = true;
-           // Toast.makeText(this@MainActivity, "Enter phone number", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(this@MainActivity, "Enter phone number", Toast.LENGTH_SHORT).show();
         }
         if (userName.text.toString().isEmpty()) {
             userName.error = "enter username"
             isFieldEmpty = true;
-           // Toast.makeText(this@MainActivity, "Enter username", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(this@MainActivity, "Enter username", Toast.LENGTH_SHORT).show();
         }
         if (password.text.toString().isEmpty()) {
             password.error = "enter password"
             isFieldEmpty = true;
-          //  Toast.makeText(this@MainActivity, "Enter password", Toast.LENGTH_SHORT).show();
-        }
-        else if (password.text.toString().length < 4) {
-            password.error = "minimum 4 digits"
+            //  Toast.makeText(this@MainActivity, "Enter password", Toast.LENGTH_SHORT).show();
+        } else if (password.text.toString().length < 4) {
+            password.error = "password must be at least 4 numbers long"
             isFieldEmpty = true;
-          /*  Toast.makeText(
-                this@MainActivity,
-                "Password length needs to be 4 digits or more",
-                Toast.LENGTH_SHORT
-            ).show();*/
+            /*  Toast.makeText(
+                  this@MainActivity,
+                  "Password length needs to be 4 digits or more",
+                  Toast.LENGTH_SHORT
+              ).show();*/
         }
         return isFieldEmpty;
 
@@ -150,51 +149,69 @@ class MainActivity : AppCompatActivity() {
 
         var userNameInput = findViewById<EditText>(R.id.userNameLogIn);
         var passwordInput = findViewById<EditText>(R.id.passwordLogIn);
-        val objUserData = UserDataSignUp()
-        val obj =
-            LogInUser(objUserData.userDataArray, userNameInput, passwordInput, this@MainActivity);
-
-
-        fun showSecurityInputFields() {
-            val inputField = findViewById<EditText>(R.id.securityCodeInput)
-            inputField.visibility = View.VISIBLE
-
-            val buttonConfirm = findViewById<Button>(R.id.confirmCodeButton)
-            buttonConfirm.visibility = View.VISIBLE
-        }
-
-
-        if (obj.userLogInDataCheck()) {
-            showSecurityInputFields()
-            securityCode = createRandomCode()
-            Toast.makeText(this@MainActivity, "Security code : $securityCode", Toast.LENGTH_LONG)
-                .show();
-
-        }
-
-
-    }
-
-
-    fun securityCheck(view: View): Boolean {
-        var codeEntered = findViewById<EditText>(R.id.securityCodeInput)
-        val codeInput = codeEntered.text.toString()
-        val obj = LogInUser()
-        if (codeInput != null && codeInput != "") {
-            val isSecurityCodeCorrect: Boolean = obj.securityCodeCheck(codeInput, securityCode);
-            if (isSecurityCodeCorrect) {
-                Toast.makeText(this@MainActivity, "Log in successfully", Toast.LENGTH_SHORT).show()
-                return true;
-            } else if (!isSecurityCodeCorrect) {
-                Toast.makeText(this@MainActivity, "Wrong security code", Toast.LENGTH_SHORT).show()
+        if (userNameInput.text.toString().isEmpty()) {
+            userNameInput.error = "enter username"
+            Toast.makeText(this@MainActivity, "Enter username", Toast.LENGTH_SHORT).show();
+        } else if (passwordInput.text.toString().isEmpty()) {
+            passwordInput.error = "enter password"
+            Toast.makeText(this@MainActivity, "Enter password", Toast.LENGTH_SHORT).show();
+        } else {
+            val objUserData = UserDataSignUp()
+            val obj =
+                LogInUser(
+                    objUserData.userDataArray,
+                    userNameInput,
+                    passwordInput,
+                    this@MainActivity
+                );
+            if (obj.userLogInDataCheck()) {
+                Toast.makeText(this@MainActivity, "User logged in", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(view).navigate(R.id.action_SecondFragment_to_userMenu)
             }
         }
-        Toast.makeText(this@MainActivity, "Enter code", Toast.LENGTH_SHORT).show()
+
+// for stage 4
+//
+//        fun showSecurityInputFields() {
+//            val inputField = findViewById<EditText>(R.id.securityCodeInput)
+//            inputField.visibility = View.VISIBLE
+//
+//            val buttonConfirm = findViewById<Button>(R.id.confirmCodeButton)
+//            buttonConfirm.visibility = View.VISIBLE
+//        }
 
 
-        return false;
+//        if (obj.userLogInDataCheck()) {
+//            showSecurityInputFields()
+//            securityCode = createRandomCode()
+//            Toast.makeText(this@MainActivity, "Security code : $securityCode", Toast.LENGTH_LONG)
+//                .show();
+//
+//        }
+
 
     }
+
+// for stage 4
+//    fun securityCheck(view: View): Boolean {
+//        var codeEntered = findViewById<EditText>(R.id.securityCodeInput)
+//        val codeInput = codeEntered.text.toString()
+//        val obj = LogInUser()
+//        if (codeInput != null && codeInput != "") {
+//            val isSecurityCodeCorrect: Boolean = obj.securityCodeCheck(codeInput, securityCode);
+//            if (isSecurityCodeCorrect) {
+//                Toast.makeText(this@MainActivity, "Log in successfully", Toast.LENGTH_SHORT).show()
+//                return true;
+//            } else if (!isSecurityCodeCorrect) {
+//                Toast.makeText(this@MainActivity, "Wrong security code", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+//        Toast.makeText(this@MainActivity, "Enter code", Toast.LENGTH_SHORT).show()
+//
+//
+//        return false;
+//
+//    }
 
     fun fundsDeposit(view: View) {
         val text = findViewById<EditText>(R.id.inputAddFunds)

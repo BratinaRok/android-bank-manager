@@ -18,7 +18,7 @@
     <string name="address">address</string>
     <string name="name">Name</string>
     <string name="lastname">lastname</string>
-    <string name="firstname">firstName</string>
+    <string name="firstname">firstname</string>
     <string name="button">Button</string>
     <string name="deposit_funds">Deposit funds</string>
     <string name="withdraw_funds">Withdraw funds</string>

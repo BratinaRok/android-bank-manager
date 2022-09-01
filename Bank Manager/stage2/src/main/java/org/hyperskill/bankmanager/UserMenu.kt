@@ -31,13 +31,13 @@ class UserMenu : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val user = LogInUser()
-        binding.textVi.text = user.username
+        binding.usernameText.text = user.username
         binding.depositFundsButton.setOnClickListener{
             findNavController().navigate(R.id.action_userMenu_to_depositFundsScreen)
 
         }
 
-        binding.withdrawButton.setOnClickListener {
+        binding.withdrawFundsButton.setOnClickListener {
             findNavController().navigate(R.id.action_userMenu_to_withdrawFunds)
         }
         binding.viewBalanceButton.setOnClickListener {
@@ -51,7 +51,7 @@ class UserMenu : Fragment() {
             findNavController().navigate(R.id.convertFunds)
         }
 
-        binding.payBilsButton.setOnClickListener {
+        binding.payBillsButton.setOnClickListener {
             findNavController().navigate(R.id.billPayment)
         }
 
