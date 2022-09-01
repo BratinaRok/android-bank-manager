@@ -3,6 +3,7 @@ package org.hyperskill.bankmanager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 
 import junit.framework.TestCase.assertEquals
 import org.hyperskill.bankmanager.internals.AbstractUnitTest
@@ -20,12 +21,20 @@ class Stage2UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
     }
 
-    private fun signUpNewUser(firstNameInput: String, lastNameInput: String, addressInput: String, phoneInput: String, userNameInput: String, passwordInput: String) {
+
+    private fun signUpNewUserInputFields(
+        firstNameInput: String,
+        lastNameInput: String,
+        addressInput: String,
+        phoneInput: String,
+        userNameInput: String,
+        passwordInput: String
+    ) {
 
         val firstName = activity.findViewByString<EditText>("firstName")
         firstName.text.append(firstNameInput)
 
-        val lastName= activity.findViewByString<EditText>("lastName")
+        val lastName = activity.findViewByString<EditText>("lastName")
         lastName.text.append(lastNameInput)
 
         val address = activity.findViewByString<EditText>("address")
@@ -94,11 +103,18 @@ class Stage2UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
         if (password.error != null) {
             actualErrorMessage = password.error.toString()
 
-            expectedErrorMessage = "enter password"
-            assertEquals(expectedErrorMessage, actualErrorMessage)
+            var expectedErrorMessageForEmptyField = "enter password"
+            var expectedErrorMessageForShortPassword = "password must be at least 4 numbers long"
+
+            if (actualErrorMessage == expectedErrorMessageForEmptyField) {
+                assertEquals(expectedErrorMessageForEmptyField, actualErrorMessage)
+            } else {
+                assertEquals(expectedErrorMessageForShortPassword, actualErrorMessage)
+
+            }
+
         }
     }
-
     private val checkReturnToMainScreen by lazy {
         //check if image exists at mainscreen
         activity.findViewByString<ImageView>("imageBankManagerMainScreen")
@@ -107,34 +123,134 @@ class Stage2UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
         //check if signup button exists
         activity.findViewByString<Button>("signUpButton")
 
-
     }
 
-    @Test
-    fun newUserSignUpSuccessfullSignUp() {
+    private fun newUserSignUp(
+        firstNameInput: String,
+        lastNameInput: String,
+        addressInput: String,
+        phoneInput: String,
+        userNameInput: String,
+        passwordInput: String,
+        isCorrectInput: Boolean
+    ) {
         testActivity {
             signUpButtonAtMainScreen
             signUpButtonAtMainScreen.clickAndRun().also {
-                signUpNewUser("John", "Doe", "123 Main Street", "1234567890", "jdoe", "12345")
+                signUpNewUserInputFields(
+                    firstNameInput,
+                    lastNameInput,
+                    addressInput,
+                    phoneInput,
+                    userNameInput,
+                    passwordInput
+                )
 
                 signUpButtonAtSignUp.clickAndRun().also {
-                    checkReturnToMainScreen
+                    if (isCorrectInput) {
+                        checkReturnToMainScreen
+                    } else {
+                        checkForErrorInputFieldsError
+                    }
                 }
             }
         }
     }
 
+    private val logInButtonAtMainScreen: Button by lazy {
+        activity.findViewByString("logInButton")
+    }
+
+    private val welcomeMessage: TextView by lazy {
+        activity.findViewByString("welcomeTextAtMainMenu")
+    }
+
+    private val userNameAtMainMenu: TextView by lazy {
+       val userName =  activity.findViewByString<TextView>("usernameText")
+        userName
+    }
+
+    private val depositFundsButton: Button by lazy {
+        activity.findViewByString("depositFundsButton")
+    }
+
+    private val withdrawFundsButton: Button by lazy {
+        activity.findViewByString("withdrawFundsButton")
+    }
+
+    private val viewBalanceButton: Button by lazy {
+        activity.findViewByString("viewBalanceButton")
+    }
+    private val convertFundsButton: Button by lazy {
+        activity.findViewByString("convertFundsButton")
+    }
+
+    private val payBillsButton: Button by lazy {
+        activity.findViewByString("payBillsButton")
+    }
+
 
     @Test
-    fun newUserSignUpWrongInput() {
+    fun testNewUserSignUpFalseUserName() {
+        newUserSignUp("Bob", "Wert", "Great street 55", "43252356", "", "44753", false)
+    }
+
+    @Test
+    fun testNewUserSignUpFalsePassword() {
+        newUserSignUp("Rob", "Beet", "Street w 43", "334342234", "robb", "123", false)
+    }
+
+    @Test
+    fun testNewUserSignUpFalsePhoneNumber() {
+        newUserSignUp("Rob", "Beet", "Street w 43", "", "robb", "123535", false)
+    }
+
+    @Test
+    fun testNewUserSignUpFalseAddress() {
+        newUserSignUp("Rob", "Beet", "", "43252356", "robb", "123543", false)
+    }
+
+    @Test
+    fun testNewUserSignUpFalseLastName() {
+        newUserSignUp("Rob", "", "Great street 55", "43252356", "robb", "123543", false)
+    }
+
+    @Test
+    fun testNewUserSignUpFalseFirstName() {
+        newUserSignUp("", "Wert", "Great street 55", "43252356", "robb", "12343", false)
+    }
+
+    @Test
+    fun testNewUserSignUpTrue() {
+        newUserSignUp("Jack", "Wert", "New York street 32", "3468821", "JaWe34", "3572", true)
+    }
+
+    @Test
+    fun testNewUserSignUpTrue2() {
+        newUserSignUp("Jon", "Don", "Wall Street 334", "5434526563", "jonD", "123533", true)
+    }
+
+
+    @Test
+    fun checkLogInSuccessful() {
         testActivity {
-            signUpButtonAtMainScreen
-            signUpButtonAtMainScreen.clickAndRun().also {
-            signUpNewUser("Jon", "Doe", "123 Main Street", "1234567890", "jdoe", "")
-                signUpButtonAtSignUp.clickAndRun().also {
-                    checkForErrorInputFieldsError
+            logInButtonAtMainScreen.clickAndRun().also {
+                val userNameLogIn =  activity.findViewByString<EditText>("userNameLogIn")
+                userNameLogIn.text.append("jonD")
+                val passwordLogIn =  activity.findViewByString<EditText>("passwordLogIn")
+                passwordLogIn.text.append("123533")
+                val buttonLogIn =  activity.findViewByString<Button>("logInButton")
+                buttonLogIn.clickAndRun().also {
+                    welcomeMessage;assertEquals("Welcome", welcomeMessage.text)
+                    userNameAtMainMenu;assertEquals("jonD", userNameAtMainMenu.text)
+                    depositFundsButton;withdrawFundsButton;viewBalanceButton;convertFundsButton;payBillsButton
+
+                }
+
+            }
+
                 }
             }
         }
-    }
-}
+
+
