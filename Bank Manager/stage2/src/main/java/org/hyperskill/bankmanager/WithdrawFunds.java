@@ -60,4 +60,5 @@ public class WithdrawFunds extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.withdraw_funds, container, false);
     }
+
 }

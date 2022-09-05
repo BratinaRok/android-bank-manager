@@ -132,6 +132,43 @@ class Stage3UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
         activity.findViewByString<Button>("confirmCodeButton")
     }
 
+    private val depositFundsText: TextView by lazy {
+        activity.findViewByString<TextView>("textDepositFunds")
+    }
+
+    private val depositFundsInputField: EditText by lazy {
+        activity.findViewByString<EditText>("inputAddFunds")
+    }
+
+    private val addFundsButton: Button by lazy {
+        activity.findViewByString<Button>("buttonAddFunds")
+    }
+    private val viewBalanceText: TextView by lazy {
+        activity.findViewByString<TextView>("textViewBalance")
+    }
+
+
+    private val viewBalanceAmount: TextView by lazy {
+        activity.findViewByString<TextView>("showBalanceText")
+    }
+    private val viewBalanceAmount2: TextView by lazy {
+        activity.findViewByString<TextView>("showBalanceText")
+    }
+
+    private val backButton: Button by lazy {
+        activity.findViewByString<Button>("backButton")
+    }
+    private val withdrawFundsText: TextView by lazy {
+        activity.findViewByString<TextView>("withdrawFundsText")
+    }
+    private val withdrawFundsInputField: EditText by lazy {
+        activity.findViewByString<EditText>("withdrawFundsInput")
+    }
+
+    private val withdrawFundsButtonAtWithdrawFunds: Button by lazy {
+        activity.findViewByString<Button>("withdrawFundsButtonAtWithdrawFunds")
+    }
+
     @Test
     fun testNewUserSignUpTrue() {
         newUserSignUp("Jack", "Wert", "New York street 32", "3468821", "JaWe34", "3572", true)
@@ -152,11 +189,55 @@ class Stage3UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
                     confirmCodeButton.clickAndRun().also {
                         welcomeMessage;assertEquals("Welcome", welcomeMessage.text)
                         userNameAtMainMenu;assertEquals("JaWe34", userNameAtMainMenu.text)
-                        depositFundsButton;withdrawFundsButton;viewBalanceButton;convertFundsButton;payBillsButton
+                        depositFundsButton;withdrawFundsButton;viewBalanceButton
                     }
 
 
+                }
+            }
+        }
+    }
 
+    @Test
+    fun checkDepositFunds() {
+        testActivity {
+            logInButtonAtMainScreen.clickAndRun().also {
+                val userNameLogIn = activity.findViewByString<EditText>("userNameLogIn")
+                userNameLogIn.text.append("JaWe34")
+                val passwordLogIn = activity.findViewByString<EditText>("passwordLogIn")
+                passwordLogIn.text.append("3572")
+                val buttonLogIn = activity.findViewByString<Button>("logInButton")
+                buttonLogIn.clickAndRun().also {
+                    var securityCode = ShadowToast.getTextOfLatestToast().toString()
+                    securityCodeInputField.append(securityCode)
+                    confirmCodeButton.clickAndRun().also {
+                        depositFundsButton.clickAndRun().also {
+                            depositFundsText;assertEquals("Deposit funds", depositFundsText.text)
+                            depositFundsInputField.append("1400")
+                            addFundsButton.clickAndRun()
+                            viewBalanceButton.clickAndRun().also {
+                                viewBalanceText; viewBalanceAmount;assertEquals(
+                                "1400.0",
+                                viewBalanceAmount.text
+                            )
+                                backButton.clickAndRun().also {
+                                    withdrawFundsButton.clickAndRun().also {
+                                        withdrawFundsText;assertEquals(
+                                        "Withdraw funds",
+                                        withdrawFundsText.text
+                                    )
+                                        withdrawFundsInputField.append("500")
+                                        withdrawFundsButtonAtWithdrawFunds.clickAndRun()
+                                        viewBalanceButton.clickAndRun().also {
+                                            viewBalanceText;    assertEquals("900.0", viewBalanceAmount2.text)
+
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+                    }
                 }
             }
         }

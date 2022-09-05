@@ -38,22 +38,25 @@ class UserMenu : Fragment() {
         }
 
         binding.withdrawFundsButton.setOnClickListener {
-            findNavController().navigate(R.id.action_userMenu_to_withdrawFunds)
+            if(findNavController().currentDestination?.id == R.id.mainMenu){
+                findNavController().navigate(R.id.action_userMenu_to_withdrawFunds)
+
+            }else {
+            println(findNavController().currentDestination.toString())
+            }
         }
         binding.viewBalanceButton.setOnClickListener {
-
-
             findNavController().navigate(R.id.action_userMenu_to_viewBalance)
 
         }
 
-        binding.convertFundsButton.setOnClickListener {
-            findNavController().navigate(R.id.convertFunds)
-        }
-
-        binding.payBillsButton.setOnClickListener {
-            findNavController().navigate(R.id.billPayment)
-        }
+//        binding.convertFundsButton.setOnClickListener {
+//            findNavController().navigate(R.id.convertFunds)
+//        }
+//
+//        binding.payBillsButton.setOnClickListener {
+//            findNavController().navigate(R.id.billPayment)
+//        }
 
     }
 

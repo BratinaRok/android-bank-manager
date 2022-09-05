@@ -10,11 +10,11 @@
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/withdrawFundsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="116dp"
-        android:text="Withdraw funds"
+        android:text="@string/withdrawFunds"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,18 +23,19 @@
         tools:layout_conversion_absoluteWidth="411dp" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/withdrawFundsButtonAtWithdrawFunds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="@string/withdraw"
+        android:layout_marginTop="36dp"
         android:backgroundTint="@color/teal_700"
+        android:text="@string/withdraw"
+        android:onClick="fundsWithdraw"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/withdrawFundsInput" />
 
     <EditText
-        android:id="@+id/editTextNumberDecimal2"
+        android:id="@+id/withdrawFundsInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -44,6 +45,6 @@
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/withdrawFundsText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

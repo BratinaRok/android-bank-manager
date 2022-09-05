@@ -159,24 +159,33 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this@MainActivity, "Enter password", Toast.LENGTH_SHORT).show();
         } else {
             val objUserData = UserDataSignUp()
-            val obj = LogInUser(objUserData.userDataArray, userNameInput, passwordInput, this@MainActivity);
+            val obj = LogInUser(
+                objUserData.userDataArray,
+                userNameInput,
+                passwordInput,
+                this@MainActivity
+            );
             if (obj.userLogInDataCheck()) {
                 showSecurityInputFields()
                 securityCode = createRandomCode()
-                Toast.makeText(this@MainActivity, "Security code : $securityCode", Toast.LENGTH_LONG)
+                Toast.makeText(
+                    this@MainActivity,
+                    "Security code : $securityCode",
+                    Toast.LENGTH_LONG
+                )
                     .show();
             }
         }
 
     }
-        fun showSecurityInputFields() {
-            val inputField = findViewById<EditText>(R.id.securityCodeInput)
-            inputField.visibility = View.VISIBLE
 
-            val buttonConfirm = findViewById<Button>(R.id.confirmCodeButton)
-            buttonConfirm.visibility = View.VISIBLE
-        }
+    private fun showSecurityInputFields() {
+        val inputField = findViewById<EditText>(R.id.securityCodeInput)
+        inputField.visibility = View.VISIBLE
 
+        val buttonConfirm = findViewById<Button>(R.id.confirmCodeButton)
+        buttonConfirm.visibility = View.VISIBLE
+    }
 
 
     fun securityCheck(view: View): Boolean {
@@ -195,8 +204,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
         Toast.makeText(this@MainActivity, "Enter code", Toast.LENGTH_SHORT).show()
-
-
         return false;
 
     }
@@ -205,6 +212,16 @@ class MainActivity : AppCompatActivity() {
         val text = findViewById<EditText>(R.id.inputAddFunds)
         var obj = DepositFundsScreen()
         obj.addFunds(text);
+        Toast.makeText(this@MainActivity, "Funds added", Toast.LENGTH_SHORT).show()
+        Navigation.findNavController(view).navigate(R.id.action_depositFundsScreen_to_mainMenu)
+    }
+
+    fun fundsWithdraw(view: View) {
+        val text = findViewById<EditText>(R.id.withdrawFundsInput)
+        var obj = WithdrawFunds();
+        obj.withdrawFunds(text);
+        Toast.makeText(this@MainActivity, "Funds withdrawn", Toast.LENGTH_SHORT).show()
+        Navigation.findNavController(view).navigate(R.id.action_withdrawFunds_to_mainMenu)
     }
 
 

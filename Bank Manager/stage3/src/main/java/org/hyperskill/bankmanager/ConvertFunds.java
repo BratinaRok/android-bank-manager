@@ -58,9 +58,6 @@ public class ConvertFunds extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
-
     }
 
     @Override
@@ -70,6 +67,5 @@ public class ConvertFunds extends Fragment {
 
         return inflater.inflate(R.layout.convert_funds, container, false);
     }
-
 
 }

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import java.math.BigDecimal;
 
@@ -62,7 +63,6 @@ public class ViewBalance extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-
     }
 
 
@@ -72,6 +72,7 @@ public class ViewBalance extends Fragment {
         View rootView = inflater.inflate(R.layout.view_balance, container, false);
         textView = (TextView) rootView.findViewById(R.id.showBalanceText);
         checkBalance();
+
         return rootView;
 
     }
@@ -79,19 +80,20 @@ public class ViewBalance extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-
+        this.view = view;
+        view.findViewById(R.id.backButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_viewBalance_to_mainMenu);
+            }
+        });
     }
 
 
-
     public void checkBalance() {
-
         LogInUser logInUser = new LogInUser();
         UserDataSignUp userDataSignUp = new UserDataSignUp();
         String username = logInUser.getUsername();
-
 
         for (int i = 0; i < userDataSignUp.getUserDataArray().size(); i++) {
             if (userDataSignUp.getUserDataArray().get(i).get("userName").equals(username)) {
@@ -115,6 +117,7 @@ public class ViewBalance extends Fragment {
                 }
 
 
+        break;
             }
         }
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment;
  * create an instance of this fragment.
  */
 public class WithdrawFunds extends Fragment {
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,6 +60,26 @@ public class WithdrawFunds extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.withdraw_funds, container, false);
+    }
+
+    public void withdrawFunds(EditText funds) {
+        LogInUser logInUser = new LogInUser();
+        UserDataSignUp userDataSignUp = new UserDataSignUp();
+        String getFunds = funds.getText().toString();
+        String userName = logInUser.getUsername();
+        if (userDataSignUp.getUserDataArray().size() > 0 && userDataSignUp.getUserDataArray() != null) {
+        for (int i = 0; i < userDataSignUp.getUserDataArray().size(); i++) {
+             if(userDataSignUp.getUserDataArray().get(i).get("userName").equals(userName)) {
+                 String currentBalance = userDataSignUp.getUserDataArray().get(i).get("balance").toString();
+                    double newBalance = Double.parseDouble(currentBalance) - Double.parseDouble(getFunds);
+                    userDataSignUp.getUserDataArray().get(i).put("balance", newBalance);
+                    break;
+             }
+
+             };
+        }
+
     }
 }
