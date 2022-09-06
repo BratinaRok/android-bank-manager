@@ -1,0 +1,96 @@
+<html>
+
+<h2>Task Description: Tips & Tricks</h2>
+
+<p>This is a task description file.
+    Its content will be displayed to a learner
+    in the <strong>Task Description</strong> window.</p>
+
+<p>It supports both Markdown and HTML.
+    To toggle the format, you can rename <strong>task.md</strong>
+    to <strong>task.html</strong>, or vice versa.
+    The default task description format can be changed
+    in <strong>Preferences | Tools | Education</strong>,
+    but this will not affect any existing task description files.</p>
+
+<p>The following features are available in
+    <strong>task.md/task.html</strong>
+    which are specific to the EduTools plugin:</p>
+
+<ul>
+    <li>Hints can be added anywhere in the task text.
+        Type "hint" and press Tab.
+        Hints should be added to an empty line in the task text.
+        In hints you can use both HTML and Markdown.
+        <div class="hint">Text of your hint</div></li>
+
+    <li>You may need to refer your learners to a particular lesson,
+        task, or file. To achieve this, you can use the in-course links.
+        Specify the path using the <code>&lt;a href="course://lesson1/task1/file1"&gt;
+            link_text&lt;/a&gt;</code> format.</li><br>
+
+    <li>You can insert shortcuts in the task description.
+        While <strong>task.html/task.md</strong> is open,
+        right-click anywhere on the <strong>Editor</strong> tab
+        and choose the <strong>Insert shortcut</strong> option
+        from the context menu.
+        For example: &amp;shortcut:FileStructurePopup;.</li><br>
+
+    <li>Insert the &percnt;<code>IDE_NAME</code>&percnt; macro,
+        which will be replaced by the actual IDE name.
+        For example, <strong>%IDE_NAME%</strong>.</li><br>
+
+    <li>Insert PSI elements, by using links like
+        <code>&lt;a href="psi_element://link.to.element"&gt;element description&lt;/a&gt;</code>.
+        To get such a link, right-click the class or method
+        and select <strong>Copy Reference</strong>.
+        Then press &amp;shortcut:EditorPaste;
+        to insert the link where appropriate.
+        For example, a
+        <a href="psi_element://java.lang.String#contains">link to the "contains" method</a>.</li>
+
+
+
+</ul>
+
+
+<h2>Description</h2>
+
+<p>First, let&#39;s create a basic layout with buttons and interactions.</p>
+
+<h2>Objectives</h2>
+
+<p>App layout needs to have :</p>
+
+<p>1. Main screen of the application"&nbsp;</p>
+
+<ul>
+    <li>&nbsp;a button with id =&nbsp;&quot;logInButton&quot;&nbsp; that points to log&nbsp;in screen,</li>
+    <li>a button with id =&nbsp; &quot;signUpButton&quot; that points to sign up screen,</li>
+    <li>TextView with id = "welcomeToBankManagerDescription" and text = "Welcome to Bank Manager"</li>
+</ul>
+
+<p>2. Log in screen :</p>
+
+<ul>
+    <li>TextView with id = "logInTextScreenName" with text "log_in"</li>
+    <li>Username of type EditText with id = &quot;userNameLogIn", type of input = "text", hint = "username"</li>
+    <li>Password of type EditText  with id = &quot;passwordLogIn&quot;, type of input = "numberPassword"(only numbers allowed), hint = "password" </li>
+    <li>Button with id = &quot;logInButton&quot; with text = "Log in"</li>
+</ul>
+
+<p>3. Sign up screen :</p>
+
+<ul>
+
+    <li>Firstname with id = &quot;firstName&quot;, input type is  "textPersonName",  hint = "firstname" </li>
+    <li>Lastname with id = &quot;lastName&quot;, input type is  "textPersonName",  hint = "lastname"</li>
+    <li>Address with id = &quot;address&quot;, input type is  "textPostalAddress",  hint = "address"</li>
+    <li>Phone number with id = &quot;phoneNumber&quot;, input type is  "phone",  hint = "phone"</li>
+    <li>Username with id = &quot;username&quot;, input type is  "text",  hint = "username"</li>
+    <li>Password with id = &quot;password&quot;, input type is  "numberPassword"(only numbers allowed),  hint = "password"</li>
+    <li>Button with id = &quot;signUpButton&quot;, with hint = "sign up" </li>
+</ul>
+
+
+</html>

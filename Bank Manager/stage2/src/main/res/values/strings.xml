@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="Main_screen_label">Main screen</string>
+    <string name="second_fragment_label">Login</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="log_in">Log in</string>
+    <string name="welcome_to_bank_manager">Welcome to Bank Manager</string>
+    <string name="test">test</string>
+    <string name="sign_up">sign up</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="phone">phone</string>
+    <string name="address">address</string>
+    <string name="name">Name</string>
+    <string name="lastname">lastname</string>
+    <string name="firstname">firstname</string>
+    <string name="button">Button</string>
+    <string name="deposit_funds">Deposit funds</string>
+    <string name="withdraw_funds">Withdraw funds</string>
+    <string name="menu">Menu</string>
+    <string name="welcome">Welcome</string>
+
+    <string name="enter_amount_to_add">enter amount to add</string>
+    <string name="add">ADD</string>
+    <string name="view_balance">View balance</string>
+    <string name="enter_security_code">Enter security code</string>
+    <string name="confirm">Confirm</string>
+    <string name="withdraw">WITHDRAW</string>
+    <string name="enter_amount">Enter amount</string>
+    <string name="convert_funds">Convert funds</string>
+    <string name="pay_bills">Pay bills</string>
+    <string name="convert_to">Convert to</string>
+
+
+</resources>
