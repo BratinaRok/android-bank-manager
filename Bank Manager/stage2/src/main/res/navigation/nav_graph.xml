@@ -44,7 +44,7 @@
         android:id="@+id/mainMenu"
         android:name="org.hyperskill.bankmanager.UserMenu"
         android:label=" Main Menu"
-        tools:layout="@layout/mainmenu">
+        tools:layout="@layout/user_menu">
         <action
             android:id="@+id/action_userMenu_to_depositFundsScreen"
             app:destination="@id/depositFundsScreen" />
