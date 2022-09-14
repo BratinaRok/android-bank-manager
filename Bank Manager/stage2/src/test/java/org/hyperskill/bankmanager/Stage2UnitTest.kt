@@ -1,5 +1,6 @@
 package org.hyperskill.bankmanager
 
+import BankManagerUnitTest
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -13,7 +14,7 @@ import org.robolectric.RobolectricTestRunner
 
 
 @RunWith(RobolectricTestRunner::class)
-class Stage2UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) {
+class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.java) {
 
 
     private val signUpButtonAtMainScreen: Button by lazy {
