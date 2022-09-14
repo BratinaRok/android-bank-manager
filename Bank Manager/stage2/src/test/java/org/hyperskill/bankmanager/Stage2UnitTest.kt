@@ -58,7 +58,7 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
 
     }
 
-    private val checkForErrorInputFieldsError by lazy {
+    fun checkForErrorInputFieldsError()  {
         var actualErrorMessage = "";
         var expectedErrorMessage = "";
 
@@ -151,7 +151,7 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
                     if (isCorrectInput) {
                         checkReturnToMainScreen
                     } else {
-                        checkForErrorInputFieldsError
+                        checkForErrorInputFieldsError()
                     }
                 }
             }
