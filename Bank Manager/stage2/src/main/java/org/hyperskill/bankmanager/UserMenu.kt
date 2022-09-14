@@ -31,27 +31,27 @@ class UserMenu : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val user = LogInUser()
-        binding.usernameText.text = user.username
-        binding.depositFundsButton.setOnClickListener{
+        binding.userMenuUsernameText.text = user.username
+        binding.userMenuDepositFundsButton.setOnClickListener{
             findNavController().navigate(R.id.action_userMenu_to_depositFundsScreen)
 
         }
 
-        binding.withdrawFundsButton.setOnClickListener {
+        binding.userMenuWithdrawFundsButton.setOnClickListener {
             findNavController().navigate(R.id.action_userMenu_to_withdrawFunds)
         }
-        binding.viewBalanceButton.setOnClickListener {
+        binding.userMenuViewBalanceButton.setOnClickListener {
 
 
             findNavController().navigate(R.id.action_userMenu_to_viewBalance)
 
         }
 
-        binding.convertFundsButton.setOnClickListener {
+        binding.userMenuConvertFundsButton.setOnClickListener {
             findNavController().navigate(R.id.convertFunds)
         }
 
-        binding.payBillsButton.setOnClickListener {
+        binding.userMenuPayBillsButton.setOnClickListener {
             findNavController().navigate(R.id.billPayment)
         }
 
