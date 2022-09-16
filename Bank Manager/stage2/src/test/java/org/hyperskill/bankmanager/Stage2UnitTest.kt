@@ -151,18 +151,17 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
         testActivity {
             newUserSignUp()
             MainScreenView().logInButton.clickAndRun().also {
-                val userNameLogIn = activity.findViewByString<EditText>("userNameLogIn")
-                userNameLogIn.text.append("jonD")
-                val passwordLogIn = activity.findViewByString<EditText>("passwordLogIn")
-                passwordLogIn.text.append("123533")
-                val buttonLogIn = activity.findViewByString<Button>("logInButton")
+                val logInView = LogInView()
 
-                buttonLogIn.clickAndRun().also {
+                logInView.logInUserNameEt.text.append("jonD")
+
+                logInView.logInPasswordEt.text.append("123533")
+
+
+                logInView.logInButton.clickAndRun().also {
                     val userMenuView = UserMenuView()
                     assertEquals("Welcome", userMenuView.userMenuWelcomeText.text.toString())
                     assertEquals("jonD", userMenuView.userMenuUsernameText.text.toString())
-
-
                 }
             }
         }
