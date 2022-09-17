@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,7 +10,7 @@
     tools:context=".LogIn">
 
     <EditText
-        android:id="@+id/userNameLogIn"
+        android:id="@+id/logInUserNameEt"
         style="@style/inputFieldStyle"
         android:layout_width="341dp"
         android:layout_height="57dp"
@@ -29,37 +30,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordLogIn"
+        app:layout_constraintTop_toBottomOf="@+id/logInPasswordEt"
         style="@style/buttoncolor" />
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarLogInScreen"
+        android:id="@+id/logInToolbar"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:background="@color/teal_700"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toTopOf="@+id/userNameLogIn"
+        app:layout_constraintBottom_toTopOf="@+id/logInUserNameEt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/logInTextScreenName"
+        android:id="@+id/logInText"
         android:layout_width="69dp"
         android:layout_height="60dp"
         android:text="@string/log_in"
         android:textColor="#454343"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/userNameLogIn"
-        app:layout_constraintEnd_toEndOf="@+id/toolbarLogInScreen"
+        app:layout_constraintBottom_toTopOf="@+id/logInUserNameEt"
+        app:layout_constraintEnd_toEndOf="@+id/logInToolbar"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.133" />
 
     <EditText
-        android:id="@+id/passwordLogIn"
+        android:id="@+id/logInPasswordEt"
         style="@style/inputFieldStyle"
         android:layout_width="341dp"
         android:layout_height="57dp"
@@ -69,7 +70,7 @@
         android:inputType="numberPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userNameLogIn" />
+        app:layout_constraintTop_toBottomOf="@+id/logInUserNameEt" />
 
     <!-- For stage 4 -->
 <!--    <EditText-->

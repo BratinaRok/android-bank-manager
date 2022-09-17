@@ -66,12 +66,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun method2(view: View) {
-        val firstName = findViewById<EditText>(R.id.firstName)
-        val lastName = findViewById<EditText>(R.id.lastName);
-        val address = findViewById<EditText>(R.id.address);
-        val phoneNumber = findViewById<EditText>(R.id.phoneNumber);
-        val userName = findViewById<EditText>(R.id.username);
-        val password = findViewById<EditText>(R.id.password);
+        val firstName = findViewById<EditText>(R.id.signUpFirstNameEt)
+        val lastName = findViewById<EditText>(R.id.signUpLastNameEt);
+        val address = findViewById<EditText>(R.id.signUpAddressEt);
+        val phoneNumber = findViewById<EditText>(R.id.signUpPhoneNumberEt);
+        val userName = findViewById<EditText>(R.id.signUpUsernameEt);
+        val password = findViewById<EditText>(R.id.signUpPasswordEt);
 
 
         if (!checkInput(firstName, lastName, address, phoneNumber, userName, password)) {
@@ -147,8 +147,8 @@ class MainActivity : AppCompatActivity() {
 
     fun logInMethod(view: View) {
 
-        var userNameInput = findViewById<EditText>(R.id.userNameLogIn);
-        var passwordInput = findViewById<EditText>(R.id.passwordLogIn);
+        var userNameInput = findViewById<EditText>(R.id.logInUserNameEt);
+        var passwordInput = findViewById<EditText>(R.id.logInPasswordEt);
         if (userNameInput.text.toString().isEmpty()) {
             userNameInput.error = "enter username"
             Toast.makeText(this@MainActivity, "Enter username", Toast.LENGTH_SHORT).show();
