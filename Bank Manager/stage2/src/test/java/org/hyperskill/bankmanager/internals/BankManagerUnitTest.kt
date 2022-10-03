@@ -1,22 +1,46 @@
 import android.app.Activity
+import android.text.InputType
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+
 import org.hyperskill.bankmanager.internals.AbstractUnitTest
-import org.junit.Assert
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 
 // todo same hierarchy structure for all stages
 open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest<T>(clazz) {
 
     inner class SignUpView() {
-        val firstName: EditText = activity.findViewByString("signUpFirstNameEt")
-        val lastName: EditText = activity.findViewByString("signUpLastNameEt")
-        val address: EditText = activity.findViewByString("signUpAddressEt")
-        val phone: EditText = activity.findViewByString("signUpPhoneNumberEt")
-        val userName: EditText = activity.findViewByString("signUpUsernameEt")
-        val password: EditText = activity.findViewByString("signUpPasswordEt")
-        val signUpButton: Button = activity.findViewByString("signUpButton")
+        val firstName: EditText by lazy {
+            // Todo initial values assertions for all views
+            activity.findViewByString("signUpFirstNameEt")
+        }
+        val lastName: EditText by lazy {
+            // Todo initial values assertions for all views
+            activity.findViewByString("signUpLastNameEt")
+        }
+        val address: EditText by lazy {
+            // Todo initial values assertions for all views
+            activity.findViewByString("signUpAddressEt")
+        }
+        val phone: EditText by lazy {
+            // Todo initial values assertions for all views
+            activity.findViewByString("signUpPhoneNumberEt")
+        }
+        val userName: EditText by lazy {
+            // Todo initial values assertions for all views
+            activity.findViewByString("signUpUsernameEt")
+        }
+        val password: EditText by lazy {
+            // Todo initial values assertions for all views
+            activity.findViewByString("signUpPasswordEt")
+        }
+        val signUpButton: Button by lazy {
+            // Todo initial values assertions for all views
+            activity.findViewByString("signUpButton")
+        }
 
         fun signUpNewUser(
             firstNameInput: String,
@@ -44,11 +68,12 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             passwordEmptyError: Boolean,
             passwordShortError: Boolean,
         ) {
-            // todo provide feedback message for every assertion
+
             val actualFirstNameErrorMessage = firstName.error?.toString()
             val expectedFirstNameErrorMessage = "enter firstname"
             if (firstNameError) {
-                Assert.assertEquals(
+                // todo provide feedback message for every assertion
+                assertEquals(
                     "You should always give a feedback message on assertions",  //TODO
                     expectedFirstNameErrorMessage,
                     actualFirstNameErrorMessage
@@ -58,26 +83,30 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             val actualLastNameErrorMessage = lastName.error?.toString()
             val expectedLastNameErrorMessage = "enter lastname"
             if (lastNameError) {
-                Assert.assertEquals(expectedLastNameErrorMessage, actualLastNameErrorMessage)
+                // todo provide feedback message for every assertion
+                assertEquals(expectedLastNameErrorMessage, actualLastNameErrorMessage)
             }
 
             val actualAddressErrorMessage = address.error?.toString()
             val expectedAddressErrorMessage = "enter address"
             if (addressError) {
-                Assert.assertEquals(expectedAddressErrorMessage, actualAddressErrorMessage)
+                // todo provide feedback message for every assertion
+                assertEquals(expectedAddressErrorMessage, actualAddressErrorMessage)
             }
 
             val actualPhoneNumberErrorMessage = phone.error?.toString()
             val expectedPhoneNumberErrorMessage = "enter phone number"
             if (phoneNumberError) {
-                Assert.assertEquals(expectedPhoneNumberErrorMessage,
+                // todo provide feedback message for every assertion
+                assertEquals(expectedPhoneNumberErrorMessage,
                     actualPhoneNumberErrorMessage)
             }
 
             val actualUserNameErrorMessage = userName.error?.toString()
             val expectedUserNameErrorMessage = "enter username"
             if (userNameError) {
-                Assert.assertEquals(expectedUserNameErrorMessage, actualUserNameErrorMessage)
+                // todo provide feedback message for every assertion
+                assertEquals(expectedUserNameErrorMessage, actualUserNameErrorMessage)
             }
 
 
@@ -86,22 +115,48 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             val expectedErrorMessageForShortPassword = "password must be at least 4 numbers long"
             if (passwordEmptyError.or(passwordShortError)) {
                 if (passwordEmptyError) {
-                    Assert.assertEquals(expectedErrorMessageForEmptyPassword, actualErrorMessage)
+                    // todo provide feedback message for every assertion
+                    assertEquals(expectedErrorMessageForEmptyPassword, actualErrorMessage)
                 } else {
-                    Assert.assertEquals(expectedErrorMessageForShortPassword, actualErrorMessage)
+                    // todo provide feedback message for every assertion
+                    assertEquals(expectedErrorMessageForShortPassword, actualErrorMessage)
                 }
             }
         }
+
     }
 
     inner class MainScreenView() {
-        val logInButton: Button = activity.findViewByString("mainLogInButton")
-        val singUpButton: Button = activity.findViewByString("mainSignUpButton")
-        val imageBankManagerMainScreen: ImageView = activity.findViewByString("mainImage")
+        val logInButton: Button by lazy {
+            // Todo initial values assertions for all views
+            activity.findViewByString("mainLogInButton")
+        }
+        val singUpButton: Button by lazy {
+            // Todo initial values assertions for all views
+            activity.findViewByString("mainSignUpButton")
+        }
+        val imageBankManagerMainScreen: ImageView by lazy {
+            // Todo initial values assertions for all views
+            activity.findViewByString("mainImage")
+        }
     }
 
     inner class LogInView() {
-        val logInUserNameEt: EditText = activity.findViewByString("logInUserNameEt")
+        val logInUserNameEt: EditText by lazy {
+            // todo copy this pattern of initialization assertions for all views, this was copied from stage1UnitTestB, but pay attention to renamed ids
+            val view =  activity.findViewByString<EditText>("logInUserNameEt", "HERE IS THE CUSTOM MESSAGE FOR VIEW NOT FOUND")
+
+            val actualInputType = view.inputType
+            val expectedInputType = InputType.TYPE_CLASS_TEXT
+            assertTrue("The input type for username should be text",
+                expectedInputType == actualInputType)
+
+            val actualHint = view.hint.toString().lowercase()
+            val expectedHint = "username"
+            assertEquals("Wrong hint for username", expectedHint, actualHint)
+
+            view
+        }
         val logInPasswordEt: EditText = activity.findViewByString("logInPasswordEt")
         val logInButton: Button = activity.findViewByString("logInButton")
     }
@@ -115,7 +170,7 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
         val userMenuUsernameText: TextView = activity.findViewByString("userMenuUsernameText")
         val userMenuWelcomeText: TextView = activity.findViewByString("userMenuWelcomeText")
     }
-    // Todo inner classes for other views
+    // Todo make inner classes for other screens
 
     fun newUserSignUp(
         firstNameInput: String = "Jon",
