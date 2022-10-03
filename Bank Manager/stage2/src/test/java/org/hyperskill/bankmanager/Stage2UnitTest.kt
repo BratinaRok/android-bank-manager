@@ -1,9 +1,6 @@
 package org.hyperskill.bankmanager
 
-
 import BankManagerUnitTest
-import android.widget.Button
-import android.widget.EditText
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith

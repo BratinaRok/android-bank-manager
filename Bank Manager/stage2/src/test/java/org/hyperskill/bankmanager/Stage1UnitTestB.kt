@@ -1,14 +1,12 @@
 package org.hyperskill.bankmanager
 
-import android.text.InputType
 import android.text.InputType.*
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import androidx.fragment.app.Fragment
-import junit.framework.TestCase.assertEquals
-import junit.framework.TestCase.assertTrue
+
 import org.hyperskill.bankmanager.internals.AbstractUnitTest
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -16,7 +14,7 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class Stage1UnitTestB : AbstractUnitTest<MainActivity>(MainActivity::class.java) {
 
-
+    // TODO use BankManagerUnitTest inner classes to retrieve views, migrate initialization assertions to there
     //check if log in button exists
     private val logInButton: Button by lazy {
        activity.findViewByString("logInButton")
@@ -40,7 +38,6 @@ class Stage1UnitTestB : AbstractUnitTest<MainActivity>(MainActivity::class.java)
         assertEquals("Wrong hint for username", expectedHint, actualHint)
 
         view
-
     }
 
     // check if password EditText at login exists
@@ -144,15 +141,19 @@ class Stage1UnitTestB : AbstractUnitTest<MainActivity>(MainActivity::class.java)
 
 
 
-
+    //TODO change tests methods to use inner classes from BankManagerUnitTest
     @Test
     fun checkForlogIn() {
         testActivity {
+            // MainScreenView()
             logInButton
             signUpButton
 
             logInButton.clickAndRun()
-                .also { loginUsernameField;loginPasswordField;logInButton }
+                .also {
+                    //LogInView()
+                    loginUsernameField;loginPasswordField;logInButton
+                }
 
 
 
@@ -168,6 +169,4 @@ class Stage1UnitTestB : AbstractUnitTest<MainActivity>(MainActivity::class.java)
 
         }
     }
-
-
 }
