@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
+import androidx.activity.viewModels
 import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -19,11 +20,14 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 //import org.hyperskill.bankmanager.LogInUser.createRandomCode  // for stage 4
 import org.hyperskill.bankmanager.databinding.ActivityMainBinding
+import org.hyperskill.bankmanager.model.User
+import org.hyperskill.bankmanager.model.UserViewModel
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    val userViewModel: UserViewModel by viewModels<UserViewModel>()
     var securityCode = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +39,6 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
-
 
     }
 
@@ -65,7 +68,27 @@ class MainActivity : AppCompatActivity() {
                 || super.onSupportNavigateUp()
     }
 
-    fun method2(view: View) {
+    fun signup(view: View) {
+        when(val newUser = getUserFromInput()) {
+            null -> {}
+            else -> {
+                if(userViewModel.containsUser(newUser)) {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "User : ${newUser.userName} already exists",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    userViewModel.addUser(newUser)
+                    Toast.makeText(this@MainActivity, "New user created", Toast.LENGTH_SHORT).show();
+                    Navigation.findNavController(view).navigate(R.id.action_signUp3_to_FirstFragment)
+                }
+            }
+        }
+    }
+
+    // check for input fields not empty and for proper length of password
+    private fun getUserFromInput(): User? {
         val firstName = findViewById<EditText>(R.id.signUpFirstNameEt)
         val lastName = findViewById<EditText>(R.id.signUpLastNameEt);
         val address = findViewById<EditText>(R.id.signUpAddressEt);
@@ -73,34 +96,6 @@ class MainActivity : AppCompatActivity() {
         val userName = findViewById<EditText>(R.id.signUpUsernameEt);
         val password = findViewById<EditText>(R.id.signUpPasswordEt);
 
-
-        if (!checkInput(firstName, lastName, address, phoneNumber, userName, password)) {
-            val newUser =
-                UserDataSignUp(firstName, lastName, address, phoneNumber, userName, password);
-            // check if username already exists
-            if (!newUser.saveUserData()) {
-                newUser.saveUserData()
-                Toast.makeText(this@MainActivity, "New user created", Toast.LENGTH_SHORT).show();
-                Navigation.findNavController(view).navigate(R.id.action_signUp3_to_FirstFragment)
-            } else {
-                Toast.makeText(
-                    this@MainActivity,
-                    "User : " + userName.text.toString() + " already exists",
-                    Toast.LENGTH_SHORT
-                ).show();
-            }
-        }
-    }
-
-    // check for input fields not empty and for proper length of password
-    private fun checkInput(
-        firstName: EditText,
-        lastName: EditText,
-        address: EditText,
-        phoneNumber: EditText,
-        userName: EditText,
-        password: EditText
-    ): Boolean {
         var isFieldEmpty: Boolean = false;
         if (firstName.text.toString().isEmpty()) {
             firstName.error = "enter firstname"
@@ -140,34 +135,44 @@ class MainActivity : AppCompatActivity() {
                   Toast.LENGTH_SHORT
               ).show();*/
         }
-        return isFieldEmpty;
-
+        return if(isFieldEmpty) {
+            null
+        } else {
+            User(
+                firstName.text.toString(),
+                lastName.text.toString(),
+                address.text.toString(),
+                phoneNumber.text.toString(),
+                userName.text.toString(),
+                password.text.toString()
+            )
+        }
     }
 
 
     fun logInMethod(view: View) {
 
-        var userNameInput = findViewById<EditText>(R.id.logInUserNameEt);
-        var passwordInput = findViewById<EditText>(R.id.logInPasswordEt);
+        val userNameInput = findViewById<EditText>(R.id.logInUserNameEt);
+        val passwordInput = findViewById<EditText>(R.id.logInPasswordEt);
         if (userNameInput.text.toString().isEmpty()) {
             userNameInput.error = "enter username"
-            Toast.makeText(this@MainActivity, "Enter username", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this@MainActivity, "Enter username", Toast.LENGTH_SHORT).show()
         } else if (passwordInput.text.toString().isEmpty()) {
             passwordInput.error = "enter password"
-            Toast.makeText(this@MainActivity, "Enter password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this@MainActivity, "Enter password", Toast.LENGTH_SHORT).show()
         } else {
-            val objUserData = UserDataSignUp()
-            val obj =
-                LogInUser(
-                    objUserData.userDataArray,
-                    userNameInput,
-                    passwordInput,
-                    this@MainActivity
-                );
-            if (obj.userLogInDataCheck()) {
-                Toast.makeText(this@MainActivity, "User logged in", Toast.LENGTH_SHORT).show();
+
+            val user = userViewModel.getUser(userNameInput.text.toString())
+            val pass = passwordInput.text.toString()
+
+            if (user == null || user.password != pass) {
+                Toast.makeText(this, "Invalid credentials", Toast.LENGTH_LONG).show()
+            } else {
+                userViewModel.loginUser(user)
+                Toast.makeText(this@MainActivity, "User logged in", Toast.LENGTH_SHORT).show()
                 Navigation.findNavController(view).navigate(R.id.action_SecondFragment_to_userMenu)
             }
+
         }
 
 // for stage 4
@@ -215,8 +220,8 @@ class MainActivity : AppCompatActivity() {
 
     fun fundsDeposit(view: View) {
         val text = findViewById<EditText>(R.id.inputAddFunds)
-        var obj = DepositFundsScreen()
-        obj.addFunds(text);
+        val toAdd = text.text.toString().toBigDecimal()
+        userViewModel.addFunds(toAdd)
     }
 
 

@@ -35,7 +35,7 @@
         android:layout_marginBottom="376dp"
         android:backgroundTint="@color/teal_700"
         android:hint="@string/sign_up"
-        android:onClick="method2"
+        android:onClick="signup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
