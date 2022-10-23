@@ -2,9 +2,11 @@ package org.hyperskill.bankmanager
 
 import BankManagerUnitTest
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import java.io.IOException
 
 
 @RunWith(RobolectricTestRunner::class)
@@ -21,7 +23,7 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
                 "43252356",
                 "",
                 "44753",
-                userNameError = true
+                userNameEmptyError = true
             )
         }
     }
@@ -59,13 +61,15 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
     @Test
     fun testNewUserSignUpFalsePhoneNumber() {
         testActivity {
-            newUserSignUp("Rob",
+            newUserSignUp(
+                "Rob",
                 "Beet",
                 "Street w 43",
                 "",
                 "robb",
                 "123535",
-                phoneNumberError = true)
+                phoneNumberError = true
+            )
         }
     }
 
@@ -131,6 +135,7 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
     @Test
     fun testNewUserSignUpTrue2() {
         testActivity {
+
             newUserSignUp(
                 "Jon",
                 "Don",
@@ -144,16 +149,63 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
 
 
     @Test
-    fun checkLogInWithoutExtraSecuritySuccessful() {
+    fun checkLogInWithoutExtraSecurityUserNameAlreadyExists() {
         testActivity {
-            newUserSignUp()
-            MainScreenView().logInButton.clickAndRun().also {
+            newUserSignUp(
+                "Jon",
+                "Don",
+                "Wall Street 334",
+                "5434526563",
+                "jonD2",
+                "123533"
+            )
+
+            newUserSignUp(
+                "Jon",
+                "Don",
+                "Wall Street 334",
+                "5434526563",
+                "jonD2",
+                "123533",
+                userNameExistsError = true
+            )
+        }
+
+
+    }
+
+
+//    @Before
+//    fun clearData() {
+//        val deleteCmd = ".\\adb shell pm clear bankmanager"
+//        val runtime = Runtime.getRuntime()
+//        try {
+//            runtime.exec(deleteCmd)
+//        } catch (e: IOException) {
+//            e.printStackTrace()
+//        }
+//    }
+
+
+    @Test
+    fun checkLogInWithoutExtraSecurityFailUserAlreadyExists() {
+        testActivity {
+            newUserSignUp(
+                "Jon",
+                "Don",
+                "Wall Street 334",
+                "5434526563",
+                "jonD",
+                "123533",
+                userNameExistsError = true
+            )
+            val mainScreenView = MainScreenView()
+            mainScreenView.logInButton.clickAndRun().also {
                 val logInView = LogInView()
 
                 logInView.logInUserNameEt.text.append("jonD")
 
                 logInView.logInPasswordEt.text.append("123533")
-
 
                 logInView.logInButton.clickAndRun().also {
                     val userMenuView = UserMenuView()
@@ -166,8 +218,11 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
         // if you run test individually it passes
         // if you run all tests then if fails because it will consider the user jonD as already created,
         // but it shouldn't be, each @test should be a new clean state
+
+
     }
+}
 
 //todo test login fail for reasons it might fail
-}
+//}
 

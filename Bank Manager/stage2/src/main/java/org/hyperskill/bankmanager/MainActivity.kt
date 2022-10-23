@@ -221,8 +221,8 @@ class MainActivity : AppCompatActivity() {
 
 
     fun fundsConverter(view: View) {
-        val spinner: Spinner = findViewById(R.id.spinner)
-        val spinner2: Spinner = findViewById(R.id.spinner1)
+        val spinner: Spinner = findViewById(R.id.spinnerConvertFrom)
+        val spinner2: Spinner = findViewById(R.id.spinnerConvertTo)
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
             this,
