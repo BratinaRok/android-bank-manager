@@ -5,14 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import org.hyperskill.bankmanager.databinding.UserMenuBinding
+import org.hyperskill.bankmanager.model.UserViewModel
 
 class UserMenu : Fragment() {
 
 
 
     private var _binding: UserMenuBinding? = null
+    private val userViewModel by viewModels<UserViewModel>(ownerProducer = { activity as MainActivity })
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -30,8 +33,8 @@ class UserMenu : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val user = LogInUser()
-        binding.userMenuUsernameText.text = user.username
+        val user = userViewModel.getLoggedUser()
+        binding.userMenuUsernameText.text = user.userName
         binding.userMenuDepositFundsButton.setOnClickListener{
             findNavController().navigate(R.id.action_userMenu_to_depositFundsScreen)
 

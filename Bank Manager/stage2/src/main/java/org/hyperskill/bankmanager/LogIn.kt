@@ -5,13 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import org.hyperskill.bankmanager.databinding.LogInBinding
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
- class LogIn : Fragment() {
+class LogIn : Fragment() {
 
 
     private var _binding: LogInBinding? = null
@@ -34,11 +33,7 @@ import org.hyperskill.bankmanager.databinding.LogInBinding
         // For stage 4
         //binding.confirmCodeButton.setOnClickListener {
         //if ((activity as MainActivity).securityCheck(view)) {
-        val objUserData = LogInUser()
 
-        if (objUserData.isUserNameIdentification && objUserData.isPasswordIdentification) {
-            findNavController().navigate(org.hyperskill.bankmanager.R.id.action_SecondFragment_to_userMenu)
-        }
 
     }
 
