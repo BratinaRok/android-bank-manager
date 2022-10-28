@@ -33,6 +33,11 @@ class UserViewModel : ViewModel() {
         currentUser?.balance = currentFund.plus(toAdd)
     }
 
+    fun withdrawFunds(toWithdraw : BigDecimal) {
+        val currentFund = currentUser?.balance?:BigDecimal.ZERO
+        currentUser?.balance = currentFund.minus(toWithdraw)
+    }
+
     fun getFundsAsString(): String {
         return "%.2f".format(currentUser!!.balance)
     }

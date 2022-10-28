@@ -35,6 +35,7 @@
     <string name="convert_funds">Convert funds</string>
     <string name="pay_bills">Pay bills</string>
     <string name="convert_to">Convert to</string>
+    <string name="back"> Back</string>
 
 
 </resources>
