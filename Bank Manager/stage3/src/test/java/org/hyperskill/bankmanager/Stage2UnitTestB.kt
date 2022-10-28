@@ -165,7 +165,7 @@ class Stage2UnitTestB : AbstractUnitTest<MainActivity>(MainActivity::class.java)
     }
 
     private val userNameAtMainMenu: TextView by lazy {
-       val userName = activity.findViewByString<TextView>("usernameText")
+        val userName = activity.findViewByString<TextView>("usernameText")
         userName
     }
 
@@ -234,11 +234,11 @@ class Stage2UnitTestB : AbstractUnitTest<MainActivity>(MainActivity::class.java)
     fun checkLogInSuccessful() {
         testActivity {
             logInButtonAtMainScreen.clickAndRun().also {
-                val userNameLogIn =  activity.findViewByString<EditText>("userNameLogIn")
+                val userNameLogIn = activity.findViewByString<EditText>("userNameLogIn")
                 userNameLogIn.text.append("jonD")
-                val passwordLogIn =  activity.findViewByString<EditText>("passwordLogIn")
+                val passwordLogIn = activity.findViewByString<EditText>("passwordLogIn")
                 passwordLogIn.text.append("123533")
-                val buttonLogIn =  activity.findViewByString<Button>("logInButton")
+                val buttonLogIn = activity.findViewByString<Button>("logInButton")
                 buttonLogIn.clickAndRun().also {
                     welcomeMessage;assertEquals("Welcome", welcomeMessage.text)
                     userNameAtMainMenu;assertEquals("jonD", userNameAtMainMenu.text)
@@ -248,8 +248,15 @@ class Stage2UnitTestB : AbstractUnitTest<MainActivity>(MainActivity::class.java)
 
             }
 
-                }
-            }
         }
+    }
+
+    @Test
+    fun depositFunds() {
+        testActivity {
+
+        }
+    }
+}
 
 

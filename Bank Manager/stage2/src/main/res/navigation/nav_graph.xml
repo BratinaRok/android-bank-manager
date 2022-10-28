@@ -65,17 +65,30 @@
         android:id="@+id/depositFundsScreen"
         android:name="org.hyperskill.bankmanager.DepositFundsScreen"
         android:label="Deposit Funds"
-        tools:layout="@layout/deposit_funds_screen" />
+        tools:layout="@layout/deposit_funds_screen" >
+        <action
+            android:id="@+id/action_depositFundsScreen_to_mainMenu"
+            app:destination="@id/mainMenu"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
     <fragment
         android:id="@+id/viewBalance"
         android:name="org.hyperskill.bankmanager.ViewBalance"
         android:label="Balance"
-        tools:layout="@layout/view_balance" />
+        tools:layout="@layout/view_balance" >
+        <action
+            android:id="@+id/action_viewBalance_to_mainMenu"
+            app:destination="@id/mainMenu" />
+    </fragment>
     <fragment
         android:id="@+id/withdrawFunds"
         android:name="org.hyperskill.bankmanager.WithdrawFunds"
         android:label="Withdraw Funds"
-        tools:layout="@layout/withdraw_funds" />
+        tools:layout="@layout/withdraw_funds" >
+        <action
+            android:id="@+id/action_withdrawFunds_to_mainMenu"
+            app:destination="@id/mainMenu" />
+    </fragment>
     <fragment
         android:id="@+id/convertFunds"
         android:name="org.hyperskill.bankmanager.ConvertFunds"

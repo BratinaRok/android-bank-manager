@@ -171,16 +171,169 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
 
     @Test
     fun checkLogInSuccess() {
-        //TODO
+        testActivity {
+            newUserSignUp(
+                "Jon",
+                "Don",
+                "Wall Street 334",
+                "5434526563",
+                "jonD",
+                "123533")
+
+            logInUserMethod(
+                "jonD",
+                "123533",
+                "")
+        }
+
     }
 
     @Test
     fun checkLogInFailUserDoesNotExist() {
-        //TODO
+        testActivity {
+            newUserSignUp(
+                "Jon",
+                "Don",
+                "Wall Street 334",
+                "5434526563",
+                "jonD",
+                "123533")
+
+            logInUserMethod(
+                "Wronguser",
+                "43535",
+                "",
+                userDoesntExists = true)
+        }
     }
 
     @Test
     fun checkLogInFailWrongPass() {
-        //TODO
+        testActivity {
+            newUserSignUp(
+                "Jon",
+                "Don",
+                "Wall Street 334",
+                "5434526563",
+                "jonD",
+                "123533")
+
+            logInUserMethod(
+                "jonD",
+                "43535",
+                "",
+                wrongPassword = true)
+        }
     }
+
+    @Test
+    fun checkLogInEmptyUsernameError() {
+        testActivity {
+            newUserSignUp("Jon",
+                "Don",
+                "Wall Street 334",
+                "5434526563",
+                "jonD",
+                "123533")
+
+            logInUserMethod(
+                "",
+                "43535",
+                "",
+                usernameError = true)
+        }
+    }
+
+    @Test
+    fun checkLogInEmptyPasswordError() {
+        testActivity {
+
+            newUserSignUp(
+                "Jon",
+                "Don",
+                "Wall Street 334",
+                "5434526563",
+                "jonD",
+                "123533")
+
+            logInUserMethod(
+                "jonD",
+                "",
+                "",
+                passwordError = true)
+        }
+    }
+
+    @Test
+    fun userMenuComponentsCheck() {
+        testActivity {
+            newUserSignUp(
+                "Jon",
+                "Don",
+                "Wall Street 334",
+                "5434526563",
+                "jonD",
+                "123533")
+
+            logInUserMethod(
+                "jonD",
+                "123533",
+                "")
+
+            checkForUserMenuComponents()
+        }
+    }
+
+    @Test
+    fun depositFundsAndCheckBalance() {
+        testActivity {
+            newUserSignUp(
+                "Jon",
+                "Don",
+                "Wall Street 334",
+                "5434526563",
+                "jonD",
+                "123533"
+            )
+
+            logInUserMethod(
+                "jonD",
+                "123533",
+                ""
+            )
+
+            addFundsToBankAccount(1400.0)
+            checkAccountBalance(1400.00);
+
+        }
+    }
+
+    @Test
+    fun withdrawFunds() {
+        testActivity {
+            newUserSignUp(
+                "Jon",
+                "Don",
+                "Wall Street 334",
+                "5434526563",
+                "jonD",
+                "123533"
+            )
+
+            logInUserMethod(
+                "jonD",
+                "123533",
+                ""
+            )
+
+            addFundsToBankAccount(1400.0)
+            checkAccountBalance(1400.00)
+            withdraw(300.0)
+            checkAccountBalance(1100.00)
+        }
+    }
+
+
 }
+
+

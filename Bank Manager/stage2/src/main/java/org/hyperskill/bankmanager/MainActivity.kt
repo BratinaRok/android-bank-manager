@@ -40,7 +40,11 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
+
     }
+
+
+
 
     private fun setSupportActionBar(toolbar: CoordinatorLayout) {
 
@@ -163,17 +167,22 @@ class MainActivity : AppCompatActivity() {
         } else {
 
             val user = userViewModel.getUser(userNameInput.text.toString())
+            val userInp = userNameInput.text.toString()
             val pass = passwordInput.text.toString()
 
-            if (user == null || user.password != pass) {
-                Toast.makeText(this, "Invalid credentials", Toast.LENGTH_LONG).show()
+            if (user?.userName != userInp) {
+                Toast.makeText(this, "No such user exists", Toast.LENGTH_LONG).show()
             } else {
-                userViewModel.loginUser(user)
-                Toast.makeText(this@MainActivity, "User logged in", Toast.LENGTH_SHORT).show()
-                Navigation.findNavController(view).navigate(R.id.action_SecondFragment_to_userMenu)
+                if (user == null || user.password != pass) {
+                    Toast.makeText(this, "Invalid credentials", Toast.LENGTH_LONG).show()
+                } else {
+                    userViewModel.loginUser(user)
+                    Toast.makeText(this@MainActivity, "User logged in", Toast.LENGTH_SHORT).show()
+                    Navigation.findNavController(view)
+                        .navigate(R.id.action_SecondFragment_to_userMenu)
+                }
             }
-
-        }
+            }
 
 // for stage 4
 //
@@ -195,7 +204,7 @@ class MainActivity : AppCompatActivity() {
 //        }
 
 
-    }
+        }
 
 // for stage 4
 //    fun securityCheck(view: View): Boolean {
@@ -218,44 +227,61 @@ class MainActivity : AppCompatActivity() {
 //
 //    }
 
-    fun fundsDeposit(view: View) {
-        val text = findViewById<EditText>(R.id.inputAddFunds)
-        val toAdd = text.text.toString().toBigDecimal()
-        userViewModel.addFunds(toAdd)
-    }
 
 
-    fun fundsConverter(view: View) {
-        val spinner: Spinner = findViewById(R.id.spinnerConvertFrom)
-        val spinner2: Spinner = findViewById(R.id.spinnerConvertTo)
-// Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter.createFromResource(
-            this,
-            R.array.planets_array,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
-            spinner.adapter = adapter
-            spinner2.adapter = adapter
 
+        fun fundsDeposit(view: View) {
+            val text = findViewById<EditText>(R.id.inputAddFunds)
+            val toAdd = text.text.toString().toBigDecimal()
+            userViewModel.addFunds(toAdd)
+            Toast.makeText(this@MainActivity, "Funds added", Toast.LENGTH_SHORT).show()
+            Navigation.findNavController(view).navigate(R.id.action_depositFundsScreen_to_mainMenu)
         }
-    }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, @Nullable data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 2296) {
-            if (SDK_INT >= Build.VERSION_CODES.R) {
-                if (Environment.isExternalStorageManager()) {
-                    // perform action when allow permission success
-                } else {
-                    Toast.makeText(this, "Allow permission for storage access!", Toast.LENGTH_SHORT)
-                        .show()
+      fun withdrawFunds(view: View) {
+      println("testts -------------------------")
+          val text = findViewById<EditText>(R.id.enterAmountWithdraw)
+          val toWithdraw = text.text.toString()
+          userViewModel.withdrawFunds(toWithdraw.toBigDecimal())
+          Toast.makeText(this@MainActivity, "Funds Withdrawn", Toast.LENGTH_SHORT).show()
+          Navigation.findNavController(view).navigate(R.id.action_withdrawFunds_to_mainMenu)
+      }
+
+
+         fun fundsConverter(view: View) {
+            val spinner: Spinner = findViewById(R.id.spinnerConvertFrom)
+            val spinner2: Spinner = findViewById(R.id.spinnerConvertTo)
+// Create an ArrayAdapter using the string array and a default spinner layout
+            ArrayAdapter.createFromResource(
+                this,
+                R.array.planets_array,
+                android.R.layout.simple_spinner_item
+            ).also { adapter ->
+                // Specify the layout to use when the list of choices appears
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                // Apply the adapter to the spinner
+                spinner.adapter = adapter
+                spinner2.adapter = adapter
+
+            }
+        }
+
+        override fun onActivityResult(requestCode: Int, resultCode: Int, @Nullable data: Intent?) {
+            super.onActivityResult(requestCode, resultCode, data)
+            if (requestCode == 2296) {
+                if (SDK_INT >= Build.VERSION_CODES.R) {
+                    if (Environment.isExternalStorageManager()) {
+                        // perform action when allow permission success
+                    } else {
+                        Toast.makeText(
+                            this,
+                            "Allow permission for storage access!",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
                 }
             }
         }
     }
 
-
-}

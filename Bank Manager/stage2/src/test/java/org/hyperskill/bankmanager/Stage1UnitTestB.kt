@@ -20,7 +20,7 @@ class Stage1UnitTestB : BankManagerUnitTest<MainActivity>(MainActivity::class.ja
     fun checkLogInScreenComponentsTest() {
         testActivity {
             val mainScreenView = MainScreenView()
-            mainScreenView.logInButton.clickAndRun().also {
+            mainScreenView.logInButtonMainScreenView.clickAndRun().also {
                 checkForLogInComponents()
             }
         }
@@ -30,7 +30,7 @@ class Stage1UnitTestB : BankManagerUnitTest<MainActivity>(MainActivity::class.ja
     fun checkForSignUpComponentsTest() {
         testActivity {
             val mainScreenView = MainScreenView()
-            mainScreenView.singUpButton.clickAndRun().also {
+            mainScreenView.singUpButtonMainScreenView.clickAndRun().also {
                 checkForSignUpComponents()
             }
         }
