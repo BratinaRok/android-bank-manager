@@ -11,13 +11,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/Bank Manager/stage1" />
-            <option value="$PROJECT_DIR$/Bank Manager/stage1v2" />
             <option value="$PROJECT_DIR$/Bank Manager/stage2" />
-            <option value="$PROJECT_DIR$/Bank Manager/stage2v1" />
-            <option value="$PROJECT_DIR$/Bank Manager/stage2v2" />
             <option value="$PROJECT_DIR$/Bank Manager/stage3" />
             <option value="$PROJECT_DIR$/Bank Manager/stage4" />
-            <option value="$PROJECT_DIR$/Bank Manager/stage4v2" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/util" />
           </set>
