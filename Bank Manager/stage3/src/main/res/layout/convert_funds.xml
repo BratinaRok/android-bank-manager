@@ -15,7 +15,7 @@
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/convertFundsText"
         android:layout_width="96dp"
         android:layout_height="24dp"
         android:layout_marginTop="92dp"
@@ -28,17 +28,17 @@
         tools:layout_conversion_absoluteWidth="411dp" />
 
     <Spinner
-        android:id="@+id/spinner1"
+        android:id="@+id/spinnerConvertFrom"
         android:layout_width="125dp"
         android:layout_height="27dp"
         android:layout_marginTop="120dp"
         android:layout_marginEnd="120dp"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/convertFundsText" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spinnerConvertTo"
         android:layout_width="124dp"
         android:layout_height="27dp"
         android:layout_marginTop="76dp"
@@ -47,10 +47,10 @@
 
 
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner1" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerConvertFrom" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonConvert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
@@ -60,32 +60,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumberDecimal" />
+        app:layout_constraintTop_toBottomOf="@+id/enterAmountConvert" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/convertFromText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="116dp"
         android:text="Convert from"
-        app:layout_constraintEnd_toStartOf="@+id/spinner1"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerConvertFrom"
         app:layout_constraintHorizontal_bias="0.259"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/convertFundsText" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/convertToText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="88dp"
         android:text="@string/convert_to"
-        app:layout_constraintEnd_toStartOf="@+id/spinner"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerConvertTo"
         app:layout_constraintHorizontal_bias="0.188"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/convertFromText" />
 
     <EditText
-        android:id="@+id/editTextNumberDecimal"
+        android:id="@+id/enterAmountConvert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
@@ -96,7 +96,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.621"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerConvertTo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

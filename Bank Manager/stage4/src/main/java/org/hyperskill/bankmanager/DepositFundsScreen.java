@@ -87,7 +87,7 @@ public class DepositFundsScreen extends Fragment {
                 double balanceConverted = Double.parseDouble(balance);
                 balanceConverted += fundsToAdd;
                 String bal = String.valueOf(balanceConverted);
-                String setBalance = (String) userDataSignUp.getUserDataArray().get(i).replace("balance",bal);
+                String setBalance =  userDataSignUp.getUserDataArray().get(i).replace("balance",bal).toString();
 
 
             }

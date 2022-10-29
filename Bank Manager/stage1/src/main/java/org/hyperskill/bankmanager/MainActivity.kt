@@ -5,7 +5,6 @@ import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.os.Environment
-import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View

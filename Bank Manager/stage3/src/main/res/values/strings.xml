@@ -21,11 +21,11 @@
     <string name="firstname">firstname</string>
     <string name="button">Button</string>
     <string name="deposit_funds">Deposit funds</string>
+    <string name="withdraw_funds">Withdraw funds</string>
     <string name="menu">Menu</string>
     <string name="welcome">Welcome</string>
 
     <string name="enter_amount_to_add">enter amount to add</string>
-    <string name="textDepositFunds">enter amount to add</string>
     <string name="add">ADD</string>
     <string name="view_balance">View balance</string>
     <string name="enter_security_code">Enter security code</string>
@@ -35,10 +35,7 @@
     <string name="convert_funds">Convert funds</string>
     <string name="pay_bills">Pay bills</string>
     <string name="convert_to">Convert to</string>
-    <string name="back">Back</string>
-    <string name="withdrawFunds">Withdraw funds</string>
+    <string name="back"> Back</string>
 
 
-    <item name="securityCodeInput" type="id" />
-    <item name="confirmCodeButton" type="id" />
 </resources>

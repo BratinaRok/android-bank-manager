@@ -4,6 +4,18 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/brati/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/simple_spinner_dropdown_item.xml" value="0.1" />
+        <entry key="..\:/Users/brati/OneDrive/Namizje/android-bank-manager-main/android-bank-manager-main/Bank Manager/stage2/src/main/res/layout/activity_main.xml" value="0.17046605876393112" />
+        <entry key="..\:/Users/brati/OneDrive/Namizje/android-bank-manager-main/android-bank-manager-main/Bank Manager/stage2/src/main/res/layout/bill_payment.xml" value="0.1" />
+        <entry key="..\:/Users/brati/OneDrive/Namizje/android-bank-manager-main/android-bank-manager-main/Bank Manager/stage2/src/main/res/layout/content_main.xml" value="0.17046605876393112" />
+        <entry key="..\:/Users/brati/OneDrive/Namizje/android-bank-manager-main/android-bank-manager-main/Bank Manager/stage2/src/main/res/layout/convert_funds.xml" value="0.25" />
+        <entry key="..\:/Users/brati/OneDrive/Namizje/android-bank-manager-main/android-bank-manager-main/Bank Manager/stage2/src/main/res/layout/deposit_funds_screen.xml" value="0.2427536231884058" />
+        <entry key="..\:/Users/brati/OneDrive/Namizje/android-bank-manager-main/android-bank-manager-main/Bank Manager/stage2/src/main/res/layout/log_in.xml" value="0.33" />
+        <entry key="..\:/Users/brati/OneDrive/Namizje/android-bank-manager-main/android-bank-manager-main/Bank Manager/stage2/src/main/res/layout/main_screen.xml" value="0.16302083333333334" />
+        <entry key="..\:/Users/brati/OneDrive/Namizje/android-bank-manager-main/android-bank-manager-main/Bank Manager/stage2/src/main/res/layout/mainmenu.xml" value="0.33" />
+        <entry key="..\:/Users/brati/OneDrive/Namizje/android-bank-manager-main/android-bank-manager-main/Bank Manager/stage2/src/main/res/layout/sign_up.xml" value="0.35052083333333334" />
+        <entry key="..\:/Users/brati/OneDrive/Namizje/android-bank-manager-main/android-bank-manager-main/Bank Manager/stage2/src/main/res/layout/user_menu.xml" value="0.35052083333333334" />
+        <entry key="..\:/Users/brati/OneDrive/Namizje/android-bank-manager-main/android-bank-manager-main/Bank Manager/stage2/src/main/res/layout/view_balance.xml" value="0.1" />
+        <entry key="..\:/Users/brati/OneDrive/Namizje/android-bank-manager-main/android-bank-manager-main/Bank Manager/stage2/src/main/res/layout/withdraw_funds.xml" value="0.35052083333333334" />
         <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2875" />
         <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/drawable/gradient_spinner.xml" value="0.352" />
         <entry key="..\:/Users/brati/Vaja programiranje/MyApplication6/app/src/main/res/drawable/spinner_arrow.xml" value="0.352" />
