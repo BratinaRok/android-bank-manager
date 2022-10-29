@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="inputFieldStyle">
+        <item name="android:layout_width">351dp</item>
+        <item name="android:layout_height">52dp</item>
+        <item name="android:layout_marginTop">180dp</item>
+        <item name="android:background">@color/teal_700</item>
+        <item name="android:backgroundTint">#FFFFFF</item>
+        <item name="android:ems">10</item>
+        <item name="android:inputType">textPersonName</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">#A13939</item>
+        <item name="android:textColorHighlight">#E67373</item>
+        <item name="android:textColorHint">#AFAFAF</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
+    <style name="buttoncolor">
+        <item name="android:backgroundTint">@color/teal_700</item>
+    </style>
+
+    <style name="spinner_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/gradient_spinner</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:popupBackground">#DFFFFFFF</item>
+
+    </style>
+</resources>

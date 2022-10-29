@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/teal_700"
     android:backgroundTint="#60018786"
-    tools:context=".LogIn">
+    tools:context="org.hyperskill.bankmanager.LogIn">
 
     <EditText
         android:id="@+id/userNameLogIn"

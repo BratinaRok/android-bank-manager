@@ -183,7 +183,7 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
             logInUserMethod(
                 "jonD",
                 "123533",
-                "")
+                null)
         }
 
     }
@@ -202,7 +202,7 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
             logInUserMethod(
                 "Wronguser",
                 "43535",
-                "",
+                null,
                 userDoesntExists = true)
         }
     }
@@ -221,7 +221,7 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
             logInUserMethod(
                 "jonD",
                 "43535",
-                "",
+                null,
                 wrongPassword = true)
         }
     }
@@ -239,7 +239,7 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
             logInUserMethod(
                 "",
                 "43535",
-                "",
+                null,
                 usernameError = true)
         }
     }
@@ -259,7 +259,7 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
             logInUserMethod(
                 "jonD",
                 "",
-                "",
+                null,
                 passwordError = true)
         }
     }

@@ -8,28 +8,28 @@
     android:backgroundTint="#60018786"
     tools:context=".UserMenu">
 
-<!--for stage 4 -->
-<!--    <Button-->
-<!--        android:id="@+id/convertFundsButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:backgroundTint="@color/teal_700"-->
-<!--        android:text="@string/convert_funds"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/viewBalanceButton" />-->
 
-<!--    <Button-->
-<!--        android:id="@+id/payBillsButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:backgroundTint="@color/teal_700"-->
-<!--        android:text="@string/pay_bills"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/convertFundsButton" />-->
+    <Button
+        android:id="@+id/convertFundsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/teal_700"
+        android:text="@string/convert_funds"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewBalanceButton" />
+
+    <Button
+        android:id="@+id/payBillsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/teal_700"
+        android:text="@string/pay_bills"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/convertFundsButton" />
 
     <Button
         android:id="@+id/depositFundsButton"
@@ -48,7 +48,7 @@
         android:backgroundTint="@color/teal_700"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/withdrawFunds"
+        android:text="@string/withdraw_funds"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/depositFundsButton" />
