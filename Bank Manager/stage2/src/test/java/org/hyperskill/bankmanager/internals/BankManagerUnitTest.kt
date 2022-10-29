@@ -310,24 +310,24 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             view
         }
 
-        val logInSecurityCode: EditText by lazy {
-            val view = activity.findViewByString<EditText>(
-                "securityCodeInput",
-                "EditText securityCodeInput at login View was not found"
-            )
-            val actualInputType = view.inputType
-            val expectedInputType = TYPE_CLASS_NUMBER
-            assertTrue(
-                "The input type for security code should be $expectedInputType, but it is $actualInputType",
-                expectedInputType == actualInputType
-            )
-
-            val actualHint = view.hint.toString().lowercase()
-            val expectedHint = "enter security code"
-            assertEquals("Wrong hint for security code field", expectedHint, actualHint)
-
-            view
-        }
+//        val logInSecurityCode: EditText by lazy {
+//            val view = activity.findViewByString<EditText>(
+//                "securityCodeInput",
+//                "EditText securityCodeInput at login View was not found"
+//            )
+//            val actualInputType = view.inputType
+//            val expectedInputType = TYPE_CLASS_NUMBER
+//            assertTrue(
+//                "The input type for security code should be $expectedInputType, but it is $actualInputType",
+//                expectedInputType == actualInputType
+//            )
+//
+//            val actualHint = view.hint.toString().lowercase()
+//            val expectedHint = "enter security code"
+//            assertEquals("Wrong hint for security code field", expectedHint, actualHint)
+//
+//            view
+//        }
 
         val logInButtonAtLogInView: Button by lazy {
             val view = activity.findViewByString<Button>(
@@ -338,24 +338,15 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             view
         }
 
-        val securityCodeButtonConfirm: Button by lazy {
-            val view = activity.findViewByString<Button>(
-                "confirmCodeButton",
-                "Button confirmCodeButton at Login View was not found for security code button confirm"
-            )
-
-            view
-        }
-
 
         fun logInUser(
             userNameInput: String = "",
             passwordInput: String = "",
-            securityCodeInput: String? = ""
+            securityCodeInput: Int? = 0
         ) {
             logInUserNameEt.text.append(userNameInput)
             logInPasswordEt.text.append(passwordInput)
-            logInSecurityCode.text.append(securityCodeInput.toString())
+            //logInSecurityCode.text.append(securityCodeInput.toString())
         }
 
         fun assertInputFields(
@@ -387,6 +378,15 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
                 )
             }
 
+            val actualsecurityCodeEmptyMessage = ShadowToast.getTextOfLatestToast().toString()
+            val expectedsecurityCodeEmptyMessage = "Enter security code"
+            if (securityCodeEmpty) {
+                assertEquals(
+                    "Wrong security code error message for empty input field",
+                    expectedsecurityCodeEmptyMessage,
+                    actualsecurityCodeEmptyMessage
+                )
+            }
             val actualUserDoesntExistsMessage = ShadowToast.getTextOfLatestToast().toString()
             val expectedUserDoesntExistsErrorMessage = "No such user exists"
             if (userDoesntExists) {
@@ -407,29 +407,7 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
                 )
             }
 
-            val actualsecurityCodeEmptyMessage = ShadowToast.getTextOfLatestToast().toString()
-            val expectedsecurityCodeEmptyMessage = "Enter security code"
-            if (securityCodeEmpty) {
-                assertEquals(
-                    "Wrong security code error message for empty security input field",
-                    expectedsecurityCodeEmptyMessage,
-                    actualsecurityCodeEmptyMessage
-                )
-            }
-
-
-            val actualsecurityCodeWrongCodeMessage = ShadowToast.getTextOfLatestToast().toString()
-            val expectedsecurityCodeWrongCodeMessage = "Wrong security code"
-            if (securityCodeWrong) {
-                assertEquals(
-                    "Wrong security code error message for Wrong security code input",
-                    expectedsecurityCodeWrongCodeMessage,
-                    actualsecurityCodeWrongCodeMessage
-                )
-            }
-
         }
-
     }
 
     inner class UserMenuView() {
@@ -580,7 +558,7 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             view
         }
 
-        fun withdrawFundsFromAccount(withdrawAmount: Double = 0.0) {
+        fun withdrawFundsFromAccount(withdrawAmount : Double = 0.0) {
             withdrawFundsEnterAmountWithdraw.append(withdrawAmount.toString())
         }
 
@@ -588,7 +566,7 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
     }
 
 
-    inner class ViewBalanceView() {
+    inner class viewBalanceView() {
         val viewBalanceTextViewBalance: TextView by lazy {
             val view = activity.findViewByString<TextView>(
                 "textViewBalance",
@@ -619,16 +597,12 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
 
         fun checkAccountBalance(expectedAmount: BigDecimal = BigDecimal.ZERO) {
             val actualAmount = viewBalanceShowBalanceText.text.toString()
-            assertEquals(
-                "Wrong account balance at Balance view",
-                "%.2f".format(expectedAmount),
-                actualAmount
-            )
+            assertEquals("Wrong account balance at Balance view","%.2f".format(expectedAmount),actualAmount)
         }
 
     }
 
-    inner class ConvertFundsView() {
+    inner class convertFundsView() {
 
         val convertFundsConvertFundsText: TextView by lazy {
             val view = activity.findViewByString<TextView>(
@@ -876,13 +850,12 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
     fun logInUserMethod(
         userNameInput: String = "jond",
         passwordInput: String = "3432",
-        securityCodeInput: String? = "",
+        securityCodeInput: Int = 0,
         usernameError: Boolean = false,
         passwordError: Boolean = false,
+        securityCodeError: Boolean = false,
         userDoesntExists: Boolean = false,
-        securityCodeWrong: Boolean = false,
-        wrongPassword: Boolean = false,
-        securityCodeEmpty: Boolean = false
+        wrongPassword: Boolean = false
     ) {
 
         MainScreenView().logInButtonMainScreenView.clickAndRun()
@@ -890,7 +863,7 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
         val logInView = LogInView()
         logInView.logInUser(userNameInput, passwordInput, securityCodeInput)
         val isIncorrectInput =
-            usernameError || passwordError || securityCodeWrong || userDoesntExists || wrongPassword
+            usernameError || passwordError || securityCodeError || userDoesntExists || wrongPassword
 
         logInView.logInButtonAtLogInView.clickAndRun()
 
@@ -900,17 +873,16 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
                 passwordError,
                 userDoesntExists,
                 wrongPassword,
-                securityCodeEmpty,
-                securityCodeWrong
+                false,
+                false
             )
-
         } else {
             val actualLogInToastMessageMessage = ShadowToast.getTextOfLatestToast().toString()
             val expectedLogInToastMessage = "User logged in"
             assertEquals(
                 "Wrong Toast message if user logged in succesfully",
-                expectedLogInToastMessage,
-                actualLogInToastMessageMessage
+                actualLogInToastMessageMessage,
+                expectedLogInToastMessage
             )
 
             val userMenuView = UserMenuView() // test goes to UserMenuView
@@ -947,11 +919,11 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
 
     }
 
-    fun checkAccountBalance(expectedAmount: Double = 0.0) {
+    fun checkAccountBalance(expectedAmount : Double = 0.0) {
         val userMenu = UserMenuView()
         userMenu.userMenuViewBalanceButton.clickAndRun()
 
-        val viewBalance = ViewBalanceView()
+        val viewBalance = viewBalanceView()
         viewBalance.checkAccountBalance(expectedAmount.toBigDecimal())
         viewBalance.viewBalanceButton.clickAndRun()
 
@@ -968,71 +940,7 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
         withdrawFunds.withdrawFundsWithdrawButton.clickAndRun()
 
     }
-
-    fun logInUserWithSecurityCodeInput(
-        userNameInput: String,
-        passwordInput: String,
-        securityCodeInput: String?,
-        usernameError: Boolean = false,
-        passwordError: Boolean = false,
-        securityCodeEmpty: Boolean = false,
-        userDoesntExists: Boolean = false,
-        wrongPassword: Boolean = false,
-        wrongSecurityCode: Boolean = false
-    ) {
-
-            MainScreenView().logInButtonMainScreenView.clickAndRun()
-
-            val logInView = LogInView()
-            logInView.logInUser(userNameInput, passwordInput)
-            val isIncorrectInput =
-                usernameError || passwordError || securityCodeEmpty || userDoesntExists || wrongPassword || wrongSecurityCode
-
-            logInView.logInButtonAtLogInView.clickAndRun()
-
-            logInView.logInSecurityCode
-            logInView.securityCodeButtonConfirm
-
-            if (wrongSecurityCode) {
-                logInView.logInSecurityCode.text.append(securityCodeInput.toString())
-                logInView.securityCodeButtonConfirm.clickAndRun()
-            } else if (securityCodeEmpty) {
-                logInView.securityCodeButtonConfirm.clickAndRun()
-            } else {
-                logInView.logInSecurityCode.text.append(ShadowToast.getTextOfLatestToast().toString())
-                logInView.securityCodeButtonConfirm.clickAndRun()
-            }
-
-            if (isIncorrectInput) {
-                logInView.assertInputFields(
-                    usernameError,
-                    passwordError,
-                    userDoesntExists,
-                    wrongPassword,
-                    securityCodeEmpty,
-                    wrongSecurityCode
-                )
-
-
-            } else {
-                val actualLogInToastMessageMessage = ShadowToast.getTextOfLatestToast().toString()
-                val expectedLogInToastMessage = "Log in successfully"
-                assertEquals(
-                    "Wrong Toast message if user logged in succesfully",
-                    actualLogInToastMessageMessage,
-                    expectedLogInToastMessage
-                )
-
-                val userMenuView = UserMenuView() // test goes to UserMenuView
-                // at stage 2-3 checks for :
-                userMenuView.userMenuDepositFundsButton
-                userMenuView.userMenuWithdrawFundsButton
-                userMenuView.userMenuViewBalanceButton
-            }
-        }
-    }
-
-
+}
 
 
 

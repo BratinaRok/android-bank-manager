@@ -182,8 +182,7 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
 
             logInUserMethod(
                 "jonD",
-                "123533",
-                null)
+                "123533",0)
         }
 
     }
@@ -201,8 +200,7 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
 
             logInUserMethod(
                 "Wronguser",
-                "43535",
-                null,
+                "43535",0,
                 userDoesntExists = true)
         }
     }
@@ -220,8 +218,8 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
 
             logInUserMethod(
                 "jonD",
-                "43535",
-                null,
+                "43535",0,
+
                 wrongPassword = true)
         }
     }
@@ -238,8 +236,7 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
 
             logInUserMethod(
                 "",
-                "43535",
-                null,
+                "43535",0,
                 usernameError = true)
         }
     }
@@ -258,8 +255,7 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
 
             logInUserMethod(
                 "jonD",
-                "",
-                null,
+                "",0,
                 passwordError = true)
         }
     }
@@ -277,8 +273,8 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
 
             logInUserMethod(
                 "jonD",
-                "123533",
-                "")
+                "123533",0
+            )
 
             checkForUserMenuComponents()
         }
@@ -298,8 +294,7 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
 
             logInUserMethod(
                 "jonD",
-                "123533",
-                ""
+                "123533",0
             )
 
             addFundsToBankAccount(1400.0)
@@ -322,8 +317,7 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
 
             logInUserMethod(
                 "jonD",
-                "123533",
-                ""
+                "123533",0
             )
 
             addFundsToBankAccount(1400.0)
