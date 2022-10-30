@@ -9,27 +9,27 @@
     tools:context="org.hyperskill.bankmanager.UserMenu">
 
 
-    <Button
-        android:id="@+id/userMenuConvertFundsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/teal_700"
-        android:text="@string/convert_funds"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userMenuViewBalanceButton" />
+<!--    <Button-->
+<!--        android:id="@+id/userMenuConvertFundsButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:backgroundTint="@color/teal_700"-->
+<!--        android:text="@string/convert_funds"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/userMenuViewBalanceButton" />-->
 
-    <Button
-        android:id="@+id/userMenuPayBillsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/teal_700"
-        android:text="@string/pay_bills"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userMenuConvertFundsButton" />
+<!--    <Button-->
+<!--        android:id="@+id/userMenuPayBillsButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:backgroundTint="@color/teal_700"-->
+<!--        android:text="@string/pay_bills"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/userMenuConvertFundsButton" />-->
 
     <Button
         android:id="@+id/userMenuDepositFundsButton"
