@@ -2,15 +2,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion 31
 
     defaultConfig {
-        //Android Test Orchestrator
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        // The following argument makes the Android Test Orchestrator run its
-        // "pm clear" command after each test invocation. This command ensures
-        // that the app's state is completely cleared between tests.
-        testInstrumentationRunnerArguments clearPackageData: 'true' //Android Test Orchestrator
 
         applicationId "org.hyperskill.bankmanager"
         minSdkVersion hs.android.minSdkVersion
@@ -20,22 +14,17 @@ android {
 
     }
 
-    testOptions {//Android Test Orchestrator
-        execution 'ANDROIDX_TEST_ORCHESTRATOR'
-        animationsDisabled = true
-
-    }
-
     buildFeatures {
         viewBinding true
     }
-
-
 }
 
 dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
     def kotlinVersion = hs.android.kotlinVersion
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
 
@@ -50,8 +39,7 @@ dependencies {
 
     def material = hs.android.lib.material
     implementation "com.google.android.material:material:$material"
+    
+    implementation 'com.google.code.gson:gson:2.9.1'
 
-    //Android Test Orchestrator
-    androidTestImplementation 'androidx.test:runner:1.4.0'
-    androidTestUtil 'androidx.test:orchestrator:1.4.1'
 }

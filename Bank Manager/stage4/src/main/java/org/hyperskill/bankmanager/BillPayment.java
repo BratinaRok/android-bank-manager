@@ -86,7 +86,7 @@ public class BillPayment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button b = (Button) getView().findViewById(R.id.readFile);
+        Button b = (Button) getView().findViewById(R.id.readFileButton);
 
         b.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,9 +113,9 @@ public class BillPayment extends Fragment {
 
                 paymentDesc = (TextView) getView().findViewById(R.id.paymentForField);
                 paymentDesc.setText(billArray.get(0));
-                accNumber = (TextView) getView().findViewById(R.id.accNumberInput);
+                accNumber = (TextView) getView().findViewById(R.id.accNumberInputField);
                 accNumber.setText(billArray.get(1));
-                billPrice = (TextView) getView().findViewById(R.id.priceInput);
+                billPrice = (TextView) getView().findViewById(R.id.priceInputField);
                 billPrice.setText(billArray.get(2));
             }
 

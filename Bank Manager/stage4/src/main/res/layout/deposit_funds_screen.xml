@@ -5,21 +5,22 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.hyperskill.bankmanager.DepositFundsScreen">
+    tools:context=".DepositFundsScreen">
 
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
-        android:id="@+id/textDepositFunds"
+        android:id="@+id/textdepositfunds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/deposit_funds"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/buttonAddFunds"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.355" />
+        app:layout_constraintVertical_bias="0.463" />
 
     <Button
         android:id="@+id/buttonAddFunds"
@@ -43,8 +44,8 @@
         android:hint="@string/enter_amount_to_add"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.577"
+        app:layout_constraintHorizontal_bias="0.562"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textDepositFunds" />
+        app:layout_constraintTop_toBottomOf="@+id/textdepositfunds" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
