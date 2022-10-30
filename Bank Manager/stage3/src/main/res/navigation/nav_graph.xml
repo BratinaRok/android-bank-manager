@@ -55,9 +55,6 @@
             android:id="@+id/action_userMenu_to_withdrawFunds"
             app:destination="@id/withdrawFunds" />
         <action
-            android:id="@+id/action_userMenu_to_convertFunds"
-            app:destination="@id/convertFunds" />
-        <action
             android:id="@+id/action_userMenu_to_billPayment"
             app:destination="@id/billPayment" />
     </fragment>
@@ -89,11 +86,6 @@
             android:id="@+id/action_withdrawFunds_to_mainMenu"
             app:destination="@id/mainMenu" />
     </fragment>
-    <fragment
-        android:id="@+id/convertFunds"
-        android:name="org.hyperskill.bankmanager.ConvertFunds"
-        android:label="Convert Funds"
-        tools:layout="@layout/convert_funds" />
     <fragment
         android:id="@+id/billPayment"
         android:name="org.hyperskill.bankmanager.BillPayment"

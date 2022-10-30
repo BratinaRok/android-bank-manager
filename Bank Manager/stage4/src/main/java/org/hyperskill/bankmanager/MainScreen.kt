@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import org.hyperskill.bankmanager.R
 import org.hyperskill.bankmanager.databinding.MainScreenBinding
 
 /**
@@ -31,12 +32,11 @@ class MainScreen : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.logInButton.setOnClickListener {
+        binding.mainLogInButton.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
-        binding.signUpButton.setOnClickListener {
+        binding.mainSignUpButton.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_signUp3)
-
         }
     }
 

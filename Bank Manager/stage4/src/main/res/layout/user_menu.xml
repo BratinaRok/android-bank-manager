@@ -10,7 +10,7 @@
 
 
     <Button
-        android:id="@+id/convertFundsButton"
+        android:id="@+id/userMenuConvertFundsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -18,10 +18,10 @@
         android:text="@string/convert_funds"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewBalanceButton" />
+        app:layout_constraintTop_toBottomOf="@+id/userMenuViewBalanceButton" />
 
     <Button
-        android:id="@+id/payBillsButton"
+        android:id="@+id/userMenuPayBillsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -29,10 +29,10 @@
         android:text="@string/pay_bills"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/convertFundsButton" />
+        app:layout_constraintTop_toBottomOf="@+id/userMenuConvertFundsButton" />
 
     <Button
-        android:id="@+id/depositFundsButton"
+        android:id="@+id/userMenuDepositFundsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="112dp"
@@ -40,10 +40,10 @@
         android:text="@string/deposit_funds"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameText" />
+        app:layout_constraintTop_toBottomOf="@+id/userMenuUsernameText" />
 
     <Button
-        android:id="@+id/withdrawFundsButton"
+        android:id="@+id/userMenuWithdrawFundsButton"
         android:layout_width="wrap_content"
         android:backgroundTint="@color/teal_700"
         android:layout_height="wrap_content"
@@ -51,10 +51,10 @@
         android:text="@string/withdraw_funds"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/depositFundsButton" />
+        app:layout_constraintTop_toBottomOf="@+id/userMenuDepositFundsButton" />
 
     <Button
-        android:id="@+id/viewBalanceButton"
+        android:id="@+id/userMenuViewBalanceButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/teal_700"
@@ -63,10 +63,10 @@
         android:onClick="balance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/withdrawFundsButton" />
+        app:layout_constraintTop_toBottomOf="@+id/userMenuWithdrawFundsButton" />
 
     <TextView
-        android:id="@+id/usernameText"
+        android:id="@+id/userMenuUsernameText"
         android:layout_width="85dp"
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
@@ -76,10 +76,10 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeTextAtMainMenu" />
+        app:layout_constraintTop_toBottomOf="@+id/userMenuWelcomeText" />
 
     <TextView
-        android:id="@+id/welcomeTextAtMainMenu"
+        android:id="@+id/userMenuWelcomeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"

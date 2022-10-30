@@ -4,17 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.hyperskill.bankmanager.WithdrawFunds"
+    tools:context=".WithdrawFunds"
     android:id="@+id/frameLayout3">
 
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
-        android:id="@+id/withdrawFundsText"
+        android:id="@+id/textWithdrawFunds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="116dp"
-        android:text="@string/withdrawFunds"
+        android:text="Withdraw funds"
+        android:onClick="withdrawFunds"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,19 +24,19 @@
         tools:layout_conversion_absoluteWidth="411dp" />
 
     <Button
-        android:id="@+id/withdrawFundsButtonAtWithdrawFunds"
+        android:id="@+id/withdrawButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:backgroundTint="@color/teal_700"
+        android:layout_marginTop="100dp"
         android:text="@string/withdraw"
-        android:onClick="fundsWithdraw"
+        android:onClick="withdrawFunds"
+        android:backgroundTint="@color/teal_700"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/withdrawFundsInput" />
+        app:layout_constraintTop_toBottomOf="@+id/textWithdrawFunds" />
 
     <EditText
-        android:id="@+id/withdrawFundsInput"
+        android:id="@+id/enterAmountWithdraw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -45,6 +46,6 @@
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/withdrawFundsText" />
+        app:layout_constraintTop_toBottomOf="@+id/textWithdrawFunds" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
