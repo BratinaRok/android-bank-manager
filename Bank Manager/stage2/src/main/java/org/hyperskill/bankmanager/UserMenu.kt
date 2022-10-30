@@ -50,13 +50,13 @@ class UserMenu : Fragment() {
 
         }
 
-        binding.userMenuConvertFundsButton.setOnClickListener {
-            findNavController().navigate(R.id.convertFunds)
-        }
-
-        binding.userMenuPayBillsButton.setOnClickListener {
-            findNavController().navigate(R.id.billPayment)
-        }
+//        binding.userMenuConvertFundsButton.setOnClickListener {
+//            findNavController().navigate(R.id.convertFunds)
+//        }
+//
+//        binding.userMenuPayBillsButton.setOnClickListener {
+//            findNavController().navigate(R.id.billPayment)
+//        }
 
     }
 
