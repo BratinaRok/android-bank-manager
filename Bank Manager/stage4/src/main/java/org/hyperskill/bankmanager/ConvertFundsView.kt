@@ -25,12 +25,12 @@ open class ConvertFundsView : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.convert_funds_view, container, false)
-        spinnerConvertFrom = rootView.findViewById(R.id.spinnerConvertFrom)
+         spinnerConvertFrom = rootView.findViewById(R.id.spinnerConvertFrom)
         spinnerConvertTo = rootView.findViewById(R.id.spinnerConvertTo)
         fundsToConvertEt = rootView.findViewById(R.id.inputFundsToConvert)
         buttonConvertFundsView = rootView.findViewById(R.id.buttonConvertFunds)
         setSpinner()
-        spinnerConvertFrom?.onItemSelectedListener = this
+       spinnerConvertFrom?.onItemSelectedListener = this
         spinnerConvertTo?.onItemSelectedListener = this
         buttonConvertFundsView?.setOnClickListener(View.OnClickListener { convert() })
 
@@ -38,10 +38,12 @@ open class ConvertFundsView : Fragment(), AdapterView.OnItemSelectedListener {
         return rootView
     }
 
+
+
     override fun onItemSelected(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
-//        if (parent.getId() == R.id.spinnerConvertFrom) {
+//        if (parent?.id == R.id.spinnerConvertFrom) {
 //            Toast.makeText(getContext(), "Convert from " + currenciesArray[position], Toast.LENGTH_SHORT).show();
-//        } else if (parent.getId() == R.id.spinnerConvertTo) {
+//        } else if (parent?.id == R.id.spinnerConvertTo) {
 //            Toast.makeText(getContext(), "Convert to " + currenciesArray[position], Toast.LENGTH_SHORT).show();
 //        }
     }
