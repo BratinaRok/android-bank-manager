@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/FirstFragment">
+
+    <fragment
+        android:id="@+id/FirstFragment"
+        android:name="org.hyperskill.bankmanager.MainScreen"
+        android:label="@string/Main_screen_label"
+        tools:layout="@layout/main_screen">
+
+        <action
+            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            app:destination="@id/logIn" />
+        <action
+            android:id="@+id/action_FirstFragment_to_signUp3"
+            app:destination="@id/signUp" />
+    </fragment>
+    <fragment
+        android:id="@+id/logIn"
+        android:name="org.hyperskill.bankmanager.LogIn"
+        android:label="Log In"
+        tools:layout="@layout/log_in">
+
+        <action
+            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_to_userMenu"
+            app:destination="@id/mainMenu" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUp"
+        android:name="org.hyperskill.bankmanager.SignUp"
+        android:label="Sign Up"
+        tools:layout="@layout/sign_up">
+        <action
+            android:id="@+id/action_signUp3_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainMenu"
+        android:name="org.hyperskill.bankmanager.UserMenu"
+        android:label=" Main Menu"
+        tools:layout="@layout/user_menu">
+        <action
+            android:id="@+id/action_userMenu_to_depositFundsScreen"
+            app:destination="@id/depositFundsScreen" />
+        <action
+            android:id="@+id/action_userMenu_to_viewBalance"
+            app:destination="@id/viewBalance" />
+        <action
+            android:id="@+id/action_userMenu_to_withdrawFunds"
+            app:destination="@id/withdrawFunds" />
+        <action
+            android:id="@+id/action_userMenu_to_billPayment"
+            app:destination="@id/billPayment" />
+        <action
+            android:id="@+id/action_mainMenu_to_convertFundsView"
+            app:destination="@id/convertFundsView" />
+    </fragment>
+    <fragment
+        android:id="@+id/depositFundsScreen"
+        android:name="org.hyperskill.bankmanager.DepositFundsScreen"
+        android:label="Deposit Funds"
+        tools:layout="@layout/deposit_funds_screen" >
+        <action
+            android:id="@+id/action_depositFundsScreen_to_mainMenu"
+            app:destination="@id/mainMenu"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewBalance"
+        android:name="org.hyperskill.bankmanager.ViewBalance"
+        android:label="Balance"
+        tools:layout="@layout/view_balance" >
+        <action
+            android:id="@+id/action_viewBalance_to_mainMenu"
+            app:destination="@id/mainMenu" />
+    </fragment>
+    <fragment
+        android:id="@+id/withdrawFunds"
+        android:name="org.hyperskill.bankmanager.WithdrawFunds"
+        android:label="Withdraw Funds"
+        tools:layout="@layout/withdraw_funds" >
+        <action
+            android:id="@+id/action_withdrawFunds_to_mainMenu"
+            app:destination="@id/mainMenu" />
+    </fragment>
+    <fragment
+        android:id="@+id/billPayment"
+        android:name="org.hyperskill.bankmanager.BillPayment"
+        android:label="Bill Payment"
+        tools:layout="@layout/bill_payment" />
+    <fragment
+        android:id="@+id/convertFundsView"
+        android:name="org.hyperskill.bankmanager.ConvertFundsView"
+        android:label="convert funds view"
+        tools:layout="@layout/convert_funds_view">
+        <action
+            android:id="@+id/action_convertFundsView_to_mainMenu"
+            app:destination="@id/mainMenu" />
+    </fragment>
+</navigation>
