@@ -3,7 +3,7 @@ import android.text.InputType
 import android.text.InputType.TYPE_CLASS_NUMBER
 import android.text.InputType.TYPE_NUMBER_VARIATION_PASSWORD
 import android.widget.*
-import androidx.core.view.size
+import androidx.core.text.isDigitsOnly
 import org.hyperskill.bankmanager.internals.AbstractUnitTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -736,11 +736,32 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             assertEquals("Wrong second Item at convert to dropdown ", itemTwo, acutalItemAtTwo)
             val acutalItemAtThree = convertFundsSpinnerConvertTo.getItemAtPosition(2).toString()
             assertEquals("Wrong third Item at convert to dropdown ", itemThree, acutalItemAtThree)
+        }
+
+        fun convertFundsSetCurrencies(
+            selectCurrencyConvertFrom: String,
+            selectCurrencyConvertTo: String,
+        ) {
+            var convertFrom = 0
+            var convertTo = 0
+
+            when(selectCurrencyConvertFrom) {
+                "USD" -> convertFrom = 0
+                "EUR" -> convertFrom = 1
+                "GBP" -> convertFrom = 2
+            }
+            convertFundsSpinnerConvertFrom.setSelection(convertFrom,true)
+
+            when(selectCurrencyConvertTo) {
+                "USD" -> convertTo = 0
+                "EUR" -> convertTo = 1
+                "GBP" -> convertTo = 2
+            }
+            convertFundsSpinnerConvertTo.setSelection(convertTo,true)
+
 
 
         }
-
-
     }
 
     inner class billPaymentView() {
@@ -1125,6 +1146,27 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             convertToitemThree
         )
     }
+
+    fun checkConversion(
+        selectCurrencyConvertFrom: String,
+        selectCurrencyConvertTo: String,
+        amountToConvert: String,
+        expectedCurrencyConvertedAmount: String
+    ) {
+        val userMenu = UserMenuView()
+        userMenu.userMenuConvertFundsButton.clickAndRun()
+        val convertFundsView = ConvertFundsView()
+
+        convertFundsView.convertFundsSetCurrencies(selectCurrencyConvertFrom,selectCurrencyConvertTo)
+        convertFundsView.convertFundsEnterAmountConvert.append(amountToConvert)
+
+        convertFundsView.convertFundsButtonConvert.clickAndRun()
+        val getConvertedAmountMessageToast = ShadowToast.getTextOfLatestToast().toString()
+        val expectedMessageToast = "$amountToConvert $selectCurrencyConvertFrom funds, converted to $expectedCurrencyConvertedAmount $selectCurrencyConvertTo successfully"
+
+        assertEquals(expectedMessageToast,getConvertedAmountMessageToast)
+    }
+
 }
 
 

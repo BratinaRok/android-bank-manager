@@ -44,4 +44,23 @@ class Stage4UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
     }
 
 
+    @Test
+    fun convertFundsSuccess() {
+        testActivity {
+            newUserSignUp(
+                "Jack",
+                "Wert",
+                "New York street 32",
+                "3468821",
+                "JaWe34",
+                "3572"
+            )
+
+            logInUserWithSecurityCodeInput("JaWe34", "3572", null)
+            addFundsToBankAccount(400.0)
+            checkConversion("USD","GBP","120.0","105.24")
+        }
+    }
+
+
 }
