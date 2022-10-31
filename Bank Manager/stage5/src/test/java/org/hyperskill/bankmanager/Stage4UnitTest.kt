@@ -45,7 +45,7 @@ class Stage4UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
 
 
     @Test
-    fun convertFundsUSDtoGBP() {
+    fun convertFundsSuccess() {
         testActivity {
             newUserSignUp(
                 "Jack",
@@ -59,42 +59,10 @@ class Stage4UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
             logInUserWithSecurityCodeInput("JaWe34", "3572", null)
             addFundsToBankAccount(400.0)
             checkConversion("USD","GBP","120.0","105.24")
-        }
-    }
+            checkConversion("USD","EUR","120.0","105.24")
 
-    @Test
-    fun convertFundsUSDtoEUR() {
-        testActivity {
-            newUserSignUp(
-                "Jack",
-                "Wert",
-                "New York street 32",
-                "3468821",
-                "JaWe34",
-                "3572"
-            )
 
-            logInUserWithSecurityCodeInput("JaWe34", "3572", null)
-            addFundsToBankAccount(400.0)
-            checkConversion("USD","EUR","120.0","120.00")
-        }
-    }
 
-    @Test
-    fun convertFundsGBPtoEUR() {
-        testActivity {
-            newUserSignUp(
-                "Jack",
-                "Wert",
-                "New York street 32",
-                "3468821",
-                "JaWe34",
-                "3572"
-            )
-
-            logInUserWithSecurityCodeInput("JaWe34", "3572", null)
-            addFundsToBankAccount(400.0)
-            checkConversion("GBP","EUR","120.0","136.80")
         }
     }
 

@@ -100,7 +100,7 @@ open class ConvertFundsView : Fragment(), AdapterView.OnItemSelectedListener {
             } else {
                 Toast.makeText(
                     context,
-                    "$fundsToConvert $convertFrom funds, converted to " + "%.2f".format(convertedAmount) + " $convertTo successfully",
+                    "$fundsToConvert $convertFrom funds, converted to $convertedAmount $convertTo successfully",
                     Toast.LENGTH_LONG
                 ).show()
             }

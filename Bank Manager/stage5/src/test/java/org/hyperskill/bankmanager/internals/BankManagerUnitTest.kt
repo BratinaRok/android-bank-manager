@@ -3,7 +3,9 @@ import android.text.InputType
 import android.text.InputType.TYPE_CLASS_NUMBER
 import android.text.InputType.TYPE_NUMBER_VARIATION_PASSWORD
 import android.widget.*
+import androidx.core.text.isDigitsOnly
 import androidx.navigation.findNavController
+import com.google.android.material.navigation.NavigationBarMenu
 import org.hyperskill.bankmanager.R
 import org.hyperskill.bankmanager.internals.AbstractUnitTest
 import org.junit.Assert.assertEquals
@@ -16,8 +18,9 @@ import java.math.BigDecimal
 open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest<T>(clazz) {
 
     inner class ToolbarBackNavigation {
-        val navController = activity.findNavController(R.id.nav_host_fragment_content_main)
+        val toolbar = activity.findNavController(R.id.nav_host_fragment_content_main)
     }
+
 
     inner class SignUpView() {
         val firstName: EditText by lazy {
@@ -750,14 +753,14 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             var convertFrom = 0
             var convertTo = 0
 
-            when(selectCurrencyConvertFrom.uppercase()) {
+            when(selectCurrencyConvertFrom) {
                 "USD" -> convertFrom = 0
                 "EUR" -> convertFrom = 1
                 "GBP" -> convertFrom = 2
             }
             convertFundsSpinnerConvertFrom.setSelection(convertFrom,true)
 
-            when(selectCurrencyConvertTo.uppercase()) {
+            when(selectCurrencyConvertTo) {
                 "USD" -> convertTo = 0
                 "EUR" -> convertTo = 1
                 "GBP" -> convertTo = 2
@@ -1170,6 +1173,10 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
         val expectedMessageToast = "$amountToConvert $selectCurrencyConvertFrom funds, converted to $expectedCurrencyConvertedAmount $selectCurrencyConvertTo successfully"
 
         assertEquals(expectedMessageToast,getConvertedAmountMessageToast)
+
+        val toolbarcontroller = ToolbarBackNavigation()
+        toolbarcontroller.toolbar.navigateUp()
+
 
     }
 
