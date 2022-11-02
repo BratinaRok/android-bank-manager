@@ -6,7 +6,7 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
-class Stage4UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.java) {
+class Stage4UnitTestB : BankManagerUnitTest<MainActivity>(MainActivity::class.java) {
     val stage3Test = Stage3UnitTestB()
 
 
