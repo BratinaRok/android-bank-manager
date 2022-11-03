@@ -1,11 +1,11 @@
 import android.app.Activity
+import android.content.pm.PackageManager
 import android.text.InputType
 import android.text.InputType.TYPE_CLASS_NUMBER
 import android.text.InputType.TYPE_NUMBER_VARIATION_PASSWORD
 import android.widget.*
-import androidx.core.text.isDigitsOnly
+import androidx.core.app.ActivityCompat
 import androidx.navigation.findNavController
-import com.google.android.material.navigation.NavigationBarMenu
 import org.hyperskill.bankmanager.R
 import org.hyperskill.bankmanager.internals.AbstractUnitTest
 import org.junit.Assert.assertEquals
@@ -753,26 +753,25 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             var convertFrom = 0
             var convertTo = 0
 
-            when(selectCurrencyConvertFrom) {
+            when (selectCurrencyConvertFrom) {
                 "USD" -> convertFrom = 0
                 "EUR" -> convertFrom = 1
                 "GBP" -> convertFrom = 2
             }
-            convertFundsSpinnerConvertFrom.setSelection(convertFrom,true)
+            convertFundsSpinnerConvertFrom.setSelection(convertFrom, true)
 
-            when(selectCurrencyConvertTo) {
+            when (selectCurrencyConvertTo) {
                 "USD" -> convertTo = 0
                 "EUR" -> convertTo = 1
                 "GBP" -> convertTo = 2
             }
-            convertFundsSpinnerConvertTo.setSelection(convertTo,true)
-
+            convertFundsSpinnerConvertTo.setSelection(convertTo, true)
 
 
         }
     }
 
-    inner class billPaymentView() {
+    inner class BillPaymentView() {
         val billPaymentBillInformationText: TextView by lazy {
             val view = activity.findViewByString<TextView>(
                 "getBillInformationText",
@@ -854,6 +853,7 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             view
         }
 
+
     }
 
 
@@ -892,6 +892,24 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
         userMenu.userMenuViewBalanceButton
         userMenu.userMenuDepositFundsButton
         userMenu.userMenuWithdrawFundsButton
+        userMenu.userMenuConvertFundsButton // stage 4
+        userMenu.userMenuPayBillsButton // stage 5
+    }
+
+    fun checkForPayBilsViewComponents() {
+        val usermenu = UserMenuView()
+        usermenu.userMenuPayBillsButton.clickAndRun()
+
+        val billPaymentView = BillPaymentView()
+        billPaymentView.billPaymentButtonPay
+        billPaymentView.billPaymentPriceText
+        billPaymentView.billPaymentBillInformationText
+        billPaymentView.billPaymentPaymentForText
+        billPaymentView.billPaymentAccNumberInputField
+        billPaymentView.billPaymentAccountNumberText
+        billPaymentView.billPaymentPriceInputField
+        billPaymentView.billPaymentReadFileButton
+        billPaymentView.billPaymentPaymentForField
     }
 
 
@@ -1047,6 +1065,7 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
 
     }
 
+    //stage 3
     fun logInUserWithSecurityCodeInput(
         userNameInput: String,
         passwordInput: String,
@@ -1109,7 +1128,7 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
         }
     }
 
-
+    // stage 4
     fun convertFundsCheckForItems() {
         val userMenu = UserMenuView()
         userMenu.userMenuConvertFundsButton.clickAndRun()
@@ -1124,7 +1143,7 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
         convertFundsView.convertFundsSpinnerConvertTo
     }
 
-
+    // stage 4
     fun convertFundsCheckDropdownOptions(
         convertFromexpectedDropdownOptionsLength: Int,
         convertFromitemOne: String,
@@ -1155,6 +1174,7 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
         )
     }
 
+    // stage 4
     fun checkConversion(
         selectCurrencyConvertFrom: String,
         selectCurrencyConvertTo: String,
@@ -1165,20 +1185,45 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
         userMenu.userMenuConvertFundsButton.clickAndRun()
         val convertFundsView = ConvertFundsView()
 
-        convertFundsView.convertFundsSetCurrencies(selectCurrencyConvertFrom,selectCurrencyConvertTo)
+        convertFundsView.convertFundsSetCurrencies(
+            selectCurrencyConvertFrom,
+            selectCurrencyConvertTo
+        )
         convertFundsView.convertFundsEnterAmountConvert.append(amountToConvert)
 
         convertFundsView.convertFundsButtonConvert.clickAndRun()
         val getConvertedAmountMessageToast = ShadowToast.getTextOfLatestToast().toString()
-        val expectedMessageToast = "$amountToConvert $selectCurrencyConvertFrom funds, converted to $expectedCurrencyConvertedAmount $selectCurrencyConvertTo successfully"
+        val expectedMessageToast =
+            "$amountToConvert $selectCurrencyConvertFrom funds, converted to $expectedCurrencyConvertedAmount $selectCurrencyConvertTo successfully"
 
-        assertEquals(expectedMessageToast,getConvertedAmountMessageToast)
+        assertEquals(expectedMessageToast, getConvertedAmountMessageToast)
 
         val toolbarcontroller = ToolbarBackNavigation()
         toolbarcontroller.toolbar.navigateUp()
-
-
     }
+
+    //stage 5
+    fun noBillLoaded() {
+        val userMenu = UserMenuView()
+        userMenu.userMenuPayBillsButton.clickAndRun()
+
+        val payBillView = BillPaymentView()
+        payBillView.billPaymentButtonPay.clickAndRun()
+        val expectedReadBillInfoMessage = "First read bill info"
+        val actualReadBillMessage = ShadowToast.getTextOfLatestToast()
+        assertEquals("Wrong error message for First read bill info at bill payment view",expectedReadBillInfoMessage,actualReadBillMessage)
+    }
+
+    fun checkForFileWritingPermisions() : Boolean {
+      val permision = ActivityCompat.checkSelfPermission(activity,android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+        if (permision == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        }
+        return false;
+    }
+
+
 
 }
 
