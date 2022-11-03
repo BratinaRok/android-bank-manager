@@ -889,6 +889,7 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
         userMenu.userMenuViewBalanceButton
         userMenu.userMenuDepositFundsButton
         userMenu.userMenuWithdrawFundsButton
+        userMenu.userMenuConvertFundsButton //stage 4
     }
 
 
