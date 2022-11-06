@@ -5,10 +5,13 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.provider.MediaStore.Files
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -20,7 +23,7 @@ import java.io.File
 import java.io.FileReader
 import java.io.IOException
 import java.lang.StringBuilder
-import java.util.ArrayList
+import kotlin.collections.ArrayList
 
 class BillPayment : Fragment() {
 
@@ -36,10 +39,17 @@ class BillPayment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val user = userViewModel.getLoggedUser()
         val readFile = getView()!!.findViewById<View>(R.id.readFileButton) as Button
+        val spinnerBills : Spinner = getView()?.findViewById<View>(R.id.billPaymentSelectBillSpinner) as Spinner
+
+        val adapter2 : ArrayAdapter<String> = ArrayAdapter<String>(context!!,android.R.layout.simple_spinner_item,readFiles(path ="sdcard/Download/New")!!)
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerBills.adapter = adapter2
+
+
         readFile.setOnClickListener {
             val path = File("sdcard/Download/New")
 
-            @SuppressLint("SdCardPath") val file = File(path, "billfile.txt")
+            @SuppressLint("SdCardPath") val file = File(path,"")
             val text = StringBuilder()
             verifyStoragePermissions(activity)
             val te =
@@ -48,8 +58,21 @@ class BillPayment : Fragment() {
                 if (!path.exists()) {
                     path.mkdirs()
                 }
-                // Runtime.getRuntime().exec("billfile.txt")
-                val br = BufferedReader(FileReader(file))
+
+                billArray = ArrayList<String>()
+                readFileLine("sdcard/Download/New/${spinnerBills.selectedItem}")
+
+
+//
+//                val arrayFiles : ArrayList<File> = ArrayList()
+//
+//                val br = BufferedReader(FileReader(file))
+//                val line = br.readLine()
+//                while(line != null) {
+//                //    arrayFiles.add((line)
+//
+//                }
+
                 // var line: String = ""
                 //while (br.readLine().also { line = it } != null) {
 //                while (br.readLines()) {
@@ -58,13 +81,13 @@ class BillPayment : Fragment() {
 //                    text.append('\n')
 //                    br.readLine()
 //                }
-                readFileLine("sdcard/Download/New/billfile2.txt")
                 //   br.close()
 
             } catch (e: IOException) {
                 Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
                 println(e.message)
             }
+
             if (billArray.size > 0) {
                 var paymentDesc = getView()!!.findViewById<View>(R.id.paymentForField) as TextView
                 paymentDesc!!.text = billArray[0]
@@ -133,4 +156,11 @@ class BillPayment : Fragment() {
     }
 
     fun readFileLine(fileName: String) = File(fileName).forEachLine { Companion.billArray.add(it) }
+
+    fun readFiles(path : String) : Array<String>? {
+        val directory : Array<out File>? = File(path).listFiles()
+        val files : Array<String>? = directory?.size?.let { Array(it) { directory.get(it).name } }
+
+        return files
+    }
 }

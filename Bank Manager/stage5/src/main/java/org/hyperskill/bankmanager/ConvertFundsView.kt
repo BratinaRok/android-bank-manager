@@ -23,21 +23,24 @@ open class ConvertFundsView : Fragment(), AdapterView.OnItemSelectedListener {
 
     val userViewModel by viewModels<UserViewModel>(ownerProducer = { activity as MainActivity })
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.convert_funds_view, container, false)
-         spinnerConvertFrom = rootView.findViewById(R.id.spinnerConvertFrom)
+        spinnerConvertFrom = rootView.findViewById(R.id.spinnerConvertFrom)
         spinnerConvertTo = rootView.findViewById(R.id.spinnerConvertTo)
         fundsToConvertEt = rootView.findViewById(R.id.inputFundsToConvert)
         buttonConvertFundsView = rootView.findViewById(R.id.buttonConvertFunds)
         setSpinner()
-       spinnerConvertFrom?.onItemSelectedListener = this
+        spinnerConvertFrom?.onItemSelectedListener = this
         spinnerConvertTo?.onItemSelectedListener = this
         buttonConvertFundsView?.setOnClickListener(View.OnClickListener { convert() })
 
         // Inflate the layout for this fragment
         return rootView
     }
-
 
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
@@ -51,7 +54,8 @@ open class ConvertFundsView : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onNothingSelected(parent: AdapterView<*>?) {
 
     }
-     fun setSpinner() {
+
+    fun setSpinner() {
         currenciesArray = arrayOf(
             "USD", "EUR", "GBP"
         )

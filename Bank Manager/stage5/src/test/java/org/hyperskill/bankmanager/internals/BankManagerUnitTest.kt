@@ -1,3 +1,4 @@
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.text.InputType
@@ -10,7 +11,10 @@ import org.hyperskill.bankmanager.R
 import org.hyperskill.bankmanager.internals.AbstractUnitTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
+import org.robolectric.shadows.Converter.FromFilePath
 import org.robolectric.shadows.ShadowToast
+import java.io.File
+import java.lang.StringBuilder
 import java.math.BigDecimal
 
 
@@ -853,7 +857,6 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             view
         }
 
-
     }
 
 
@@ -1216,13 +1219,24 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
 
     fun checkForFileWritingPermisions() : Boolean {
       val permision = ActivityCompat.checkSelfPermission(activity,android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-
         if (permision == PackageManager.PERMISSION_GRANTED) {
             return true;
         }
         return false;
     }
 
+    fun readFromFile(filePath: FromFilePath) {
+        val usermenu = UserMenuView()
+        usermenu.userMenuPayBillsButton.clickAndRun()
+        val path = File("sdcard/Download/New")
+
+        if (!path.exists()) {
+            path.mkdirs()
+        }
+
+
+
+    }
 
 
 }
