@@ -9,12 +9,12 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
-
 class Stage5UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.java) {
     @Rule
-    fun grantPermissionRule() : GrantPermissionRule {
-       return GrantPermissionRule.grant(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun grantPermissionRule(): GrantPermissionRule {
+        return GrantPermissionRule.grant(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     }
+
     val stage4UnitTestB = Stage4UnitTestB()
 
     @Test
@@ -58,6 +58,7 @@ class Stage5UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
             noBillLoaded()
         }
     }
+
     @Test
     fun readBillAndCheckForCorrectInfo() {
         testActivity {
@@ -71,7 +72,6 @@ class Stage5UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
             )
 
             logInUserWithSecurityCodeInput("JaWe34", "3572", null)
-            println(checkForFileWritingPermisions())
 
             //TODO IF ASKS FOR PERMISSIONS CLICK ALLOW
             // READ BILL AND CHECK FOR CORRECT INPUT

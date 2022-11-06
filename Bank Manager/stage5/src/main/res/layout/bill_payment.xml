@@ -13,7 +13,7 @@
         android:id="@+id/getBillInformationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="36dp"
         android:text="get bill information"
         android:textAlignment="center"
         android:textAllCaps="false"
@@ -30,9 +30,9 @@
         android:id="@+id/readFileButton"
         android:layout_width="191dp"
         android:layout_height="59dp"
-        android:layout_marginTop="24dp"
-        android:text="Read file"
+        android:layout_marginTop="20dp"
         android:backgroundTint="@color/teal_700"
+        android:text="Read file"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/getBillInformationText" />
@@ -41,8 +41,8 @@
         android:id="@+id/paymentForText"
         android:layout_width="108dp"
         android:layout_height="32dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="164dp"
         android:text="Payment for :"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +74,7 @@
         android:id="@+id/payButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="152dp"
         android:backgroundTint="@color/teal_700"
         android:text="Pay"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,7 +87,7 @@
         android:layout_width="225dp"
         android:layout_height="29dp"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="168dp"
         android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
@@ -115,5 +115,16 @@
         app:layout_constraintHorizontal_bias="0.833"
         app:layout_constraintStart_toEndOf="@+id/priceText"
         app:layout_constraintTop_toBottomOf="@+id/accNumberInputField" />
+
+    <Spinner
+        android:id="@+id/billPaymentSelectBillSpinner"
+        android:layout_width="238dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="32dp"
+        android:background="@android:drawable/btn_dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/readFileButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
