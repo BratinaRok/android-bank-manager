@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore.Files
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import kotlinx.coroutines.awaitAll
 import org.hyperskill.bankmanager.model.UserViewModel
 import java.io.BufferedReader
 import java.io.File
@@ -24,6 +26,7 @@ import java.io.FileReader
 import java.io.IOException
 import java.lang.StringBuilder
 import kotlin.collections.ArrayList
+import kotlin.concurrent.thread
 
 class BillPayment : Fragment() {
 
@@ -32,6 +35,10 @@ class BillPayment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val path = File("sdcard/Download/New")
+        if (!path.exists()) {
+            path.mkdirs()
+        }
         return inflater.inflate(R.layout.bill_payment, container, false)
     }
 
@@ -40,11 +47,23 @@ class BillPayment : Fragment() {
         val user = userViewModel.getLoggedUser()
         val readFile = getView()!!.findViewById<View>(R.id.readFileButton) as Button
         val spinnerBills : Spinner = getView()?.findViewById<View>(R.id.billPaymentSelectBillSpinner) as Spinner
+        val path = File("sdcard/Download/New")
+       val filesPath : String = ".stage5\\src\\test\\java\\org\\hyperskill\\bankmanager\\testfiles\\"
+        verifyStoragePermissions(activity)
+        if (!path.exists()) {
+            path.mkdirs()
+       //     copyFilesToSDFolder(filesPath,"rentalbill.txt")
+        } else {
+         //   copyFilesToSDFolder(filesPath,"rentalbill.txt")
+            val adapter2: ArrayAdapter<String> = ArrayAdapter<String>(
+                context!!,
+                android.R.layout.simple_spinner_item,
+                readFiles(path = "sdcard/Download/New")!!
 
-        val adapter2 : ArrayAdapter<String> = ArrayAdapter<String>(context!!,android.R.layout.simple_spinner_item,readFiles(path ="sdcard/Download/New")!!)
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerBills.adapter = adapter2
-
+            )
+            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinnerBills.adapter = adapter2
+        }
 
         readFile.setOnClickListener {
             val path = File("sdcard/Download/New")
@@ -52,8 +71,7 @@ class BillPayment : Fragment() {
             @SuppressLint("SdCardPath") val file = File(path,"")
             val text = StringBuilder()
             verifyStoragePermissions(activity)
-            val te =
-                "adb push C:\\Users\\brati\\OneDrive\\Namizje\\android-bank-manager-main\\android-bank-manager-main\\Bank Manager\\stage5\\sampledata\\billfile.txt  sdcard/Download/New/"
+
             try {
                 if (!path.exists()) {
                     path.mkdirs()
@@ -142,9 +160,9 @@ class BillPayment : Fragment() {
             // Check if we have write permission
             val permission = ActivityCompat.checkSelfPermission(
                 activity!!,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            )
-            if (permission != PackageManager.PERMISSION_GRANTED) {
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            val readPermission = ActivityCompat.checkSelfPermission(activity!!,Manifest.permission.READ_EXTERNAL_STORAGE)
+            if (permission != PackageManager.PERMISSION_GRANTED || readPermission != PackageManager.PERMISSION_GRANTED) {
                 // We dont have permission so prompt the user
                 ActivityCompat.requestPermissions(
                     activity,
@@ -162,5 +180,12 @@ class BillPayment : Fragment() {
         val files : Array<String>? = directory?.size?.let { Array(it) { directory.get(it).name } }
 
         return files
+    }
+
+    fun copyFilesToSDFolder(copyFromPath : String, file : String) {
+        val fileToCopy: File = File(copyFromPath + file)
+        val toPath = Environment.getExternalStorageState()
+        val to : File = File(toPath + file)
+        fileToCopy.copyTo(to,true)
     }
 }

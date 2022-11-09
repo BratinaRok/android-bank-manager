@@ -1,4 +1,3 @@
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.text.InputType
@@ -11,10 +10,8 @@ import org.hyperskill.bankmanager.R
 import org.hyperskill.bankmanager.internals.AbstractUnitTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
-import org.robolectric.shadows.Converter.FromFilePath
 import org.robolectric.shadows.ShadowToast
 import java.io.File
-import java.lang.StringBuilder
 import java.math.BigDecimal
 
 
@@ -857,6 +854,15 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             view
         }
 
+        val dropdownSpinner: Spinner by lazy {
+            val view = activity.findViewByString<Spinner>(
+                "billPaymentSelectBillSpinner",
+                "Spinner at Bill payment View was not found"
+            )
+
+            view
+        }
+
     }
 
 
@@ -913,6 +919,7 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
         billPaymentView.billPaymentPriceInputField
         billPaymentView.billPaymentReadFileButton
         billPaymentView.billPaymentPaymentForField
+        billPaymentView.dropdownSpinner
     }
 
 
@@ -1214,30 +1221,74 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
         payBillView.billPaymentButtonPay.clickAndRun()
         val expectedReadBillInfoMessage = "First read bill info"
         val actualReadBillMessage = ShadowToast.getTextOfLatestToast()
-        assertEquals("Wrong error message for First read bill info at bill payment view",expectedReadBillInfoMessage,actualReadBillMessage)
+        assertEquals(
+            "Wrong error message for First read bill info at bill payment view",
+            expectedReadBillInfoMessage,
+            actualReadBillMessage
+        )
     }
 
-    fun checkForFileWritingPermisions() : Boolean {
-      val permision = ActivityCompat.checkSelfPermission(activity,android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun checkForFileWritingPermisions(): Boolean {
+        val permision = ActivityCompat.checkSelfPermission(
+            activity,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
         if (permision == PackageManager.PERMISSION_GRANTED) {
             return true;
         }
         return false;
     }
 
-    fun readFromFile(filePath: FromFilePath) {
-        val usermenu = UserMenuView()
-        usermenu.userMenuPayBillsButton.clickAndRun()
-        val path = File("sdcard/Download/New")
 
-        if (!path.exists()) {
-            path.mkdirs()
+    fun copyFile(copyFromPath: String, file: String, toPath: String,  usermenu: UserMenuView) {
+        //val usermenu = UserMenuView()
+        usermenu.userMenuPayBillsButton.clickAndRun()
+
+        val dir: File = File(toPath)
+        if (!dir.exists()) {
+            dir.mkdirs()
         }
 
-
+        val fileToCopy: File = File(copyFromPath + file)
+        val to: File = File(toPath + file)
+        fileToCopy.copyTo(to, true)
 
     }
 
+    fun checkLoadedFileInSpinner(fileName: String) {
+        val billPaymentView = BillPaymentView()
+        var position : Int = 0
+        when(fileName) {
+            "rentalbill.txt" -> position = 0
+            "utillitybill.txt" -> position = 1
+        }
+
+        if (billPaymentView.dropdownSpinner.count > 0) {
+            val spinnerItem = billPaymentView.dropdownSpinner.getItemAtPosition(position)
+            assertEquals("Wrong File or empty", fileName, spinnerItem)
+        } else {
+            java.lang.AssertionError("No file loaded in spinner for bill payment")
+        }
+    }
+
+    fun selectSpinnerOptionAndReadDataFromFile(selectBill : String, paymentFor : String, accountNumber : String, price : String) {
+        val billPaymentView = BillPaymentView()
+
+        var position : Int = 0
+        when(selectBill) {
+            "rentalbill.txt" -> position = 0
+            "utillitybill.txt" -> position = 1
+        }
+        billPaymentView.dropdownSpinner.setSelection(position)
+        billPaymentView.billPaymentReadFileButton.clickAndRun()
+
+
+        val expectedPaymentFor = paymentFor
+        val actualPaymentFor = billPaymentView.billPaymentPaymentForField.text.toString()
+        assertEquals("Wrong payment for description at BillPayment view",expectedPaymentFor,actualPaymentFor)
+
+
+    }
 
 }
 
