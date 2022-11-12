@@ -1126,8 +1126,8 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             val expectedLogInToastMessage = "Log in successfully"
             assertEquals(
                 "Wrong Toast message if user logged in succesfully",
-                actualLogInToastMessageMessage,
-                expectedLogInToastMessage
+                expectedLogInToastMessage,
+                actualLogInToastMessageMessage
             )
 
             val userMenuView = UserMenuView() // test goes to UserMenuView
@@ -1213,20 +1213,20 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
     }
 
     //stage 5
-    fun noBillLoaded() {
-        val userMenu = UserMenuView()
-        userMenu.userMenuPayBillsButton.clickAndRun()
-
-        val payBillView = BillPaymentView()
-        payBillView.billPaymentButtonPay.clickAndRun()
-        val expectedReadBillInfoMessage = "First read bill info"
-        val actualReadBillMessage = ShadowToast.getTextOfLatestToast()
-        assertEquals(
-            "Wrong error message for First read bill info at bill payment view",
-            expectedReadBillInfoMessage,
-            actualReadBillMessage
-        )
-    }
+//    fun noBillLoaded() {
+//        val userMenu = UserMenuView()
+//        userMenu.userMenuPayBillsButton.clickAndRun()
+//
+//        val payBillView = BillPaymentView()
+//        payBillView.billPaymentButtonPay.clickAndRun()
+//        val expectedReadBillInfoMessage = "First read bill info"
+//        val actualReadBillMessage = ShadowToast.getTextOfLatestToast()
+//        assertEquals(
+//            "Wrong error message for First read bill info at bill payment view",
+//            expectedReadBillInfoMessage,
+//            actualReadBillMessage
+//        )
+//    }
 
     fun checkForFileWritingPermisions(): Boolean {
         val permision = ActivityCompat.checkSelfPermission(
@@ -1240,7 +1240,7 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
     }
 
 
-    fun copyFile(copyFromPath: String, file: String, toPath: String,  usermenu: UserMenuView) {
+    fun copyFile(copyFromPath: String, file: String, toPath: String, usermenu: UserMenuView) {
         //val usermenu = UserMenuView()
         usermenu.userMenuPayBillsButton.clickAndRun()
 
@@ -1257,10 +1257,10 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
 
     fun checkLoadedFileInSpinner(fileName: String) {
         val billPaymentView = BillPaymentView()
-        var position : Int = 0
-        when(fileName) {
-            "rentalbill.txt" -> position = 0
-            "utillitybill.txt" -> position = 1
+        var position: Int = 0
+        when (fileName) {
+            "rentalbill" -> position = 0
+            "utillitybill" -> position = 1
         }
 
         if (billPaymentView.dropdownSpinner.count > 0) {
@@ -1271,13 +1271,18 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
         }
     }
 
-    fun selectSpinnerOptionAndReadDataFromFile(selectBill : String, paymentFor : String, accountNumber : String, price : String) {
+    fun selectSpinnerOptionAndReadDataFromFile(
+        selectBill: String,
+        paymentFor: String,
+        accountNumber: String,
+        price: String
+    ) {
         val billPaymentView = BillPaymentView()
 
-        var position : Int = 0
-        when(selectBill) {
-            "rentalbill.txt" -> position = 0
-            "utillitybill.txt" -> position = 1
+        var position: Int = 0
+        when (selectBill) {
+            "rentalbill" -> position = 0
+            "utillitybill" -> position = 1
         }
         billPaymentView.dropdownSpinner.setSelection(position)
         billPaymentView.billPaymentReadFileButton.clickAndRun()
@@ -1285,9 +1290,70 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
 
         val expectedPaymentFor = paymentFor
         val actualPaymentFor = billPaymentView.billPaymentPaymentForField.text.toString()
-        assertEquals("Wrong payment for description at BillPayment view",expectedPaymentFor,actualPaymentFor)
+        assertEquals(
+            "Wrong payment for description at BillPayment view",
+            expectedPaymentFor,
+            actualPaymentFor
+        )
+
+    }
+
+    fun checkToastMessages(
+        noBillLoadedMessage: Boolean,
+        notEnoughBalanceMessage: Boolean,
+        billSuccessfullyPaidMessage: Boolean,
+        selectedBill: String?
+    ) {
+
+        val billPaymentView = BillPaymentView()
+
+        if (noBillLoadedMessage) {
+            if (billPaymentView.billPaymentPaymentForText.text != "" || billPaymentView.billPaymentPaymentForText.text.isNotEmpty()) {
+                billPaymentView.billPaymentButtonPay.clickAndRun() // first click to delete data from previous test activity
+            }
+            billPaymentView.billPaymentButtonPay.clickAndRun()
+
+                val expectedMessage = "First read bill info"
+                val actualMessage = ShadowToast.getTextOfLatestToast()
+                assertEquals(
+                    "Wrong Toast message for no bill loaded at Billpayment view",
+                    expectedMessage,
+                    actualMessage
+                )
+        }
+        if (notEnoughBalanceMessage) {
+            billPaymentView.billPaymentReadFileButton.clickAndRun()
+            billPaymentView.billPaymentButtonPay.clickAndRun()
+
+            val expectedMessage = "Not enough balance in account"
+            val actualMessage = ShadowToast.getTextOfLatestToast()
+            assertEquals(
+                "Wrong Toast message for not enough balance in account at Billpayment view",
+                expectedMessage,
+                actualMessage
+            )
+        }
+        if (billSuccessfullyPaidMessage) {
+            billPaymentView.billPaymentReadFileButton.clickAndRun()
+            billPaymentView.billPaymentButtonPay.clickAndRun()
+
+            var paymentForName : String = ""
+            when (selectedBill) {
+                "rentalbill" -> paymentForName = "Rental bill"
+                "utillitybill" -> paymentForName = "Utility bill"
+            }
 
 
+
+            val expectedMessage =
+                "$paymentForName was successfully paid"
+            val actualMessage = ShadowToast.getTextOfLatestToast()
+            assertEquals(
+                "Wrong Toast message for bill successfull paid at Billpayment view",
+                expectedMessage,
+                actualMessage
+            )
+        }
     }
 
 }

@@ -6,7 +6,6 @@ import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Environment
-import android.provider.MediaStore.Files
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,17 +17,16 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import kotlinx.coroutines.awaitAll
 import org.hyperskill.bankmanager.model.UserViewModel
-import java.io.BufferedReader
 import java.io.File
-import java.io.FileReader
 import java.io.IOException
 import java.lang.StringBuilder
 import kotlin.collections.ArrayList
-import kotlin.concurrent.thread
 
 class BillPayment : Fragment() {
+    private var paymentDescTextView: TextView? = null
+    private var accNumberTextView: TextView? = null
+    private var billPriceTextView: TextView? = null
 
     val userViewModel by viewModels<UserViewModel>(ownerProducer = { activity as MainActivity })
     override fun onCreateView(
@@ -44,17 +42,22 @@ class BillPayment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        paymentDescTextView = view.findViewById<View>(R.id.paymentForField) as TextView
+        accNumberTextView = view.findViewById<View>(R.id.accNumberInputField) as TextView
+        billPriceTextView = view.findViewById<View>(R.id.priceInputField) as TextView
         val user = userViewModel.getLoggedUser()
         val readFile = getView()!!.findViewById<View>(R.id.readFileButton) as Button
-        val spinnerBills : Spinner = getView()?.findViewById<View>(R.id.billPaymentSelectBillSpinner) as Spinner
+        val spinnerBills: Spinner =
+            getView()?.findViewById<View>(R.id.billPaymentSelectBillSpinner) as Spinner
         val path = File("sdcard/Download/New")
-       val filesPath : String = ".stage5\\src\\test\\java\\org\\hyperskill\\bankmanager\\testfiles\\"
+        val filesPath: String =
+            ".stage5\\src\\test\\java\\org\\hyperskill\\bankmanager\\testfiles\\"
         verifyStoragePermissions(activity)
         if (!path.exists()) {
             path.mkdirs()
-       //     copyFilesToSDFolder(filesPath,"rentalbill.txt")
+            //     copyFilesToSDFolder(filesPath,"rentalbill.txt")
         } else {
-         //   copyFilesToSDFolder(filesPath,"rentalbill.txt")
+            //   copyFilesToSDFolder(filesPath,"rentalbill.txt")
             val adapter2: ArrayAdapter<String> = ArrayAdapter<String>(
                 context!!,
                 android.R.layout.simple_spinner_item,
@@ -68,7 +71,7 @@ class BillPayment : Fragment() {
         readFile.setOnClickListener {
             val path = File("sdcard/Download/New")
 
-            @SuppressLint("SdCardPath") val file = File(path,"")
+            @SuppressLint("SdCardPath") val file = File(path, "")
             val text = StringBuilder()
             verifyStoragePermissions(activity)
 
@@ -107,12 +110,14 @@ class BillPayment : Fragment() {
             }
 
             if (billArray.size > 0) {
-                var paymentDesc = getView()!!.findViewById<View>(R.id.paymentForField) as TextView
-                paymentDesc!!.text = billArray[0]
-                var accNumber = getView()!!.findViewById<View>(R.id.accNumberInputField) as TextView
-                accNumber!!.text = billArray[1]
-                var billPrice = getView()!!.findViewById<View>(R.id.priceInputField) as TextView
-                billPrice!!.text = billArray[2]
+                paymentDescTextView =
+                    getView()!!.findViewById<View>(R.id.paymentForField) as TextView
+                paymentDescTextView!!.text = billArray[0]
+                accNumberTextView =
+                    getView()!!.findViewById<View>(R.id.accNumberInputField) as TextView
+                accNumberTextView!!.text = billArray[1]
+                billPriceTextView = getView()!!.findViewById<View>(R.id.priceInputField) as TextView
+                billPriceTextView!!.text = billArray[2]
             }
         }
 
@@ -128,7 +133,7 @@ class BillPayment : Fragment() {
                     userViewModel.withdrawFunds(billPrice.toBigDecimal())
                     Toast.makeText(
                         context,
-                        "$billInfo bill was successfuly paid",
+                        "$billInfo was successfully paid",
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
@@ -137,6 +142,9 @@ class BillPayment : Fragment() {
                 }
             }
             billArray = ArrayList<String>()
+            paymentDescTextView!!.text = ""
+            accNumberTextView!!.text = ""
+            billPriceTextView!!.text = ""
         }
     }
 
@@ -160,8 +168,12 @@ class BillPayment : Fragment() {
             // Check if we have write permission
             val permission = ActivityCompat.checkSelfPermission(
                 activity!!,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            val readPermission = ActivityCompat.checkSelfPermission(activity!!,Manifest.permission.READ_EXTERNAL_STORAGE)
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+            val readPermission = ActivityCompat.checkSelfPermission(
+                activity!!,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
             if (permission != PackageManager.PERMISSION_GRANTED || readPermission != PackageManager.PERMISSION_GRANTED) {
                 // We dont have permission so prompt the user
                 ActivityCompat.requestPermissions(
@@ -175,17 +187,17 @@ class BillPayment : Fragment() {
 
     fun readFileLine(fileName: String) = File(fileName).forEachLine { Companion.billArray.add(it) }
 
-    fun readFiles(path : String) : Array<String>? {
-        val directory : Array<out File>? = File(path).listFiles()
-        val files : Array<String>? = directory?.size?.let { Array(it) { directory.get(it).name } }
+    fun readFiles(path: String): Array<String>? {
+        val directory: Array<out File>? = File(path).listFiles()
+        val files: Array<String>? = directory?.size?.let { Array(it) { directory.get(it).name } }
 
         return files
     }
 
-    fun copyFilesToSDFolder(copyFromPath : String, file : String) {
+    fun copyFilesToSDFolder(copyFromPath: String, file: String) {
         val fileToCopy: File = File(copyFromPath + file)
         val toPath = Environment.getExternalStorageState()
-        val to : File = File(toPath + file)
-        fileToCopy.copyTo(to,true)
+        val to: File = File(toPath + file)
+        fileToCopy.copyTo(to, true)
     }
 }

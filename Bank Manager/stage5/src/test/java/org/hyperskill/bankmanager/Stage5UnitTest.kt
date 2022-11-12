@@ -51,22 +51,6 @@ class Stage5UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
         }
     }
 
-    @Test
-    fun noBillLoadedMessage() {
-        testActivity {
-            newUserSignUp(
-                "Jack",
-                "Wert",
-                "New York street 32",
-                "3468821",
-                "JaWe34",
-                "3572"
-            )
-
-            logInUserWithSecurityCodeInput("JaWe34", "3572", null)
-            noBillLoaded()
-        }
-    }
 
     @Test
     fun checkSpinnerdropdownOptions() {
@@ -82,13 +66,14 @@ class Stage5UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
 
             logInUserWithSecurityCodeInput("JaWe34", "3572", null)
             if (checkForFileWritingPermisions()) {
-                val filesPath : String =".\\src\\test\\java\\org\\hyperskill\\bankmanager\\testfiles\\"
+                val filesPath: String =
+                    ".\\src\\test\\java\\org\\hyperskill\\bankmanager\\testfiles\\"
                 val toPath = "sdcard/Download/New/"
                 val usermenu = UserMenuView()
-                copyFile(filesPath,"rentalbill.txt",toPath,usermenu)
-                copyFile(filesPath,"utillitybill.txt",toPath,usermenu)
-                checkLoadedFileInSpinner("rentalbill.txt")
-                checkLoadedFileInSpinner("utillitybill.txt")
+                copyFile(filesPath, "rentalbill", toPath, usermenu)
+                copyFile(filesPath, "utillitybill", toPath, usermenu)
+                checkLoadedFileInSpinner("rentalbill")
+                checkLoadedFileInSpinner("utillitybill")
             }
 
 
@@ -96,7 +81,7 @@ class Stage5UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
     }
 
     @Test
-    fun checkReadFileData() {
+    fun checkIfNoBillLoadedMessageAppear() {
         testActivity {
             newUserSignUp(
                 "Jack",
@@ -109,16 +94,139 @@ class Stage5UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
 
             logInUserWithSecurityCodeInput("JaWe34", "3572", null)
             if (checkForFileWritingPermisions()) {
-                val filesPath : String =".\\src\\test\\java\\org\\hyperskill\\bankmanager\\testfiles\\"
+                val filesPath: String =
+                    ".\\src\\test\\java\\org\\hyperskill\\bankmanager\\testfiles\\"
                 val toPath = "sdcard/Download/New/"
                 val usermenu = UserMenuView()
-                copyFile(filesPath,"rentalbill.txt",toPath,usermenu)
-                copyFile(filesPath,"utillitybill.txt",toPath,usermenu)
-                checkLoadedFileInSpinner("rentalbill.txt")
-                checkLoadedFileInSpinner("utillitybill.txt")
-                selectSpinnerOptionAndReadDataFromFile("utillitybill.txt","Utillity bill","DE 3245 345 6578", "80")
-                selectSpinnerOptionAndReadDataFromFile("rentalbill.txt","Rental bill","SE 3245 345 6345", "250")
+                copyFile(filesPath, "rentalbill", toPath, usermenu = usermenu)
+                checkToastMessages(
+                    noBillLoadedMessage = true,
+                    notEnoughBalanceMessage = false,
+                    billSuccessfullyPaidMessage = false,
+                    selectedBill = null
+                )
             }
+        }
+    }
+
+    @Test
+    fun checkIfNoFundsMessageAppear() {
+        testActivity {
+            newUserSignUp(
+                "Jack",
+                "Wert",
+                "New York street 32",
+                "3468821",
+                "JaWe34",
+                "3572"
+            )
+
+            logInUserWithSecurityCodeInput("JaWe34", "3572", null)
+            if (checkForFileWritingPermisions()) {
+                val filesPath: String =
+                    ".\\src\\test\\java\\org\\hyperskill\\bankmanager\\testfiles\\"
+                val toPath = "sdcard/Download/New/"
+                val usermenu = UserMenuView()
+                copyFile(filesPath, "rentalbill", toPath, usermenu)
+                copyFile(filesPath, "utillitybill", toPath, usermenu)
+                usermenu.userMenuPayBillsButton.clickAndRun()
+
+                checkToastMessages(
+                    noBillLoadedMessage = false,
+                    notEnoughBalanceMessage = true,
+                    billSuccessfullyPaidMessage = false,
+                    selectedBill = null
+                )
+            }
+        }
+    }
+
+    @Test
+    fun checkReadFileDataBill() {
+        testActivity {
+            newUserSignUp(
+                "Jack",
+                "Wert",
+                "New York street 32",
+                "3468821",
+                "JaWe34",
+                "3572"
+            )
+
+            logInUserWithSecurityCodeInput("JaWe34", "3572", null)
+            if (checkForFileWritingPermisions()) {
+                val filesPath: String =
+                    ".\\src\\test\\java\\org\\hyperskill\\bankmanager\\testfiles\\"
+                val toPath = "sdcard/Download/New/"
+                val usermenu = this.UserMenuView()
+                copyFile(filesPath, "rentalbill", toPath, usermenu)
+                copyFile(filesPath, "utillitybill", toPath, usermenu)
+                checkLoadedFileInSpinner("rentalbill")
+                checkLoadedFileInSpinner("utillitybill")
+                selectSpinnerOptionAndReadDataFromFile(
+                    "utillitybill",
+                    "Utillity bill",
+                    "DE 3245 345 6578",
+                    "80"
+                )
+                selectSpinnerOptionAndReadDataFromFile(
+                    "rentalbill",
+                    "Rental bill",
+                    "SE 3245 345 6345",
+                    "250"
+                )
+            }
+        }
+    }
+
+    @Test
+    fun payBillSuccessfully() {
+        testActivity {
+            newUserSignUp(
+                "Jack",
+                "Wert",
+                "New York street 32",
+                "3468821",
+                "JaWe34",
+                "3572"
+            )
+
+            logInUserWithSecurityCodeInput("JaWe34", "3572", null)
+            addFundsToBankAccount(300.0)
+
+            if (checkForFileWritingPermisions()) {
+                val filesPath: String =
+                    ".\\src\\test\\java\\org\\hyperskill\\bankmanager\\testfiles\\"
+                val toPath = "sdcard/Download/New/"
+
+                val usermenu = UserMenuView()
+                copyFile(filesPath, "rentalbill", toPath, usermenu)
+                copyFile(filesPath, "utillitybill", toPath, usermenu)
+                checkLoadedFileInSpinner("rentalbill")
+                checkLoadedFileInSpinner("utillitybill")
+                selectSpinnerOptionAndReadDataFromFile(
+                    "utillitybill",
+                    "Utillity bill",
+                    "DE 3245 345 6578",
+                    "80"
+                )
+                selectSpinnerOptionAndReadDataFromFile(
+                    "rentalbill",
+                    "Rental bill",
+                    "SE 3245 345 6345",
+                    "250"
+                )
+
+                checkToastMessages(
+                    noBillLoadedMessage = false,
+                    notEnoughBalanceMessage = false,
+                    billSuccessfullyPaidMessage = true,
+                    selectedBill = "rentalbill"
+                )
+
+
+            }
+
         }
     }
 
