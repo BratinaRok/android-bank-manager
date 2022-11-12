@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import org.hyperskill.bankmanager.model.UserViewModel
 import java.io.File
 import java.io.IOException
@@ -42,6 +43,7 @@ class BillPayment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val backButton = view.findViewById<View>(R.id.billPaymentBackButton) as Button
         paymentDescTextView = view.findViewById<View>(R.id.paymentForField) as TextView
         accNumberTextView = view.findViewById<View>(R.id.accNumberInputField) as TextView
         billPriceTextView = view.findViewById<View>(R.id.priceInputField) as TextView
@@ -66,6 +68,12 @@ class BillPayment : Fragment() {
             )
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinnerBills.adapter = adapter2
+        }
+
+        backButton.setOnClickListener {
+            Navigation.findNavController(
+                view
+            ).navigate(R.id.mainMenu)
         }
 
         readFile.setOnClickListener {

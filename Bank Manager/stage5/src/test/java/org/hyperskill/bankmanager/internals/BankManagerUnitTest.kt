@@ -5,6 +5,7 @@ import android.text.InputType.TYPE_CLASS_NUMBER
 import android.text.InputType.TYPE_NUMBER_VARIATION_PASSWORD
 import android.widget.*
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.FragmentController
 import androidx.navigation.findNavController
 import org.hyperskill.bankmanager.R
 import org.hyperskill.bankmanager.internals.AbstractUnitTest
@@ -773,6 +774,12 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
     }
 
     inner class BillPaymentView() {
+        val bilPaymentBackButton: Button by lazy {
+            val view = activity.findViewByString<Button>("billPaymentBackButton", "Button back at BillPayment view was not found")
+
+            view
+        }
+
         val billPaymentBillInformationText: TextView by lazy {
             val view = activity.findViewByString<TextView>(
                 "getBillInformationText",
@@ -1313,13 +1320,13 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             }
             billPaymentView.billPaymentButtonPay.clickAndRun()
 
-                val expectedMessage = "First read bill info"
-                val actualMessage = ShadowToast.getTextOfLatestToast()
-                assertEquals(
-                    "Wrong Toast message for no bill loaded at Billpayment view",
-                    expectedMessage,
-                    actualMessage
-                )
+            val expectedMessage = "First read bill info"
+            val actualMessage = ShadowToast.getTextOfLatestToast()
+            assertEquals(
+                "Wrong Toast message for no bill loaded at Billpayment view",
+                expectedMessage,
+                actualMessage
+            )
         }
         if (notEnoughBalanceMessage) {
             billPaymentView.billPaymentReadFileButton.clickAndRun()
@@ -1337,12 +1344,11 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             billPaymentView.billPaymentReadFileButton.clickAndRun()
             billPaymentView.billPaymentButtonPay.clickAndRun()
 
-            var paymentForName : String = ""
+            var paymentForName: String = ""
             when (selectedBill) {
                 "rentalbill" -> paymentForName = "Rental bill"
                 "utillitybill" -> paymentForName = "Utility bill"
             }
-
 
 
             val expectedMessage =
@@ -1353,8 +1359,10 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
                 expectedMessage,
                 actualMessage
             )
+            billPaymentView.bilPaymentBackButton.clickAndRun()
         }
     }
+
 
 }
 

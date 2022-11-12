@@ -224,6 +224,7 @@ class Stage5UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
                     selectedBill = "rentalbill"
                 )
 
+                checkAccountBalance(50.0)
 
             }
 
