@@ -5,18 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import org.hyperskill.bankmanager.R
-import org.hyperskill.bankmanager.databinding.UserMenuBinding
-import org.hyperskill.bankmanager.model.UserViewModel
+import org.hyperskill.bankmanager.databinding.MainmenuBinding
 
 class UserMenu : Fragment() {
 
 
 
-    private var _binding: UserMenuBinding? = null
-    private val userViewModel by viewModels<UserViewModel>(ownerProducer = { activity as MainActivity })
+    private var _binding: MainmenuBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -27,31 +23,38 @@ class UserMenu : Fragment() {
         savedInstanceState: Bundle?
 
     ): View? {
-        _binding = UserMenuBinding.inflate(inflater, container, false)
+        _binding = MainmenuBinding.inflate(inflater, container, false)
         return binding.root
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val user = userViewModel.getLoggedUser()
-        binding.userMenuUsernameText.text = user.userName
-        binding.userMenuDepositFundsButton.setOnClickListener{
+        val user = LogInUser()
+        binding.usernameText.text = user.username
+        binding.depositFundsButton.setOnClickListener{
             findNavController().navigate(R.id.action_userMenu_to_depositFundsScreen)
 
         }
 
-        binding.userMenuWithdrawFundsButton.setOnClickListener {
-            findNavController().navigate(R.id.action_userMenu_to_withdrawFunds)
+        binding.withdrawFundsButton.setOnClickListener {
+            if(findNavController().currentDestination?.id == R.id.mainMenu){
+                findNavController().navigate(R.id.action_userMenu_to_withdrawFunds)
+
+            }else {
+            println(findNavController().currentDestination.toString())
+            }
         }
-        binding.userMenuViewBalanceButton.setOnClickListener {
-
-
+        binding.viewBalanceButton.setOnClickListener {
             findNavController().navigate(R.id.action_userMenu_to_viewBalance)
 
         }
 
-//        binding.userMenuPayBillsButton.setOnClickListener {
+//        binding.convertFundsButton.setOnClickListener {
+//            findNavController().navigate(R.id.convertFunds)
+//        }
+//
+//        binding.payBillsButton.setOnClickListener {
 //            findNavController().navigate(R.id.billPayment)
 //        }
 
