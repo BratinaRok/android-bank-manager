@@ -7,15 +7,6 @@ import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
 class Stage4UnitTestB : BankManagerUnitTest<MainActivity>(MainActivity::class.java) {
-    val stage3Test = Stage3UnitTestB()
-
-
-    @Test
-    fun checkForSignUpAndLogInSuccessful() {
-        testActivity {
-            stage3Test.logInWithSecurityCodeSuccessful()
-        }
-    }
 
     @Test
     fun checkForConvertViewItems() {

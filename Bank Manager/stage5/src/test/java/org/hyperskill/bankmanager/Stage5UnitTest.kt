@@ -24,15 +24,6 @@ class Stage5UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
         return GrantPermissionRule.grant(Manifest.permission.READ_EXTERNAL_STORAGE)
     }
 
-    val stage4UnitTestB = Stage4UnitTestB()
-
-    @Test
-    fun signUpAndLoginCheck() {
-        testActivity {
-            stage4UnitTestB.checkForSignUpAndLogInSuccessful()
-        }
-    }
-
 
     @Test
     fun checkForComponents() {
