@@ -264,7 +264,7 @@ class MainActivity : AppCompatActivity() {
     fun fundsDeposit(view: View) {
         val text = findViewById<EditText>(R.id.inputAddFunds)
         if (text.text.toString().isEmpty()) {
-            text.setError("Enter funds")
+            text.error = "Enter funds"
         } else {
             val toAdd = text.text.toString().toBigDecimal()
             userViewModel.addFunds(toAdd)
