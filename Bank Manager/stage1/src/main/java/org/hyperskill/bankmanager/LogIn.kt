@@ -29,16 +29,16 @@ class LogIn : Fragment() {
 
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.confirmCodeButton.setOnClickListener {
-            if ((activity as MainActivity).securityCheck(view)) {
-                findNavController().navigate(R.id.action_SecondFragment_to_userMenu)
-            }
-
-
-        }
-    }
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//        binding.confirmCodeButton.setOnClickListener {
+//            if ((activity as MainActivity).securityCheck(view)) {
+//                findNavController().navigate(R.id.action_SecondFragment_to_userMenu)
+//            }
+//
+//
+//        }
+//    }
 
 
     override fun onDestroyView() {

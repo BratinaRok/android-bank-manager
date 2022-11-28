@@ -39,6 +39,7 @@
     <string name="convert"> Convert </string>
     <string name="withdrawFunds">withdraw funds</string>
     <string name="log_out">log out</string>
+    <string name="payment_for">Payment for :</string>
 
 
 </resources>

@@ -92,26 +92,6 @@ class BillPayment : Fragment() {
                 readFileLine("sdcard/Download/New/${spinnerBills.selectedItem}")
 
 
-//
-//                val arrayFiles : ArrayList<File> = ArrayList()
-//
-//                val br = BufferedReader(FileReader(file))
-//                val line = br.readLine()
-//                while(line != null) {
-//                //    arrayFiles.add((line)
-//
-//                }
-
-                // var line: String = ""
-                //while (br.readLine().also { line = it } != null) {
-//                while (br.readLines()) {
-//                    text.append(line)
-//                    billArray.add(line)
-//                    text.append('\n')
-//                    br.readLine()
-//                }
-                //   br.close()
-
             } catch (e: IOException) {
                 Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
                 println(e.message)
