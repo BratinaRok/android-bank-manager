@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.hyperskill.bankmanager.ConvertFundsView"
+    android:id="@+id/frameLayout4">
+
+    <TextView
+        android:id="@+id/convertFundsText"
+        android:layout_width="96dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="92dp"
+        android:text="@string/convert_funds"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_conversion_absoluteHeight="810dp"
+        tools:layout_conversion_absoluteWidth="411dp" />
+
+    <Spinner
+        android:id="@+id/spinnerConvertFrom"
+        android:layout_width="125dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="116dp"
+        android:layout_marginEnd="120dp"
+        android:dropDownSelector="@color/teal_200"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/convertFundsText" />
+
+    <Spinner
+        android:id="@+id/spinnerConvertTo"
+        android:layout_width="124dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="120dp"
+        android:spinnerMode="dropdown"
+
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerConvertFrom" />
+
+    <Button
+        android:id="@+id/buttonConvertFunds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:backgroundTint="@color/teal_700"
+        android:text="@string/convert"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputFundsToConvert" />
+
+    <TextView
+        android:id="@+id/convertFromText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="116dp"
+        android:text="Convert from"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerConvertFrom"
+        app:layout_constraintHorizontal_bias="0.259"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/convertFundsText" />
+
+    <TextView
+        android:id="@+id/convertToText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
+        android:text="@string/convert_to"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerConvertTo"
+        app:layout_constraintHorizontal_bias="0.188"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/convertFromText" />
+
+    <EditText
+        android:id="@+id/inputFundsToConvert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:ems="10"
+        android:hint="@string/enter_amount"
+        android:inputType="numberDecimal"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.621"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerConvertTo" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

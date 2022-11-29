@@ -1,18 +1,26 @@
-package org.hyperskill.bankmanager.internals
-
 import android.app.Activity
+import android.content.pm.PackageManager
 import android.text.InputType
 import android.text.InputType.TYPE_CLASS_NUMBER
 import android.text.InputType.TYPE_NUMBER_VARIATION_PASSWORD
 import android.widget.*
+import androidx.core.app.ActivityCompat
+import androidx.navigation.findNavController
+import org.hyperskill.bankmanager.R
+import org.hyperskill.bankmanager.internals.AbstractUnitTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.robolectric.shadows.ShadowToast
+import java.io.File
 import java.math.BigDecimal
 
 
-// todo same hierarchy structure for all stages
 open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest<T>(clazz) {
+
+    inner class ToolbarBackNavigation {
+        val toolbar = activity.findNavController(R.id.nav_host_fragment_content_main)
+    }
+
 
     inner class SignUpView() {
         val firstName: EditText by lazy {
@@ -311,24 +319,24 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             view
         }
 
-//        val logInSecurityCode: EditText by lazy {
-//            val view = activity.findViewByString<EditText>(
-//                "securityCodeInput",
-//                "EditText securityCodeInput at login View was not found"
-//            )
-//            val actualInputType = view.inputType
-//            val expectedInputType = TYPE_CLASS_NUMBER
-//            assertTrue(
-//                "The input type for security code should be $expectedInputType, but it is $actualInputType",
-//                expectedInputType == actualInputType
-//            )
-//
-//            val actualHint = view.hint.toString().lowercase()
-//            val expectedHint = "enter security code"
-//            assertEquals("Wrong hint for security code field", expectedHint, actualHint)
-//
-//            view
-//        }
+        val logInSecurityCode: EditText by lazy {
+            val view = activity.findViewByString<EditText>(
+                "securityCodeInput",
+                "EditText securityCodeInput at login View was not found"
+            )
+            val actualInputType = view.inputType
+            val expectedInputType = TYPE_CLASS_NUMBER
+            assertTrue(
+                "The input type for security code should be $expectedInputType, but it is $actualInputType",
+                expectedInputType == actualInputType
+            )
+
+            val actualHint = view.hint.toString().lowercase()
+            val expectedHint = "enter security code"
+            assertEquals("Wrong hint for security code field", expectedHint, actualHint)
+
+            view
+        }
 
         val logInButtonAtLogInView: Button by lazy {
             val view = activity.findViewByString<Button>(
@@ -339,15 +347,24 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             view
         }
 
+        val securityCodeButtonConfirm: Button by lazy {
+            val view = activity.findViewByString<Button>(
+                "confirmCodeButton",
+                "Button confirmCodeButton at Login View was not found for security code button confirm"
+            )
+
+            view
+        }
+
 
         fun logInUser(
             userNameInput: String = "",
             passwordInput: String = "",
-            securityCodeInput: Int? = 0
+            securityCodeInput: String? = ""
         ) {
             logInUserNameEt.text.append(userNameInput)
             logInPasswordEt.text.append(passwordInput)
-            //logInSecurityCode.text.append(securityCodeInput.toString())
+            logInSecurityCode.text.append(securityCodeInput.toString())
         }
 
         fun assertInputFields(
@@ -379,15 +396,6 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
                 )
             }
 
-            val actualsecurityCodeEmptyMessage = ShadowToast.getTextOfLatestToast().toString()
-            val expectedsecurityCodeEmptyMessage = "Enter security code"
-            if (securityCodeEmpty) {
-                assertEquals(
-                    "Wrong security code error message for empty input field",
-                    expectedsecurityCodeEmptyMessage,
-                    actualsecurityCodeEmptyMessage
-                )
-            }
             val actualUserDoesntExistsMessage = ShadowToast.getTextOfLatestToast().toString()
             val expectedUserDoesntExistsErrorMessage = "No such user exists"
             if (userDoesntExists) {
@@ -408,7 +416,29 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
                 )
             }
 
+            val actualsecurityCodeEmptyMessage = ShadowToast.getTextOfLatestToast().toString()
+            val expectedsecurityCodeEmptyMessage = "Enter security code"
+            if (securityCodeEmpty) {
+                assertEquals(
+                    "Wrong security code error message for empty security input field",
+                    expectedsecurityCodeEmptyMessage,
+                    actualsecurityCodeEmptyMessage
+                )
+            }
+
+
+            val actualsecurityCodeWrongCodeMessage = ShadowToast.getTextOfLatestToast().toString()
+            val expectedsecurityCodeWrongCodeMessage = "Wrong security code"
+            if (securityCodeWrong) {
+                assertEquals(
+                    "Wrong security code error message for Wrong security code input",
+                    expectedsecurityCodeWrongCodeMessage,
+                    actualsecurityCodeWrongCodeMessage
+                )
+            }
+
         }
+
     }
 
     inner class UserMenuView() {
@@ -430,19 +460,10 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             view
         }
 
-        val userMenuDepositFundsButton: Button by lazy {
+        val userMenuTransferFundsButton: Button by lazy {
             val view = activity.findViewByString<Button>(
-                "userMenuDepositFundsButton",
-                "Button deposit Funds at usermenu View was not found"
-            )
-
-            view
-        }
-
-        val userMenuWithdrawFundsButton: Button by lazy {
-            val view = activity.findViewByString<Button>(
-                "userMenuWithdrawFundsButton",
-                "Button withdraw Funds at usermenu View was not found"
+                "userMenuTransferFundsButton",
+                "Button transfer Funds at usermenu View was not found"
             )
 
             view
@@ -477,7 +498,33 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
 
     }
 
-    inner class DepositFundsView() {
+    inner class TransferFundsView() {
+        val transferFundsToAccountButton: Button by lazy {
+            val view = activity.findViewByString<Button>(
+                "transferFundsViewTransferToAccountButton",
+                "Button transfer Funds To Account at transfer Funds View was not found"
+            )
+            view
+        }
+        val transferFundsFromAccountButton: Button by lazy {
+            val view = activity.findViewByString<Button>(
+                "transferFundsViewTransferFromAccountButton",
+                "Button transfer Funds From Account at transfer Funds View was not found"
+            )
+            view
+        }
+        val transferFundsBackButton: Button by lazy {
+            val view = activity.findViewByString<Button>(
+                "transferFundsViewBackButton",
+                "Button back at transfer Funds View was not found"
+            )
+            view
+        }
+
+
+    }
+
+    inner class TransferFundsToAccountView() {
         val depositFundsTextDepositFunds: TextView by lazy {
             val view = activity.findViewByString<TextView>(
                 "textdepositfunds",
@@ -486,18 +533,16 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             val actualDepositFundsText = view.text.toString()
             val expectedDepositFundsText = "Deposit funds"
             assertEquals(
-                "Wrong deposit funds text at depositFunds view ",
+                "Wrong deposit funds text at transferFundsToAccount view ",
                 expectedDepositFundsText, actualDepositFundsText
             )
-
-
             view
         }
 
         val depositFundsInputAddFunds: EditText by lazy {
             val view = activity.findViewByString<EditText>(
                 "inputAddFunds",
-                "EditText input add funds at DepositFunds View was not found "
+                "EditText input add funds at transfer funds to account View was not found "
             )
             val actualInputType = view.inputType
             val expectedInputType = InputType.TYPE_CLASS_NUMBER + InputType.TYPE_NUMBER_FLAG_DECIMAL
@@ -515,7 +560,7 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             view
         }
 
-        val depositFundsButtonAddFunds: Button by lazy {
+        val buttonAddFunds: Button by lazy {
             val view = activity.findViewByString<Button>(
                 "buttonAddFunds",
                 "Button AddFunds at DepositFunds View was not found "
@@ -524,14 +569,15 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             view
         }
 
-        fun depositFunds(addFunds: Double = 0.0) {
+        fun transferFundsToAccount(addFunds: Double = 0.0) {
             depositFundsInputAddFunds.append(addFunds.toString())
+
         }
 
     }
 
 
-    inner class WithdrawFundsView() {
+    inner class TransferFundsFromAccountView() {
 
         val withdrawFundsTextWithdrawFunds: TextView by lazy {
             val view = activity.findViewByString<TextView>(
@@ -559,7 +605,7 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             view
         }
 
-        fun withdrawFundsFromAccount(withdrawAmount : Double = 0.0) {
+        fun withdrawFundsFromAccount(withdrawAmount: Double = 0.0) {
             withdrawFundsEnterAmountWithdraw.append(withdrawAmount.toString())
         }
 
@@ -567,7 +613,7 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
     }
 
 
-    inner class viewBalanceView() {
+    inner class ViewBalanceView() {
         val viewBalanceTextViewBalance: TextView by lazy {
             val view = activity.findViewByString<TextView>(
                 "textViewBalance",
@@ -598,12 +644,16 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
 
         fun checkAccountBalance(expectedAmount: BigDecimal = BigDecimal.ZERO) {
             val actualAmount = viewBalanceShowBalanceText.text.toString()
-            assertEquals("Wrong account balance at Balance view","%.2f".format(expectedAmount),actualAmount)
+            assertEquals(
+                "Wrong account balance at Balance view",
+                "%.2f".format(expectedAmount),
+                actualAmount
+            )
         }
 
     }
 
-    inner class convertFundsView() {
+    inner class ConvertFundsView() {
 
         val convertFundsConvertFundsText: TextView by lazy {
             val view = activity.findViewByString<TextView>(
@@ -652,7 +702,7 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
 
         val convertFundsEnterAmountConvert: EditText by lazy {
             val view = activity.findViewByString<EditText>(
-                "enterAmountConvert",
+                "inputFundsToConvert",
                 "EditText enter Amount  at convertFunds View was not found"
             )
 
@@ -661,15 +711,89 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
 
         val convertFundsButtonConvert: Button by lazy {
             val view = activity.findViewByString<Button>(
-                "buttonConvert",
+                "buttonConvertFunds",
                 "Button convert  at convertFunds View was not found"
             )
 
             view
         }
+
+        fun checkDropdownConvertFromDropdownOptions(
+            expectedDropdownOptionsLength: Int,
+            itemOne: String,
+            itemTwo: String,
+            itemThree: String
+        ) {
+            val actualspinnerConvertFromOptionsLength = convertFundsSpinnerConvertFrom.count
+            assertEquals(
+                "Wrong number of options to convert from ",
+                expectedDropdownOptionsLength,
+                actualspinnerConvertFromOptionsLength
+            )
+
+            val acutalItemAtOne = convertFundsSpinnerConvertFrom.getItemAtPosition(0).toString()
+            assertEquals("Wrong first Item at convert from dropdown ", itemOne, acutalItemAtOne)
+            val acutalItemAtTwo = convertFundsSpinnerConvertFrom.getItemAtPosition(1).toString()
+            assertEquals("Wrong second Item at convert from dropdown ", itemTwo, acutalItemAtTwo)
+            val acutalItemAtThree = convertFundsSpinnerConvertFrom.getItemAtPosition(2).toString()
+            assertEquals("Wrong third Item at convert from dropdown ", itemThree, acutalItemAtThree)
+
+
+        }
+
+        fun checkDropdownConvertToDropdownOptions(
+            expectedDropdownOptionsLength: Int,
+            itemOne: String,
+            itemTwo: String,
+            itemThree: String
+        ) {
+            val actualspinnerConvertToOptionsLength = convertFundsSpinnerConvertTo.count
+            assertEquals(
+                "Wrong number of options to convert to ",
+                expectedDropdownOptionsLength,
+                actualspinnerConvertToOptionsLength
+            )
+
+            val acutalItemAtOne = convertFundsSpinnerConvertTo.getItemAtPosition(0).toString()
+            assertEquals("Wrong first Item at convert to dropdown ", itemOne, acutalItemAtOne)
+            val acutalItemAtTwo = convertFundsSpinnerConvertTo.getItemAtPosition(1).toString()
+            assertEquals("Wrong second Item at convert to dropdown ", itemTwo, acutalItemAtTwo)
+            val acutalItemAtThree = convertFundsSpinnerConvertTo.getItemAtPosition(2).toString()
+            assertEquals("Wrong third Item at convert to dropdown ", itemThree, acutalItemAtThree)
+        }
+
+        fun convertFundsSetCurrencies(
+            selectCurrencyConvertFrom: String,
+            selectCurrencyConvertTo: String,
+        ) {
+            var convertFrom = 0
+            var convertTo = 0
+
+            when (selectCurrencyConvertFrom) {
+                "USD" -> convertFrom = 0
+                "EUR" -> convertFrom = 1
+                "GBP" -> convertFrom = 2
+            }
+            convertFundsSpinnerConvertFrom.setSelection(convertFrom, true)
+
+            when (selectCurrencyConvertTo) {
+                "USD" -> convertTo = 0
+                "EUR" -> convertTo = 1
+                "GBP" -> convertTo = 2
+            }
+            convertFundsSpinnerConvertTo.setSelection(convertTo, true)
+
+
+        }
     }
 
-    inner class billPaymentView() {
+    inner class BillPaymentView() {
+        val bilPaymentBackButton: Button by lazy {
+            val view = activity.findViewByString<Button>("billPaymentBackButton", "Button back at BillPayment view was not found")
+
+            view
+        }
+
         val billPaymentBillInformationText: TextView by lazy {
             val view = activity.findViewByString<TextView>(
                 "getBillInformationText",
@@ -751,6 +875,15 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             view
         }
 
+        val dropdownSpinner: Spinner by lazy {
+            val view = activity.findViewByString<Spinner>(
+                "billPaymentSelectBillSpinner",
+                "Spinner at Bill payment View was not found"
+            )
+
+            view
+        }
+
     }
 
 
@@ -787,8 +920,34 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
         userMenu.userMenuWelcomeText
         userMenu.userMenuUsernameText
         userMenu.userMenuViewBalanceButton
-        userMenu.userMenuDepositFundsButton
-        userMenu.userMenuWithdrawFundsButton
+        userMenu.userMenuTransferFundsButton
+        userMenu.userMenuTransferFundsButton
+        userMenu.userMenuConvertFundsButton // stage 4
+        userMenu.userMenuPayBillsButton // stage 5
+    }
+
+    fun checkForTransferFundsComponents() {
+        val transferFunds = TransferFundsView()
+        transferFunds.transferFundsBackButton
+        transferFunds.transferFundsFromAccountButton
+        transferFunds.transferFundsToAccountButton
+    }
+
+    fun checkForPayBilsViewComponents() {
+        val usermenu = UserMenuView()
+        usermenu.userMenuPayBillsButton.clickAndRun()
+
+        val billPaymentView = BillPaymentView()
+        billPaymentView.billPaymentButtonPay
+        billPaymentView.billPaymentPriceText
+        billPaymentView.billPaymentBillInformationText
+        billPaymentView.billPaymentPaymentForText
+        billPaymentView.billPaymentAccNumberInputField
+        billPaymentView.billPaymentAccountNumberText
+        billPaymentView.billPaymentPriceInputField
+        billPaymentView.billPaymentReadFileButton
+        billPaymentView.billPaymentPaymentForField
+        billPaymentView.dropdownSpinner
     }
 
 
@@ -851,12 +1010,13 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
     fun logInUserMethod(
         userNameInput: String = "jond",
         passwordInput: String = "3432",
-        securityCodeInput: Int = 0,
+        securityCodeInput: String? = "",
         usernameError: Boolean = false,
         passwordError: Boolean = false,
-        securityCodeError: Boolean = false,
         userDoesntExists: Boolean = false,
-        wrongPassword: Boolean = false
+        securityCodeWrong: Boolean = false,
+        wrongPassword: Boolean = false,
+        securityCodeEmpty: Boolean = false
     ) {
 
         MainScreenView().logInButtonMainScreenView.clickAndRun()
@@ -864,7 +1024,7 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
         val logInView = LogInView()
         logInView.logInUser(userNameInput, passwordInput, securityCodeInput)
         val isIncorrectInput =
-            usernameError || passwordError || securityCodeError || userDoesntExists || wrongPassword
+            usernameError || passwordError || securityCodeWrong || userDoesntExists || wrongPassword
 
         logInView.logInButtonAtLogInView.clickAndRun()
 
@@ -874,22 +1034,22 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
                 passwordError,
                 userDoesntExists,
                 wrongPassword,
-                false,
-                false
+                securityCodeEmpty,
+                securityCodeWrong
             )
+
         } else {
             val actualLogInToastMessageMessage = ShadowToast.getTextOfLatestToast().toString()
             val expectedLogInToastMessage = "User logged in"
             assertEquals(
                 "Wrong Toast message if user logged in succesfully",
-                actualLogInToastMessageMessage,
-                expectedLogInToastMessage
+                expectedLogInToastMessage,
+                actualLogInToastMessageMessage
             )
 
             val userMenuView = UserMenuView() // test goes to UserMenuView
             // at stage 2 checks for :
-            userMenuView.userMenuDepositFundsButton
-            userMenuView.userMenuWithdrawFundsButton
+            userMenuView.userMenuTransferFundsButton
             userMenuView.userMenuViewBalanceButton
         }
 
@@ -897,34 +1057,34 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
 
     fun addFundsToBankAccount(addFunds: Double = 0.0) {
         val userMenu = UserMenuView()
-        userMenu.userMenuDepositFundsButton.clickAndRun()
+        userMenu.userMenuTransferFundsButton.clickAndRun()
 
-        val depositFundsView = DepositFundsView()
-        depositFundsView.depositFunds(addFunds)
+        val transferFundsView = TransferFundsView()
+        transferFundsView.transferFundsToAccountButton.clickAndRun()
 
-        depositFundsView.depositFundsButtonAddFunds.clickAndRun()
+        val transferFundsToAccountView = TransferFundsToAccountView()
 
-        userMenu.userMenuUsernameText
-        userMenu.userMenuViewBalanceButton
-        userMenu.userMenuDepositFundsButton
-        userMenu.userMenuWithdrawFundsButton
+        transferFundsToAccountView.buttonAddFunds.clickAndRun()
+        transferFundsToAccountView.transferFundsToAccount(addFunds)
+        transferFundsToAccountView.buttonAddFunds.clickAndRun().also {
 
-
-        val actualToastMessageMessage = ShadowToast.getTextOfLatestToast().toString()
-        val expectedToastMessage = "Funds added"
-        assertEquals(
-            "Wrong Toast message for add funds",
-            actualToastMessageMessage,
-            expectedToastMessage
-        )
+            val actualToastMessageMessage = ShadowToast.getTextOfLatestToast().toString()
+            val expectedToastMessage = "Funds added"
+            assertEquals(
+                "Wrong Toast message for add funds",
+                actualToastMessageMessage,
+                expectedToastMessage
+            )
+        }
+        checkForUserMenuComponents()
 
     }
 
-    fun checkAccountBalance(expectedAmount : Double = 0.0) {
+    fun checkAccountBalance(expectedAmount: Double = 0.0) {
         val userMenu = UserMenuView()
         userMenu.userMenuViewBalanceButton.clickAndRun()
 
-        val viewBalance = viewBalanceView()
+        val viewBalance = ViewBalanceView()
         viewBalance.checkAccountBalance(expectedAmount.toBigDecimal())
         viewBalance.viewBalanceButton.clickAndRun()
 
@@ -934,14 +1094,298 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
 
     fun withdraw(withdrawAmount: Double = 0.0) {
         val menu = UserMenuView()
-        menu.userMenuWithdrawFundsButton.clickAndRun()
+        menu.userMenuTransferFundsButton.clickAndRun()
 
-        val withdrawFunds = WithdrawFundsView()
+        val withdrawFunds = TransferFundsFromAccountView()
         withdrawFunds.withdrawFundsEnterAmountWithdraw.append(withdrawAmount.toString())
         withdrawFunds.withdrawFundsWithdrawButton.clickAndRun()
 
     }
+
+    //stage 3
+    fun logInUserWithSecurityCodeInput(
+        userNameInput: String,
+        passwordInput: String,
+        securityCodeInput: String?,
+        usernameError: Boolean = false,
+        passwordError: Boolean = false,
+        securityCodeEmpty: Boolean = false,
+        userDoesntExists: Boolean = false,
+        wrongPassword: Boolean = false,
+        wrongSecurityCode: Boolean = false
+    ) {
+
+        MainScreenView().logInButtonMainScreenView.clickAndRun()
+
+        val logInView = LogInView()
+        logInView.logInUser(userNameInput, passwordInput)
+        val isIncorrectInput =
+            usernameError || passwordError || securityCodeEmpty || userDoesntExists || wrongPassword || wrongSecurityCode
+
+        logInView.logInButtonAtLogInView.clickAndRun()
+
+        logInView.logInSecurityCode
+        logInView.securityCodeButtonConfirm
+
+        if (wrongSecurityCode) {
+            logInView.logInSecurityCode.text.append(securityCodeInput.toString())
+            logInView.securityCodeButtonConfirm.clickAndRun()
+        } else if (securityCodeEmpty) {
+            logInView.securityCodeButtonConfirm.clickAndRun()
+        } else {
+            logInView.logInSecurityCode.text.append(ShadowToast.getTextOfLatestToast().toString())
+            logInView.securityCodeButtonConfirm.clickAndRun()
+        }
+
+        if (isIncorrectInput) {
+            logInView.assertInputFields(
+                usernameError,
+                passwordError,
+                userDoesntExists,
+                wrongPassword,
+                securityCodeEmpty,
+                wrongSecurityCode
+            )
+
+
+        } else {
+            val actualLogInToastMessageMessage = ShadowToast.getTextOfLatestToast().toString()
+            val expectedLogInToastMessage = "Log in successfully"
+            assertEquals(
+                "Wrong Toast message if user logged in succesfully",
+                expectedLogInToastMessage,
+                actualLogInToastMessageMessage
+            )
+
+            val userMenuView = UserMenuView() // test goes to UserMenuView
+            // at stage 2-3 checks for :
+            userMenuView.userMenuTransferFundsButton
+            userMenuView.userMenuViewBalanceButton
+        }
+    }
+
+    // stage 4
+    fun convertFundsCheckForItems() {
+        val userMenu = UserMenuView()
+        userMenu.userMenuConvertFundsButton.clickAndRun()
+        val convertFundsView = ConvertFundsView()
+        convertFundsView.convertFundsButtonConvert
+        convertFundsView.convertFundsConvertFundsText
+        convertFundsView.convertFundsConvertToText
+        convertFundsView.convertFundsConvertFromText
+        convertFundsView.convertFundsButtonConvert
+        convertFundsView.convertFundsSpinnerConvertFrom
+        convertFundsView.convertFundsEnterAmountConvert
+        convertFundsView.convertFundsSpinnerConvertTo
+    }
+
+    // stage 4
+    fun convertFundsCheckDropdownOptions(
+        convertFromexpectedDropdownOptionsLength: Int,
+        convertFromitemOne: String,
+        convertFromitemTwo: String,
+        convertFromitemThree: String,
+        convertToexpectedDropdownOptionsLength: Int,
+        convertToitemOne: String,
+        convertToitemTwo: String,
+        convertToitemThree: String
+    ) {
+
+
+        val userMenu = UserMenuView()
+        userMenu.userMenuConvertFundsButton.clickAndRun()
+        val convertFundsView = ConvertFundsView()
+
+        convertFundsView.checkDropdownConvertFromDropdownOptions(
+            convertFromexpectedDropdownOptionsLength,
+            convertFromitemOne,
+            convertFromitemTwo,
+            convertFromitemThree
+        )
+        convertFundsView.checkDropdownConvertToDropdownOptions(
+            convertToexpectedDropdownOptionsLength,
+            convertToitemOne,
+            convertToitemTwo,
+            convertToitemThree
+        )
+    }
+
+    // stage 4
+    fun checkConversion(
+        selectCurrencyConvertFrom: String,
+        selectCurrencyConvertTo: String,
+        amountToConvert: String,
+        expectedCurrencyConvertedAmount: String
+    ) {
+        val userMenu = UserMenuView()
+        userMenu.userMenuConvertFundsButton.clickAndRun()
+        val convertFundsView = ConvertFundsView()
+
+        convertFundsView.convertFundsSetCurrencies(
+            selectCurrencyConvertFrom,
+            selectCurrencyConvertTo
+        )
+        convertFundsView.convertFundsEnterAmountConvert.append(amountToConvert)
+
+        convertFundsView.convertFundsButtonConvert.clickAndRun()
+        val getConvertedAmountMessageToast = ShadowToast.getTextOfLatestToast().toString()
+        val expectedMessageToast =
+            "$amountToConvert $selectCurrencyConvertFrom funds, converted to $expectedCurrencyConvertedAmount $selectCurrencyConvertTo successfully"
+
+        assertEquals(expectedMessageToast, getConvertedAmountMessageToast)
+
+        val toolbarcontroller = ToolbarBackNavigation()
+        toolbarcontroller.toolbar.navigateUp()
+    }
+
+    //stage 5
+//    fun noBillLoaded() {
+//        val userMenu = UserMenuView()
+//        userMenu.userMenuPayBillsButton.clickAndRun()
+//
+//        val payBillView = BillPaymentView()
+//        payBillView.billPaymentButtonPay.clickAndRun()
+//        val expectedReadBillInfoMessage = "First read bill info"
+//        val actualReadBillMessage = ShadowToast.getTextOfLatestToast()
+//        assertEquals(
+//            "Wrong error message for First read bill info at bill payment view",
+//            expectedReadBillInfoMessage,
+//            actualReadBillMessage
+//        )
+//    }
+
+    fun checkForFileWritingPermisions(): Boolean {
+        val permision = ActivityCompat.checkSelfPermission(
+            activity,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+        if (permision == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        }
+        return false;
+    }
+
+
+    fun copyFile(copyFromPath: String, file: String, toPath: String, usermenu: UserMenuView) {
+        //val usermenu = UserMenuView()
+        usermenu.userMenuPayBillsButton.clickAndRun()
+
+        val dir: File = File(toPath)
+        if (!dir.exists()) {
+            dir.mkdirs()
+        }
+
+        val fileToCopy: File = File(copyFromPath + file)
+        val to: File = File(toPath + file)
+        fileToCopy.copyTo(to, true)
+
+    }
+
+    fun checkLoadedFileInSpinner(fileName: String) {
+        val billPaymentView = BillPaymentView()
+        var position: Int = 0
+        when (fileName) {
+            "rentalbill" -> position = 0
+            "utillitybill" -> position = 1
+        }
+
+        if (billPaymentView.dropdownSpinner.count > 0) {
+            val spinnerItem = billPaymentView.dropdownSpinner.getItemAtPosition(position)
+            assertEquals("Wrong File or empty", fileName, spinnerItem)
+        } else {
+            java.lang.AssertionError("No file loaded in spinner for bill payment")
+        }
+    }
+
+    fun selectSpinnerOptionAndReadDataFromFile(
+        selectBill: String,
+        paymentFor: String,
+        accountNumber: String,
+        price: String
+    ) {
+        val billPaymentView = BillPaymentView()
+
+        var position: Int = 0
+        when (selectBill) {
+            "rentalbill" -> position = 0
+            "utillitybill" -> position = 1
+        }
+        billPaymentView.dropdownSpinner.setSelection(position)
+        billPaymentView.billPaymentReadFileButton.clickAndRun()
+
+
+        val expectedPaymentFor = paymentFor
+        val actualPaymentFor = billPaymentView.billPaymentPaymentForField.text.toString()
+        assertEquals(
+            "Wrong payment for description at BillPayment view",
+            expectedPaymentFor,
+            actualPaymentFor
+        )
+
+    }
+
+    fun checkToastMessages(
+        noBillLoadedMessage: Boolean,
+        notEnoughBalanceMessage: Boolean,
+        billSuccessfullyPaidMessage: Boolean,
+        selectedBill: String?
+    ) {
+
+        val billPaymentView = BillPaymentView()
+
+        if (noBillLoadedMessage) {
+            if (billPaymentView.billPaymentPaymentForText.text != "" || billPaymentView.billPaymentPaymentForText.text.isNotEmpty()) {
+                billPaymentView.billPaymentButtonPay.clickAndRun() // first click to delete data from previous test activity
+            }
+            billPaymentView.billPaymentButtonPay.clickAndRun()
+
+            val expectedMessage = "First read bill info"
+            val actualMessage = ShadowToast.getTextOfLatestToast()
+            assertEquals(
+                "Wrong Toast message for no bill loaded at Billpayment view",
+                expectedMessage,
+                actualMessage
+            )
+        }
+        if (notEnoughBalanceMessage) {
+            billPaymentView.billPaymentReadFileButton.clickAndRun()
+            billPaymentView.billPaymentButtonPay.clickAndRun()
+
+            val expectedMessage = "Not enough balance in account"
+            val actualMessage = ShadowToast.getTextOfLatestToast()
+            assertEquals(
+                "Wrong Toast message for not enough balance in account at Billpayment view",
+                expectedMessage,
+                actualMessage
+            )
+        }
+        if (billSuccessfullyPaidMessage) {
+            billPaymentView.billPaymentReadFileButton.clickAndRun()
+            billPaymentView.billPaymentButtonPay.clickAndRun()
+
+            var paymentForName: String = ""
+            when (selectedBill) {
+                "rentalbill" -> paymentForName = "Rental bill"
+                "utillitybill" -> paymentForName = "Utility bill"
+            }
+
+
+            val expectedMessage =
+                "$paymentForName was successfully paid"
+            val actualMessage = ShadowToast.getTextOfLatestToast()
+            assertEquals(
+                "Wrong Toast message for bill successfull paid at Billpayment view",
+                expectedMessage,
+                actualMessage
+            )
+            billPaymentView.bilPaymentBackButton.clickAndRun()
+        }
+    }
+
+
 }
+
+
 
 
 

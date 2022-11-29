@@ -15,7 +15,6 @@ import java.io.File
 import java.math.BigDecimal
 
 
-// todo same hierarchy structure for all stages
 open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest<T>(clazz) {
 
     inner class ToolbarBackNavigation {

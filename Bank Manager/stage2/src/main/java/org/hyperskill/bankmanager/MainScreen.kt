@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import org.hyperskill.bankmanager.R
 import org.hyperskill.bankmanager.databinding.MainScreenBinding
 
 /**

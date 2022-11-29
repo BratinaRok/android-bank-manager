@@ -274,7 +274,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun withdrawFunds(view: View) {
-        val text = findViewById<EditText>(R.id.enterAmountWithdraw)
+        val text = findViewById<EditText>(R.id.transferFundsFromAccountEnterAmount)
         if (text.text.isEmpty()) {
             text.error = "enter amount"
         } else {

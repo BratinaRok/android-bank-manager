@@ -6,52 +6,44 @@
     android:layout_height="match_parent"
     android:background="@color/teal_700"
     android:backgroundTint="#60018786"
-    tools:context="org.hyperskill.bankmanager.UserMenu">
+    tools:context=".UserMenu">
 
 
-<!--    <Button-->
-<!--        android:id="@+id/userMenuConvertFundsButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:backgroundTint="@color/teal_700"-->
-<!--        android:text="@string/convert_funds"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/userMenuViewBalanceButton" />-->
 
-<!--    <Button-->
-<!--        android:id="@+id/userMenuPayBillsButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:backgroundTint="@color/teal_700"-->
-<!--        android:text="@string/pay_bills"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/userMenuConvertFundsButton" />-->
+
 
     <Button
-        android:id="@+id/userMenuDepositFundsButton"
+        android:id="@+id/userMenuConvertFundsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/teal_700"
-        android:text="@string/deposit_funds"
+        android:text="@string/convert_funds"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userMenuViewBalanceButton" />
+
+    <Button
+        android:id="@+id/userMenuPayBillsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/teal_700"
+        android:text="@string/pay_bills"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userMenuConvertFundsButton" />
+
+    <Button
+        android:id="@+id/userMenuTransferFundsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="260dp"
+        android:backgroundTint="@color/teal_700"
+        android:text="@string/transferfunds"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userMenuUsernameText" />
-
-    <Button
-        android:id="@+id/userMenuWithdrawFundsButton"
-        android:layout_width="wrap_content"
-        android:backgroundTint="@color/teal_700"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/withdraw_funds"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userMenuDepositFundsButton" />
 
     <Button
         android:id="@+id/userMenuViewBalanceButton"
@@ -63,7 +55,7 @@
         android:onClick="balance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userMenuWithdrawFundsButton" />
+        app:layout_constraintTop_toBottomOf="@+id/userMenuTransferFundsButton" />
 
     <TextView
         android:id="@+id/userMenuUsernameText"
@@ -87,5 +79,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

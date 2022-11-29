@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.Fragment
+import org.hyperskill.bankmanager.R
 import org.hyperskill.bankmanager.databinding.LogInBinding
 
 /**
@@ -30,11 +32,13 @@ class LogIn : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // For stage 4
-        //binding.confirmCodeButton.setOnClickListener {
-        //if ((activity as MainActivity).securityCheck(view)) {
+        binding.confirmCodeButton.setOnClickListener {
+            var codeEntered = view.findViewById<EditText>(R.id.securityCodeInput)
+            if ((activity as MainActivity).securityCodeCheck(view,codeEntered)) {
 
 
+            }
+        }
     }
 
 

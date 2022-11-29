@@ -5,14 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.hyperskill.bankmanager.ConvertFunds"
+    tools:context="org.hyperskill.bankmanager.ConvertFundsView"
     android:id="@+id/frameLayout4">
-
-
-
-
-
-    <!-- TODO: Update blank fragment layout -->
 
     <TextView
         android:id="@+id/convertFundsText"
@@ -31,8 +25,9 @@
         android:id="@+id/spinnerConvertFrom"
         android:layout_width="125dp"
         android:layout_height="27dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="116dp"
         android:layout_marginEnd="120dp"
+        android:dropDownSelector="@color/teal_200"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/convertFundsText" />
@@ -50,17 +45,16 @@
         app:layout_constraintTop_toBottomOf="@+id/spinnerConvertFrom" />
 
     <Button
-        android:id="@+id/buttonConvert"
+        android:id="@+id/buttonConvertFunds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:backgroundTint="@color/teal_700"
-        android:onClick="fundsConverter"
-        android:text="Convert"
+        android:text="@string/convert"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enterAmountConvert" />
+        app:layout_constraintTop_toBottomOf="@+id/inputFundsToConvert" />
 
     <TextView
         android:id="@+id/convertFromText"
@@ -85,7 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/convertFromText" />
 
     <EditText
-        android:id="@+id/enterAmountConvert"
+        android:id="@+id/inputFundsToConvert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"

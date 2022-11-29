@@ -182,7 +182,9 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
 
             logInUserMethod(
                 "jonD",
-                "123533",0)
+                "123533",
+                ""
+            )
         }
 
     }
@@ -200,8 +202,10 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
 
             logInUserMethod(
                 "Wronguser",
-                "43535",0,
-                userDoesntExists = true)
+                "43535",
+                "",
+                userDoesntExists = true
+            )
         }
     }
 
@@ -218,9 +222,10 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
 
             logInUserMethod(
                 "jonD",
-                "43535",0,
-
-                wrongPassword = true)
+                "43535",
+                "",
+                wrongPassword = true
+            )
         }
     }
 
@@ -236,8 +241,10 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
 
             logInUserMethod(
                 "",
-                "43535",0,
-                usernameError = true)
+                "43535",
+                "",
+                usernameError = true
+            )
         }
     }
 
@@ -255,8 +262,10 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
 
             logInUserMethod(
                 "jonD",
-                "",0,
-                passwordError = true)
+                "",
+                "",
+                passwordError = true
+            )
         }
     }
 
@@ -273,7 +282,8 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
 
             logInUserMethod(
                 "jonD",
-                "123533",0
+                "123533",
+                ""
             )
 
             checkForUserMenuComponents()
@@ -294,7 +304,8 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
 
             logInUserMethod(
                 "jonD",
-                "123533",0
+                "123533",
+                ""
             )
 
             addFundsToBankAccount(1400.0)
@@ -317,7 +328,8 @@ class Stage2UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.jav
 
             logInUserMethod(
                 "jonD",
-                "123533",0
+                "123533",
+                null
             )
 
             addFundsToBankAccount(1400.0)

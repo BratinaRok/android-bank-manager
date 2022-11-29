@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.os.Environment
+import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -18,10 +19,12 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import org.hyperskill.bankmanager.R
 //import org.hyperskill.bankmanager.LogInUser.createRandomCode  // for stage 4
 import org.hyperskill.bankmanager.databinding.ActivityMainBinding
 import org.hyperskill.bankmanager.model.User
 import org.hyperskill.bankmanager.model.UserViewModel
+import java.math.BigDecimal
 
 
 class MainActivity : AppCompatActivity() {
@@ -29,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     val userViewModel: UserViewModel by viewModels<UserViewModel>()
     var securityCode = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,8 +46,6 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
-
 
 
     private fun setSupportActionBar(toolbar: CoordinatorLayout) {
@@ -72,11 +74,12 @@ class MainActivity : AppCompatActivity() {
                 || super.onSupportNavigateUp()
     }
 
+
     fun signup(view: View) {
-        when(val newUser = getUserFromInput()) {
+        when (val newUser = getUserFromInput()) {
             null -> {}
             else -> {
-                if(userViewModel.containsUser(newUser)) {
+                if (userViewModel.containsUser(newUser)) {
                     Toast.makeText(
                         this@MainActivity,
                         "User : ${newUser.userName} already exists",
@@ -84,8 +87,10 @@ class MainActivity : AppCompatActivity() {
                     ).show()
                 } else {
                     userViewModel.addUser(newUser)
-                    Toast.makeText(this@MainActivity, "New user created", Toast.LENGTH_SHORT).show();
-                    Navigation.findNavController(view).navigate(R.id.action_signUp3_to_FirstFragment)
+                    Toast.makeText(this@MainActivity, "New user created", Toast.LENGTH_SHORT)
+                        .show();
+                    Navigation.findNavController(view)
+                        .navigate(R.id.action_signUp3_to_FirstFragment)
                 }
             }
         }
@@ -139,7 +144,7 @@ class MainActivity : AppCompatActivity() {
                   Toast.LENGTH_SHORT
               ).show();*/
         }
-        return if(isFieldEmpty) {
+        return if (isFieldEmpty) {
             null
         } else {
             User(
@@ -156,7 +161,7 @@ class MainActivity : AppCompatActivity() {
 
     fun logInMethod(view: View) {
 
-        val userNameInput = findViewById<EditText>(R.id.logInUserNameEt);
+        var userNameInput = findViewById<EditText>(R.id.logInUserNameEt);
         val passwordInput = findViewById<EditText>(R.id.logInPasswordEt);
         if (userNameInput.text.toString().isEmpty()) {
             userNameInput.error = "enter username"
@@ -176,112 +181,149 @@ class MainActivity : AppCompatActivity() {
                 if (user == null || user.password != pass) {
                     Toast.makeText(this, "Invalid credentials", Toast.LENGTH_LONG).show()
                 } else {
-                    userViewModel.loginUser(user)
-                    Toast.makeText(this@MainActivity, "User logged in", Toast.LENGTH_SHORT).show()
-                    Navigation.findNavController(view)
-                        .navigate(R.id.action_SecondFragment_to_userMenu)
-                }
-            }
-            }
-
-// for stage 4
-//
-//        fun showSecurityInputFields() {
-//            val inputField = findViewById<EditText>(R.id.securityCodeInput)
-//            inputField.visibility = View.VISIBLE
-//
-//            val buttonConfirm = findViewById<Button>(R.id.confirmCodeButton)
-//            buttonConfirm.visibility = View.VISIBLE
-//        }
-
-
-//        if (obj.userLogInDataCheck()) {
-//            showSecurityInputFields()
-//            securityCode = createRandomCode()
-//            Toast.makeText(this@MainActivity, "Security code : $securityCode", Toast.LENGTH_LONG)
-//                .show();
-//
-//        }
-
-
-        }
-
-// for stage 4
-//    fun securityCheck(view: View): Boolean {
-//        var codeEntered = findViewById<EditText>(R.id.securityCodeInput)
-//        val codeInput = codeEntered.text.toString()
-//        val obj = LogInUser()
-//        if (codeInput != null && codeInput != "") {
-//            val isSecurityCodeCorrect: Boolean = obj.securityCodeCheck(codeInput, securityCode);
-//            if (isSecurityCodeCorrect) {
-//                Toast.makeText(this@MainActivity, "Log in successfully", Toast.LENGTH_SHORT).show()
-//                return true;
-//            } else if (!isSecurityCodeCorrect) {
-//                Toast.makeText(this@MainActivity, "Wrong security code", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//        Toast.makeText(this@MainActivity, "Enter code", Toast.LENGTH_SHORT).show()
-//
-//
-//        return false;
-//
-//    }
-
-
-
-
-        fun fundsDeposit(view: View) {
-            val text = findViewById<EditText>(R.id.inputAddFunds)
-            val toAdd = text.text.toString().toBigDecimal()
-            userViewModel.addFunds(toAdd)
-            Toast.makeText(this@MainActivity, "Funds added", Toast.LENGTH_SHORT).show()
-            Navigation.findNavController(view).navigate(R.id.action_depositFundsScreen_to_mainMenu)
-        }
-
-      fun withdrawFunds(view: View) {
-      println("testts -------------------------")
-          val text = findViewById<EditText>(R.id.enterAmountWithdraw)
-          val toWithdraw = text.text.toString()
-          userViewModel.withdrawFunds(toWithdraw.toBigDecimal())
-          Toast.makeText(this@MainActivity, "Funds Withdrawn", Toast.LENGTH_SHORT).show()
-          Navigation.findNavController(view).navigate(R.id.action_withdrawFunds_to_mainMenu)
-      }
-
-
-         fun fundsConverter(view: View) {
-            val spinner: Spinner = findViewById(R.id.spinnerConvertFrom)
-            val spinner2: Spinner = findViewById(R.id.spinnerConvertTo)
-// Create an ArrayAdapter using the string array and a default spinner layout
-            ArrayAdapter.createFromResource(
-                this,
-                R.array.planets_array,
-                android.R.layout.simple_spinner_item
-            ).also { adapter ->
-                // Specify the layout to use when the list of choices appears
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                // Apply the adapter to the spinner
-                spinner.adapter = adapter
-                spinner2.adapter = adapter
-
-            }
-        }
-
-        override fun onActivityResult(requestCode: Int, resultCode: Int, @Nullable data: Intent?) {
-            super.onActivityResult(requestCode, resultCode, data)
-            if (requestCode == 2296) {
-                if (SDK_INT >= Build.VERSION_CODES.R) {
-                    if (Environment.isExternalStorageManager()) {
-                        // perform action when allow permission success
-                    } else {
-                        Toast.makeText(
-                            this,
-                            "Allow permission for storage access!",
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                    }
+//                    showSecurityInputFields()
+//                    showSecurityCodeAsToast()
+                        userViewModel.loginUser(user)
+                        Toast.makeText(this@MainActivity, "User logged in", Toast.LENGTH_SHORT).show()
+                        Navigation.findNavController(view)
+                            .navigate(R.id.action_SecondFragment_to_userMenu)
                 }
             }
         }
     }
+
+    private fun showSecurityInputFields() {
+        val inputField = findViewById<EditText>(R.id.securityCodeInput)
+        inputField.visibility = View.VISIBLE
+
+        val buttonConfirm = findViewById<Button>(R.id.confirmCodeButton)
+        buttonConfirm.visibility = View.VISIBLE
+
+
+    }
+
+    fun showSecurityCodeAsToast() {
+        securityCode = userViewModel.generateUserSecurityCodeForLogIn()
+        Toast.makeText(this@MainActivity, "Security code : $securityCode", Toast.LENGTH_LONG)
+            .show();
+
+    }
+
+
+    fun securityCodeCheck(view: View, codeEntered: EditText): Boolean {
+        var userNameInput = findViewById<EditText>(R.id.logInUserNameEt);
+        //var codeEntered = view.findViewById<EditText>(R.id.securityCodeInput)
+        val user = userViewModel.getUser(userNameInput.text.toString())
+        if (codeEntered != null && codeEntered.text.toString().isNotEmpty()) {
+            val isSecurityCodeCorrect: Boolean =
+                (codeEntered.text.toString() == securityCode.toString())
+            if (isSecurityCodeCorrect) {
+                if (user != null) {
+                    userViewModel.loginUser(user)
+                    Toast.makeText(view.context, "Log in successfully", Toast.LENGTH_SHORT).show()
+                    Navigation.findNavController(view)
+                        .navigate(R.id.action_SecondFragment_to_userMenu)
+                    return true;
+                }
+            }
+            Toast.makeText(view.context, "Wrong security code", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(view.context, "Enter security code", Toast.LENGTH_SHORT).show()
+        }
+        return false;
+    }
+
+//    public boolean userLogInDataCheck() {
+//        if (userData.size() == 0) {
+//            Toast.makeText(activity, "No user data found, you need to signup first", Toast.LENGTH_LONG).show();
+//        } else {
+//            for (int i = 0; i < userData.size(); i++) {
+//                if (Objects.equals(userData.get(i).get("userName"), username)) {
+//                    userNameIdentification = true;
+//                } else {
+//                    Toast.makeText(activity, "Wrong username", Toast.LENGTH_SHORT).show();
+//                }
+//                if (Objects.equals(userData.get(i).get("password"), password)) {
+//                    passwordIdentification = true;
+//                } else if (userNameIdentification && !passwordIdentification) {
+//                    Toast.makeText(activity, "Wrong password", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        }
+//        return userNameIdentification && passwordIdentification;
+//    }
+//
+//
+//    public static int createRandomCode() {
+//        Random random = new Random();
+//        int randomCode = random.nextInt(10000) + 1000;
+//        return randomCode;
+//    }
+
+
+    fun fundsDeposit(view: View) {
+        val text = findViewById<EditText>(R.id.inputAddFunds)
+        if (text.text.toString().isEmpty()) {
+            text.error = "Enter funds"
+        } else {
+            val toAdd = text.text.toString().toBigDecimal()
+            userViewModel.addFunds(toAdd)
+            Toast.makeText(this@MainActivity, "Funds added", Toast.LENGTH_SHORT).show()
+            Navigation.findNavController(view).navigate(R.id.action_transferfundstoaccount_to_mainMenu)
+        }
+    }
+
+    fun withdrawFunds(view: View) {
+        val text = findViewById<EditText>(R.id.transferFundsFromAccountEnterAmount)
+        if (text.text.isEmpty()) {
+            text.error = "enter amount"
+        } else {
+            val toWithdraw = text.text.toString()
+            userViewModel.withdrawFunds(toWithdraw.toBigDecimal())
+            Toast.makeText(this@MainActivity, "Funds Withdrawn", Toast.LENGTH_SHORT).show()
+            Navigation.findNavController(view)
+                .navigate(R.id.action_transferfundsfromaccount_to_mainMenu)
+        }
+    }
+
+
+    fun fundsConverter(view: View) {
+        val spinner: Spinner = findViewById(R.id.spinnerConvertFrom)
+        val spinner2: Spinner = findViewById(R.id.spinnerConvertTo)
+// Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.planets_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            spinner.adapter = adapter
+            spinner2.adapter = adapter
+
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, @Nullable data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 2296) {
+            if (SDK_INT >= Build.VERSION_CODES.R) {
+                if (Environment.isExternalStorageManager()) {
+                    // perform action when allow permission success
+                } else {
+                    Toast.makeText(
+                        this,
+                        "Allow permission for storage access!",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+            }
+        }
+    }
+}
+
+
+
 

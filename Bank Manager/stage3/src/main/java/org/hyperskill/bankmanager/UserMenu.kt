@@ -36,19 +36,22 @@ class UserMenu : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val user = userViewModel.getLoggedUser()
         binding.userMenuUsernameText.text = user.userName
-        binding.userMenuDepositFundsButton.setOnClickListener{
-            findNavController().navigate(R.id.action_userMenu_to_depositFundsScreen)
 
-        }
+        binding.userMenuTransferFundsButton.setOnClickListener{
+            findNavController().navigate(R.id.action_mainMenu_to_transferFundsView)
 
-        binding.userMenuWithdrawFundsButton.setOnClickListener {
-            findNavController().navigate(R.id.action_userMenu_to_withdrawFunds)
         }
         binding.userMenuViewBalanceButton.setOnClickListener {
-
-
             findNavController().navigate(R.id.action_userMenu_to_viewBalance)
 
+        }
+
+        binding.userMenuConvertFundsButton.setOnClickListener {
+            findNavController().navigate(R.id.convertFundsView)
+        }
+
+        binding.userMenuPayBillsButton.setOnClickListener {
+            findNavController().navigate(R.id.billPayment)
         }
 
     }

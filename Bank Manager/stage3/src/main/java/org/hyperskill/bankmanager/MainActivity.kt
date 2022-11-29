@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.os.Environment
+import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -23,6 +24,7 @@ import org.hyperskill.bankmanager.R
 import org.hyperskill.bankmanager.databinding.ActivityMainBinding
 import org.hyperskill.bankmanager.model.User
 import org.hyperskill.bankmanager.model.UserViewModel
+import java.math.BigDecimal
 
 
 class MainActivity : AppCompatActivity() {
@@ -71,6 +73,7 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
+
 
     fun signup(view: View) {
         when (val newUser = getUserFromInput()) {
@@ -260,19 +263,27 @@ class MainActivity : AppCompatActivity() {
 
     fun fundsDeposit(view: View) {
         val text = findViewById<EditText>(R.id.inputAddFunds)
-        val toAdd = text.text.toString().toBigDecimal()
-        userViewModel.addFunds(toAdd)
-        Toast.makeText(this@MainActivity, "Funds added", Toast.LENGTH_SHORT).show()
-        Navigation.findNavController(view).navigate(R.id.action_depositFundsScreen_to_mainMenu)
+        if (text.text.toString().isEmpty()) {
+            text.error = "Enter funds"
+        } else {
+            val toAdd = text.text.toString().toBigDecimal()
+            userViewModel.addFunds(toAdd)
+            Toast.makeText(this@MainActivity, "Funds added", Toast.LENGTH_SHORT).show()
+            Navigation.findNavController(view).navigate(R.id.action_transferfundstoaccount_to_mainMenu)
+        }
     }
 
     fun withdrawFunds(view: View) {
-        println("testts -------------------------")
         val text = findViewById<EditText>(R.id.enterAmountWithdraw)
-        val toWithdraw = text.text.toString()
-        userViewModel.withdrawFunds(toWithdraw.toBigDecimal())
-        Toast.makeText(this@MainActivity, "Funds Withdrawn", Toast.LENGTH_SHORT).show()
-        Navigation.findNavController(view).navigate(R.id.action_withdrawFunds_to_mainMenu)
+        if (text.text.isEmpty()) {
+            text.error = "enter amount"
+        } else {
+            val toWithdraw = text.text.toString()
+            userViewModel.withdrawFunds(toWithdraw.toBigDecimal())
+            Toast.makeText(this@MainActivity, "Funds Withdrawn", Toast.LENGTH_SHORT).show()
+            Navigation.findNavController(view)
+                .navigate(R.id.action_transferfundsfromaccount_to_mainMenu)
+        }
     }
 
 

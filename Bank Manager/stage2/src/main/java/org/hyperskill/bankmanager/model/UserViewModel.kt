@@ -2,6 +2,7 @@ package org.hyperskill.bankmanager.model
 
 import androidx.lifecycle.ViewModel
 import java.math.BigDecimal
+import java.util.*
 
 class UserViewModel : ViewModel() {
 
@@ -40,5 +41,12 @@ class UserViewModel : ViewModel() {
 
     fun getFundsAsString(): String {
         return "%.2f".format(currentUser!!.balance)
+    }
+
+     fun  generateUserSecurityCodeForLogIn() : Int {
+        val random =  Random()
+        val randomCode = random.nextInt(10000) + 1000;
+        return randomCode;
+
     }
 }

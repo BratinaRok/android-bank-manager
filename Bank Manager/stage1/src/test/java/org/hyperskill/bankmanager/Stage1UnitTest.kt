@@ -1,9 +1,7 @@
 package org.hyperskill.bankmanager
 
-import org.hyperskill.bankmanager.internals.BankManagerUnitTest
-import android.widget.Button
-import android.widget.EditText
-import org.hyperskill.bankmanager.R
+import BankManagerUnitTest
+
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -11,32 +9,32 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class Stage1UnitTest : BankManagerUnitTest<MainActivity>(MainActivity::class.java) {
 
-
     @Test
-    fun checkForMainScreen() {
+    fun checkMainScreenComponentsTest() {
         testActivity {
-            MainScreenView()
-
+            checkForMainScreenComponents()
         }
     }
 
-
     @Test
-    fun checkForSignUp() {
+    fun checkLogInScreenComponentsTest() {
         testActivity {
-            SignUpView()
-        }
-
-        }
-
-
-    @Test
-    fun checkForlogIn() {
-        testActivity {
-            LogInView()
-
+            val mainScreenView = MainScreenView()
+            mainScreenView.logInButtonMainScreenView.clickAndRun().also {
+                checkForLogInComponents()
+            }
         }
     }
 
-
+    @Test
+    fun checkForSignUpComponentsTest() {
+        testActivity {
+            val mainScreenView = MainScreenView()
+            mainScreenView.singUpButtonMainScreenView.clickAndRun().also {
+                checkForSignUpComponents()
+            }
+        }
+    }
 }
+
+

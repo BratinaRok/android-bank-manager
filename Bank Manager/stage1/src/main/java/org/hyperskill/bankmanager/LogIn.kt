@@ -4,8 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import org.hyperskill.bankmanager.R
 import org.hyperskill.bankmanager.databinding.LogInBinding
 
 /**
@@ -29,16 +30,16 @@ class LogIn : Fragment() {
 
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        binding.confirmCodeButton.setOnClickListener {
-//            if ((activity as MainActivity).securityCheck(view)) {
-//                findNavController().navigate(R.id.action_SecondFragment_to_userMenu)
-//            }
-//
-//
-//        }
-//    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.confirmCodeButton.setOnClickListener {
+            var codeEntered = view.findViewById<EditText>(R.id.securityCodeInput)
+            if ((activity as MainActivity).securityCodeCheck(view,codeEntered)) {
+
+
+            }
+        }
+    }
 
 
     override fun onDestroyView() {

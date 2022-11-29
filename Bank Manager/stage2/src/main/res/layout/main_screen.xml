@@ -7,7 +7,7 @@
     android:background="@color/teal_700"
     android:backgroundTint="#60018786"
     android:id="@+id/mainScreenFragment"
-    tools:context="org.hyperskill.bankmanager.MainScreen">
+    tools:context=".MainScreen">
 
     <Button
         android:id="@+id/mainLogInButton"

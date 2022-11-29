@@ -6,10 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import org.hyperskill.bankmanager.R
 import org.hyperskill.bankmanager.model.UserViewModel
 
-class DepositFundsScreen: Fragment() {
+class TransferFundsToAccount: Fragment() {
 
     val userViewModel by viewModels<UserViewModel>(ownerProducer = { activity as MainActivity })
 
@@ -20,6 +19,6 @@ class DepositFundsScreen: Fragment() {
     ): View? {
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.deposit_funds_screen, container, false)
+        return inflater.inflate(R.layout.transfer_funds_to_account, container, false)
     }
 }

@@ -46,30 +46,29 @@
         android:label=" Main Menu"
         tools:layout="@layout/user_menu">
         <action
-            android:id="@+id/action_userMenu_to_depositFundsScreen"
-            app:destination="@id/depositFundsScreen" />
-        <action
             android:id="@+id/action_userMenu_to_viewBalance"
             app:destination="@id/viewBalance" />
         <action
-            android:id="@+id/action_userMenu_to_withdrawFunds"
-            app:destination="@id/withdrawFunds" />
-        <action
-            android:id="@+id/action_userMenu_to_convertFunds"
-            app:destination="@id/convertFunds" />
-        <action
             android:id="@+id/action_userMenu_to_billPayment"
             app:destination="@id/billPayment" />
+        <action
+            android:id="@+id/action_mainMenu_to_convertFundsView"
+            app:destination="@id/convertFundsView" />
+        <action
+            android:id="@+id/action_mainMenu_to_transferFundsView"
+            app:destination="@id/transferFundsView" />
     </fragment>
     <fragment
-        android:id="@+id/depositFundsScreen"
-        android:name="org.hyperskill.bankmanager.DepositFundsScreen"
-        android:label="Deposit Funds"
-        tools:layout="@layout/deposit_funds_screen" >
+        android:id="@+id/transferfundstoaccount"
+        android:name="org.hyperskill.bankmanager.TransferFundsToAccount"
+        android:label="@string/transferFundsToAccount"
+        tools:layout="@layout/transfer_funds_to_account">
         <action
-            android:id="@+id/action_depositFundsScreen_to_mainMenu"
-            app:destination="@id/mainMenu"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            android:id="@+id/action_transferfundstoaccount_to_transferFundsView"
+            app:destination="@id/transferFundsView" />
+        <action
+            android:id="@+id/action_transferfundstoaccount_to_mainMenu"
+            app:destination="@id/mainMenu" />
     </fragment>
     <fragment
         android:id="@+id/viewBalance"
@@ -81,22 +80,43 @@
             app:destination="@id/mainMenu" />
     </fragment>
     <fragment
-        android:id="@+id/withdrawFunds"
-        android:name="org.hyperskill.bankmanager.WithdrawFunds"
-        android:label="Withdraw Funds"
-        tools:layout="@layout/withdraw_funds" >
+        android:id="@+id/transferfundsfromaccount"
+        android:name="org.hyperskill.bankmanager.TransferFundsFromAccount"
+        android:label="@string/transferFundsFromAccount"
+        tools:layout="@layout/transfer_funds_from_account">
         <action
-            android:id="@+id/action_withdrawFunds_to_mainMenu"
+            android:id="@+id/action_withdrawFunds_to_transferFundsView"
+            app:destination="@id/transferFundsView" />
+        <action
+            android:id="@+id/action_transferfundsfromaccount_to_mainMenu"
             app:destination="@id/mainMenu" />
     </fragment>
-    <fragment
-        android:id="@+id/convertFunds"
-        android:name="org.hyperskill.bankmanager.ConvertFunds"
-        android:label="Convert Funds"
-        tools:layout="@layout/convert_funds" />
     <fragment
         android:id="@+id/billPayment"
         android:name="org.hyperskill.bankmanager.BillPayment"
         android:label="Bill Payment"
         tools:layout="@layout/bill_payment" />
+    <fragment
+        android:id="@+id/convertFundsView"
+        android:name="org.hyperskill.bankmanager.ConvertFundsView"
+        android:label="convert funds view"
+        tools:layout="@layout/convert_funds_view">
+        <action
+            android:id="@+id/action_convertFundsView_to_mainMenu"
+            app:destination="@id/mainMenu" />
+    </fragment>
+    <fragment
+        android:id="@+id/transferFundsView"
+        android:name="org.hyperskill.bankmanager.TransferFundsView"
+        android:label="TransferFundsView" >
+        <action
+            android:id="@+id/action_transferFundsView_to_transferfundstoaccount"
+            app:destination="@id/transferfundstoaccount" />
+        <action
+            android:id="@+id/action_transferFundsView_to_transferfundsfromaccount"
+            app:destination="@id/transferfundsfromaccount" />
+        <action
+            android:id="@+id/action_transferFundsView_to_mainMenu"
+            app:destination="@id/mainMenu" />
+    </fragment>
 </navigation>
