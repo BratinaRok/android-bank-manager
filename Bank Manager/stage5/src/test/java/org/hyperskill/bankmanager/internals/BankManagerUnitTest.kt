@@ -5,7 +5,6 @@ import android.text.InputType.TYPE_CLASS_NUMBER
 import android.text.InputType.TYPE_NUMBER_VARIATION_PASSWORD
 import android.widget.*
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.FragmentController
 import androidx.navigation.findNavController
 import org.hyperskill.bankmanager.R
 import org.hyperskill.bankmanager.internals.AbstractUnitTest
@@ -462,19 +461,10 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             view
         }
 
-        val userMenuDepositFundsButton: Button by lazy {
+        val userMenuTransferFundsButton: Button by lazy {
             val view = activity.findViewByString<Button>(
-                "userMenuDepositFundsButton",
-                "Button deposit Funds at usermenu View was not found"
-            )
-
-            view
-        }
-
-        val userMenuWithdrawFundsButton: Button by lazy {
-            val view = activity.findViewByString<Button>(
-                "userMenuWithdrawFundsButton",
-                "Button withdraw Funds at usermenu View was not found"
+                "userMenuTransferFundsButton",
+                "Button transfer Funds at usermenu View was not found"
             )
 
             view
@@ -509,7 +499,33 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
 
     }
 
-    inner class DepositFundsView() {
+    inner class TransferFundsView() {
+        val transferFundsToAccountButton: Button by lazy {
+            val view = activity.findViewByString<Button>(
+                "transferFundsViewTransferToAccountButton",
+                "Button transfer Funds To Account at transfer Funds View was not found"
+            )
+            view
+        }
+        val transferFundsFromAccountButton: Button by lazy {
+            val view = activity.findViewByString<Button>(
+                "transferFundsViewTransferFromAccountButton",
+                "Button transfer Funds From Account at transfer Funds View was not found"
+            )
+            view
+        }
+        val transferFundsBackButton: Button by lazy {
+            val view = activity.findViewByString<Button>(
+                "transferFundsViewBackButton",
+                "Button back at transfer Funds View was not found"
+            )
+            view
+        }
+
+
+    }
+
+    inner class TransferFundsToAccountView() {
         val depositFundsTextDepositFunds: TextView by lazy {
             val view = activity.findViewByString<TextView>(
                 "textdepositfunds",
@@ -518,18 +534,16 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             val actualDepositFundsText = view.text.toString()
             val expectedDepositFundsText = "Deposit funds"
             assertEquals(
-                "Wrong deposit funds text at depositFunds view ",
+                "Wrong deposit funds text at transferFundsToAccount view ",
                 expectedDepositFundsText, actualDepositFundsText
             )
-
-
             view
         }
 
         val depositFundsInputAddFunds: EditText by lazy {
             val view = activity.findViewByString<EditText>(
                 "inputAddFunds",
-                "EditText input add funds at DepositFunds View was not found "
+                "EditText input add funds at transfer funds to account View was not found "
             )
             val actualInputType = view.inputType
             val expectedInputType = InputType.TYPE_CLASS_NUMBER + InputType.TYPE_NUMBER_FLAG_DECIMAL
@@ -547,7 +561,7 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             view
         }
 
-        val depositFundsButtonAddFunds: Button by lazy {
+        val buttonAddFunds: Button by lazy {
             val view = activity.findViewByString<Button>(
                 "buttonAddFunds",
                 "Button AddFunds at DepositFunds View was not found "
@@ -556,14 +570,15 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
             view
         }
 
-        fun depositFunds(addFunds: Double = 0.0) {
+        fun transferFundsToAccount(addFunds: Double = 0.0) {
             depositFundsInputAddFunds.append(addFunds.toString())
+
         }
 
     }
 
 
-    inner class WithdrawFundsView() {
+    inner class TransferFundsFromAccountView() {
 
         val withdrawFundsTextWithdrawFunds: TextView by lazy {
             val view = activity.findViewByString<TextView>(
@@ -906,10 +921,17 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
         userMenu.userMenuWelcomeText
         userMenu.userMenuUsernameText
         userMenu.userMenuViewBalanceButton
-        userMenu.userMenuDepositFundsButton
-        userMenu.userMenuWithdrawFundsButton
+        userMenu.userMenuTransferFundsButton
+        userMenu.userMenuTransferFundsButton
         userMenu.userMenuConvertFundsButton // stage 4
         userMenu.userMenuPayBillsButton // stage 5
+    }
+
+    fun checkForTransferFundsComponents() {
+        val transferFunds = TransferFundsView()
+        transferFunds.transferFundsBackButton
+        transferFunds.transferFundsFromAccountButton
+        transferFunds.transferFundsToAccountButton
     }
 
     fun checkForPayBilsViewComponents() {
@@ -1028,8 +1050,7 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
 
             val userMenuView = UserMenuView() // test goes to UserMenuView
             // at stage 2 checks for :
-            userMenuView.userMenuDepositFundsButton
-            userMenuView.userMenuWithdrawFundsButton
+            userMenuView.userMenuTransferFundsButton
             userMenuView.userMenuViewBalanceButton
         }
 
@@ -1037,26 +1058,26 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
 
     fun addFundsToBankAccount(addFunds: Double = 0.0) {
         val userMenu = UserMenuView()
-        userMenu.userMenuDepositFundsButton.clickAndRun()
+        userMenu.userMenuTransferFundsButton.clickAndRun()
 
-        val depositFundsView = DepositFundsView()
-        depositFundsView.depositFunds(addFunds)
+        val transferFundsView = TransferFundsView()
+        transferFundsView.transferFundsToAccountButton.clickAndRun()
 
-        depositFundsView.depositFundsButtonAddFunds.clickAndRun()
+        val transferFundsToAccountView = TransferFundsToAccountView()
 
-        userMenu.userMenuUsernameText
-        userMenu.userMenuViewBalanceButton
-        userMenu.userMenuDepositFundsButton
-        userMenu.userMenuWithdrawFundsButton
+        transferFundsToAccountView.buttonAddFunds.clickAndRun()
+        transferFundsToAccountView.transferFundsToAccount(addFunds)
+        transferFundsToAccountView.buttonAddFunds.clickAndRun().also {
 
-
-        val actualToastMessageMessage = ShadowToast.getTextOfLatestToast().toString()
-        val expectedToastMessage = "Funds added"
-        assertEquals(
-            "Wrong Toast message for add funds",
-            actualToastMessageMessage,
-            expectedToastMessage
-        )
+            val actualToastMessageMessage = ShadowToast.getTextOfLatestToast().toString()
+            val expectedToastMessage = "Funds added"
+            assertEquals(
+                "Wrong Toast message for add funds",
+                actualToastMessageMessage,
+                expectedToastMessage
+            )
+        }
+         checkForUserMenuComponents()
 
     }
 
@@ -1074,9 +1095,9 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
 
     fun withdraw(withdrawAmount: Double = 0.0) {
         val menu = UserMenuView()
-        menu.userMenuWithdrawFundsButton.clickAndRun()
+        menu.userMenuTransferFundsButton.clickAndRun()
 
-        val withdrawFunds = WithdrawFundsView()
+        val withdrawFunds = TransferFundsFromAccountView()
         withdrawFunds.withdrawFundsEnterAmountWithdraw.append(withdrawAmount.toString())
         withdrawFunds.withdrawFundsWithdrawButton.clickAndRun()
 
@@ -1139,8 +1160,7 @@ open class BankManagerUnitTest<T : Activity>(clazz: Class<T>) : AbstractUnitTest
 
             val userMenuView = UserMenuView() // test goes to UserMenuView
             // at stage 2-3 checks for :
-            userMenuView.userMenuDepositFundsButton
-            userMenuView.userMenuWithdrawFundsButton
+            userMenuView.userMenuTransferFundsButton
             userMenuView.userMenuViewBalanceButton
         }
     }

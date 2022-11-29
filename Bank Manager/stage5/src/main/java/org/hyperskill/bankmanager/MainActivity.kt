@@ -269,16 +269,21 @@ class MainActivity : AppCompatActivity() {
             val toAdd = text.text.toString().toBigDecimal()
             userViewModel.addFunds(toAdd)
             Toast.makeText(this@MainActivity, "Funds added", Toast.LENGTH_SHORT).show()
-            Navigation.findNavController(view).navigate(R.id.action_depositFundsScreen_to_mainMenu)
+            Navigation.findNavController(view).navigate(R.id.action_transferfundstoaccount_to_mainMenu)
         }
     }
 
     fun withdrawFunds(view: View) {
         val text = findViewById<EditText>(R.id.enterAmountWithdraw)
-        val toWithdraw = text.text.toString()
-        userViewModel.withdrawFunds(toWithdraw.toBigDecimal())
-        Toast.makeText(this@MainActivity, "Funds Withdrawn", Toast.LENGTH_SHORT).show()
-        Navigation.findNavController(view).navigate(R.id.action_withdrawFunds_to_mainMenu)
+        if (text.text.isEmpty()) {
+            text.error = "enter amount"
+        } else {
+            val toWithdraw = text.text.toString()
+            userViewModel.withdrawFunds(toWithdraw.toBigDecimal())
+            Toast.makeText(this@MainActivity, "Funds Withdrawn", Toast.LENGTH_SHORT).show()
+            Navigation.findNavController(view)
+                .navigate(R.id.action_transferfundsfromaccount_to_mainMenu)
+        }
     }
 
 
