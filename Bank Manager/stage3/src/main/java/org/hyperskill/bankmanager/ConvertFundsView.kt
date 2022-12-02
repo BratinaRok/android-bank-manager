@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.view.get
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import org.hyperskill.bankmanager.model.UserViewModel
@@ -17,7 +19,6 @@ open class ConvertFundsView : Fragment(), AdapterView.OnItemSelectedListener {
     var fundsToConvertEt: EditText? = null
     var buttonConvertFundsView: Button? = null
     var convertedAmount = 0.0
-    private val balance: BigDecimal? = null
     var fundsToConvert = 0.0
 
 
@@ -38,17 +39,28 @@ open class ConvertFundsView : Fragment(), AdapterView.OnItemSelectedListener {
         spinnerConvertTo?.onItemSelectedListener = this
         buttonConvertFundsView?.setOnClickListener(View.OnClickListener { convert() })
 
+        spinnerConvertFrom?.setSelection(0)
+        spinnerConvertTo?.setSelection(1)
+
+
         // Inflate the layout for this fragment
         return rootView
     }
 
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
-//        if (parent?.id == R.id.spinnerConvertFrom) {
-//            Toast.makeText(getContext(), "Convert from " + currenciesArray[position], Toast.LENGTH_SHORT).show();
-//        } else if (parent?.id == R.id.spinnerConvertTo) {
-//            Toast.makeText(getContext(), "Convert to " + currenciesArray[position], Toast.LENGTH_SHORT).show();
-//        }
+        if (spinnerConvertFrom?.selectedItemPosition?.equals(spinnerConvertTo?.selectedItemPosition) == true) {
+
+            var selectedCurrency = currenciesArray[spinnerConvertFrom!!.selectedItemPosition]
+
+            when(selectedCurrency) {
+                "USD" -> spinnerConvertFrom?.setSelection(1)
+                "EUR" -> spinnerConvertFrom?.setSelection(2)
+                "GBP" -> spinnerConvertFrom?.setSelection(0)
+            }
+
+            Toast.makeText(context, "Can't convert to same currency", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -71,37 +83,50 @@ open class ConvertFundsView : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     private fun convert() {
-        val userBalance = userViewModel.getFundsAsString()
+
 
         val convertFrom = currenciesArray[spinnerConvertFrom!!.selectedItemPosition]
         val convertTo = currenciesArray[spinnerConvertTo!!.selectedItemPosition]
-        if (convertFrom == "USD") {
-            when (convertTo) {
-                "EUR" -> convertedAmount = fundsToConvertEt!!.text.toString().toDouble() * 1.00
-                "GBP" -> convertedAmount = fundsToConvertEt!!.text.toString().toDouble() * 0.877
-            }
-        } else if (convertFrom == "GBP") {
-            when (convertTo) {
-                "EUR" -> convertedAmount = fundsToConvertEt!!.text.toString().toDouble() * 1.14
-                "USD" -> convertedAmount = fundsToConvertEt!!.text.toString().toDouble() * 1.14
-            }
-        } else if (convertFrom == "EUR") {
-            when (convertTo) {
-                "GBP" -> convertedAmount = fundsToConvertEt!!.text.toString().toDouble() * 0.87
-                "USD" -> convertedAmount = fundsToConvertEt!!.text.toString().toDouble() * 1.00
-            }
-        }
-        if (fundsToConvertEt!!.text.toString().isEmpty()) {
+
+        if (fundsToConvertEt!!.text.isEmpty()) {
             Toast.makeText(context, "Enter amount", Toast.LENGTH_SHORT).show()
         } else {
+
+            if (convertFrom == "USD") {
+                when (convertTo) {
+                    "EUR" -> convertedAmount = fundsToConvertEt!!.text.toString().toDouble() * 1.00
+                    "GBP" -> convertedAmount = fundsToConvertEt!!.text.toString().toDouble() * 0.877
+
+                }
+            } else if (convertFrom == "GBP") {
+                when (convertTo) {
+                    "EUR" -> convertedAmount = fundsToConvertEt!!.text.toString().toDouble() * 1.14
+                    "USD" -> convertedAmount = fundsToConvertEt!!.text.toString().toDouble() * 1.14
+                }
+            } else if (convertFrom == "EUR") {
+                when (convertTo) {
+                    "GBP" -> convertedAmount = fundsToConvertEt!!.text.toString().toDouble() * 0.87
+                    "USD" -> convertedAmount = fundsToConvertEt!!.text.toString().toDouble() * 1.00
+                }
+            }
+
+
             fundsToConvert = fundsToConvertEt!!.text.toString().toDouble()
-            if (BigDecimal.valueOf(fundsToConvert).compareTo(userBalance.toBigDecimal()) > 0) {
+            if (BigDecimal.valueOf(fundsToConvert) > userViewModel.getFundsAsString(convertFrom)
+                    .toBigDecimal()
+            ) {
                 Toast.makeText(
                     context,
-                    "There are only : $userBalance funds, available to convert\" ",
+                    "There are only : " + userViewModel.getFundsAsString(convertFrom) + "funds, available to convert\" ",
                     Toast.LENGTH_LONG
                 ).show()
             } else {
+                userViewModel.convertFunds(
+                    convertFrom,
+                    convertTo,
+                    fundsToConvert.toBigDecimal(),
+                    convertedAmount.toBigDecimal()
+                )
                 Toast.makeText(
                     context,
                     "$fundsToConvert $convertFrom funds, converted to $convertedAmount $convertTo successfully",

@@ -5,7 +5,6 @@ import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.os.Environment
-import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -19,7 +18,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import org.hyperskill.bankmanager.R
 //import org.hyperskill.bankmanager.LogInUser.createRandomCode  // for stage 4
 import org.hyperskill.bankmanager.databinding.ActivityMainBinding
 import org.hyperskill.bankmanager.model.User
@@ -104,6 +102,11 @@ class MainActivity : AppCompatActivity() {
         val phoneNumber = findViewById<EditText>(R.id.signUpPhoneNumberEt);
         val userName = findViewById<EditText>(R.id.signUpUsernameEt);
         val password = findViewById<EditText>(R.id.signUpPasswordEt);
+        val balanceMap: MutableMap<String, BigDecimal> = mutableMapOf(
+            "USD" to BigDecimal.ZERO,
+            "EUR" to BigDecimal.ZERO,
+            "GBP" to BigDecimal.ZERO
+        )
 
         var isFieldEmpty: Boolean = false;
         if (firstName.text.toString().isEmpty()) {
@@ -153,7 +156,8 @@ class MainActivity : AppCompatActivity() {
                 address.text.toString(),
                 phoneNumber.text.toString(),
                 userName.text.toString(),
-                password.text.toString()
+                password.text.toString(),
+                balanceMap
             )
         }
     }
@@ -261,31 +265,43 @@ class MainActivity : AppCompatActivity() {
 //    }
 
 
-    fun fundsDeposit(view: View) {
+    fun transferFundsToAccount(view: View) {
         val text = findViewById<EditText>(R.id.inputAddFunds)
         if (text.text.toString().isEmpty()) {
             text.error = "Enter funds"
         } else {
             val toAdd = text.text.toString().toBigDecimal()
-            userViewModel.addFunds(toAdd)
+            userViewModel.addFunds(toAdd, currency = "USD")
             Toast.makeText(this@MainActivity, "Funds added", Toast.LENGTH_SHORT).show()
-            Navigation.findNavController(view).navigate(R.id.action_transferfundstoaccount_to_mainMenu)
+            Navigation.findNavController(view)
+                .navigate(R.id.action_transferfundstoaccount_to_mainMenu)
         }
     }
 
-    fun withdrawFunds(view: View) {
+    fun transferFundsFromAccount(view: View) {
         val text = findViewById<EditText>(R.id.enterAmountWithdraw)
         if (text.text.isEmpty()) {
             text.error = "enter amount"
         } else {
-            val toWithdraw = text.text.toString()
-            userViewModel.withdrawFunds(toWithdraw.toBigDecimal())
-            Toast.makeText(this@MainActivity, "Funds Withdrawn", Toast.LENGTH_SHORT).show()
-            Navigation.findNavController(view)
-                .navigate(R.id.action_transferfundsfromaccount_to_mainMenu)
+            val amountToTransferFromAccount = text.text.toString()
+            // no negative amount allowed
+            if (amountToTransferFromAccount > userViewModel.getFundsAsString(currency = "USD")) {
+                Toast.makeText(
+                    this@MainActivity,
+                    "Amount to transfer is bigger than available. Check balance!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                userViewModel.withdrawFunds(
+                    amountToTransferFromAccount.toBigDecimal(),
+                    currency = "USD"
+                )
+                Toast.makeText(this@MainActivity, "Funds Withdrawn", Toast.LENGTH_SHORT).show()
+                Navigation.findNavController(view)
+                    .navigate(R.id.action_transferfundsfromaccount_to_mainMenu)
+            }
         }
     }
-
 
     fun fundsConverter(view: View) {
         val spinner: Spinner = findViewById(R.id.spinnerConvertFrom)
@@ -323,6 +339,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
 
 
 

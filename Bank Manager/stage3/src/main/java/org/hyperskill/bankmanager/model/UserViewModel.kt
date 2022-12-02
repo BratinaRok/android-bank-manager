@@ -9,8 +9,10 @@ class UserViewModel : ViewModel() {
     private val users = mutableMapOf<String, User>()
     private var currentUser: User? = null
 
+
     fun addUser(user: User) {
         users[user.userName] = user
+
     }
 
     fun containsUser(user: User): Boolean {
@@ -29,22 +31,37 @@ class UserViewModel : ViewModel() {
         return currentUser ?: throw IllegalStateException("No user logged")
     }
 
-    fun addFunds(toAdd: BigDecimal) {
-        val currentFund = currentUser?.balance ?: BigDecimal.ZERO
-        currentUser?.balance = currentFund.plus(toAdd)
+    fun addFunds(toAdd: BigDecimal, currency: String) {
+        val currentBalance = currentUser?.balanceMap?.get(currency)
+        currentUser?.balanceMap?.put(currency, currentBalance?.plus(toAdd)!!)
     }
 
-    fun withdrawFunds(toWithdraw : BigDecimal) {
-        val currentFund = currentUser?.balance?:BigDecimal.ZERO
-        currentUser?.balance = currentFund.minus(toWithdraw)
+    fun withdrawFunds(toWithdraw: BigDecimal, currency: String) {
+        val currentBalance =  currentUser?.balanceMap?.get(currency)
+        currentUser?.balanceMap?.put(currency, currentBalance?.minus(toWithdraw)!!)
     }
 
-    fun getFundsAsString(): String {
-        return "%.2f".format(currentUser!!.balance)
+    fun getFundsAsString(currency: String): String {
+         return ("%.2f".format(currentUser!!.balanceMap[currency] ?: BigDecimal.ZERO))
     }
 
-     fun  generateUserSecurityCodeForLogIn() : Int {
-        val random =  Random()
+    fun convertFunds(fromCurrency: String, toCurrency: String, amountToConvert : BigDecimal, convertedAmount : BigDecimal) {
+        if (currentUser?.balanceMap?.get(fromCurrency)!! >= amountToConvert) {
+            val currentBalanceConvertFromCurrency =  currentUser?.balanceMap?.get(fromCurrency)
+            currentUser?.balanceMap?.put(fromCurrency, currentBalanceConvertFromCurrency?.minus(amountToConvert)!!)
+
+            val currentBalanceConvertToCurrency = currentUser?.balanceMap?.get(toCurrency)
+            currentUser?.balanceMap?.put(toCurrency,currentBalanceConvertToCurrency?.plus(convertedAmount)!!)
+
+
+
+            currentUser?.balanceMap?.get(fromCurrency)?.minus(amountToConvert)
+            currentUser?.balanceMap?.get(toCurrency)?.plus(convertedAmount)
+        }
+    }
+
+    fun generateUserSecurityCodeForLogIn(): Int {
+        val random = Random()
         val randomCode = random.nextInt(10000) + 1000;
         return randomCode;
 

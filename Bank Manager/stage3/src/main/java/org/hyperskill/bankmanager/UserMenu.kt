@@ -50,10 +50,6 @@ class UserMenu : Fragment() {
             findNavController().navigate(R.id.convertFundsView)
         }
 
-        binding.userMenuPayBillsButton.setOnClickListener {
-            findNavController().navigate(R.id.billPayment)
-        }
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

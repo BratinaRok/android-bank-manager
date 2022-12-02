@@ -7,12 +7,23 @@
     tools:context=".ViewBalance"
     android:id="@+id/frameLayout2">
 
-    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:id="@+id/showBalanceUSD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:hint="0.0 USD"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewBalance" />
+
     <TextView
         android:id="@+id/textViewBalance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="92dp"
         android:text="@string/view_balance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,14 +32,14 @@
         tools:layout_conversion_absoluteWidth="411dp" />
 
     <TextView
-        android:id="@+id/showBalanceText"
+        android:id="@+id/showBalanceEUR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-        android:hint="100.0 $"
+        android:layout_marginTop="28dp"
+        android:hint="0.0 EUR"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewBalance" />
+        app:layout_constraintTop_toBottomOf="@+id/showBalanceUSD" />
 
     <Button
         android:id="@+id/backButtonShowBalanceView"
@@ -40,6 +51,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/showBalanceText"
-        app:layout_constraintVertical_bias="0.144" />
+        app:layout_constraintTop_toBottomOf="@+id/showBalanceEUR"
+        app:layout_constraintVertical_bias="0.258" />
+
+    <TextView
+        android:id="@+id/showBalanceGBP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:hint="0.0 GBP"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showBalanceEUR" />
 </androidx.constraintlayout.widget.ConstraintLayout>

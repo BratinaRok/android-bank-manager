@@ -8,11 +8,12 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation.findNavController
-import org.hyperskill.bankmanager.R
 import org.hyperskill.bankmanager.model.UserViewModel
 
 class ViewBalance : Fragment() {
-    lateinit var textView: TextView
+    lateinit var textViewUSD: TextView
+    lateinit var textViewEUR: TextView
+    lateinit var textViewGBP: TextView
     val userViewModel by viewModels<UserViewModel>(ownerProducer = { activity as MainActivity })
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,8 +25,14 @@ class ViewBalance : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         val rootView = inflater.inflate(R.layout.view_balance, container, false)
-        textView = rootView.findViewById(R.id.showBalanceText)
-        textView.text = userViewModel.getFundsAsString()
+        textViewUSD = rootView.findViewById(R.id.showBalanceUSD)
+        textViewUSD.text = userViewModel.getFundsAsString("USD") + " USD"
+
+        textViewEUR = rootView.findViewById(R.id.showBalanceEUR)
+        textViewEUR.text = userViewModel.getFundsAsString("EUR") + " EUR"
+
+        textViewGBP = rootView.findViewById(R.id.showBalanceGBP)
+        textViewGBP.text = userViewModel.getFundsAsString("GBP") + " GBP"
 
         return rootView
     }

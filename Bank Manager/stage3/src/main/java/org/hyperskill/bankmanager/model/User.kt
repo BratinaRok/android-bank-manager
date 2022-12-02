@@ -9,7 +9,7 @@ data class User (
     val number: String,
     val userName: String,
     val password: String,
-    var balance: BigDecimal = BigDecimal.ZERO
+    var balanceMap: MutableMap<String, BigDecimal>
 ) {
 
     override fun equals(other: Any?): Boolean {
@@ -26,4 +26,5 @@ data class User (
     override fun hashCode(): Int {
         return userName.hashCode()
     }
+
 }
